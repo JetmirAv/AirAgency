@@ -1,0 +1,270 @@
+section:first-child {
+    margin-top: 0;
+}
+
+.start {
+    margin: 0px 18px;
+    font-family: Georgia, sans-serif, arial;
+    font-size: 21px;
+    color: white;
+    font-family: 'Cabin', sans-serif;
+
+}
+
+.startList {
+    font-size: 35px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.start li {
+    text-decoration: black;
+    width: 165px;
+    font-size: 25px;
+}
+
+.start ul li:hover {
+    border-bottom: none;
+}
+
+.start ol li:hover,
+.start ol li:active {
+    border-bottom: 0.8px solid rgba(157, 157, 157, 0.74);
+
+}
+
+.photo1 {
+    float: right;
+    border: 1px solid #999999;
+}
+
+#activity {
+    padding-right: 18px;
+    color: black;
+    font-size: 3.125rem;
+    font-family: 'Cabin', sans-serif;
+}
+
+.CommonRow {
+    margin-right: 18px;
+    font-size: 18px;
+    font-family: 'Cabin', sans-serif;
+    position: relative;
+}
+
+.CommonRow p {
+    color: black;
+    padding-right: 10px;
+    text-align: center;
+    font-family: 'Cabin', sans-serif;
+}
+
+#adventure {
+    color: black;
+    font-size: 30px;
+}
+
+.animationWelcome {
+    position: absolute;
+    color: white;
+    margin-top: 10%;
+    margin-left: 10%;
+    font-size: 40px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    animation: animationWelcome 5s 2;
+}
+
+@keyframes animationWelcome {
+    0% {
+        margin-top: 10%;
+        margin-left: 10%;
+    }
+
+    30% {
+        letter-spacing: 18px;
+        margin-top: 18%;
+        margin-left: 7%;
+
+
+    }
+
+    85% {
+        letter-spacing: 8px;
+        margin-top: 10%;
+        margin-left: 10%
+    }
+}
+
+.photo {
+    float: left;
+    border: 1px solid #999999;
+}
+
+#holiday {
+    text-align: center;
+    color: black;
+    font-size: 3.125rem;
+    font-family: 'Cabin', sans-serif;
+}
+
+.visitor h1 {
+    font-size: 30px;
+    padding-top: 38px;
+    margin-bottom: 20px;
+    color: #016644;
+    font-family: 'Cabin', sans-serif;
+}
+
+.border {
+    padding: 15px;
+    height: 15px;
+    border-top: ridge 1px #88b8a7;
+    border-bottom: solid 3px #016644;
+    margin-bottom: 16px;
+}
+
+#ourvisitor {
+    font-size: 21px;
+    color: #B22A19;
+    font-family: 'Cabin', sans-serif;
+}
+
+.comments {
+    font-size: 17px;
+    color: black;
+    font-family: 'Cabin', sans-serif;
+}
+
+#ranking {
+    font-size: 3.125rem;
+    line-height: 1.12;
+    color: black;
+    font-family: 'Cabin', sans-serif;
+}
+
+.adventureRankings {
+    column-count: 3;
+    column-gap: 8px;
+    column-rule: 6px none outset;
+    column-fill: balance;
+    -webkit-column-count: 4;
+    -webkit-gap: 4px;
+    -webkit-column-rule: 1px none outset;
+    background-color: white;
+}
+
+.photoState {
+    padding-top: 15px;
+    padding-left: 12px;
+    float: left;
+}
+
+.state {
+    padding-top: 13px;
+    padding-left: 12px;
+    font-size: 20px;
+    font-family: 'Cabin', sans-serif;
+}
+
+.photoSimboli {
+    padding-left: 12px;
+}
+
+.description1 {
+    font-size: 17px;
+    color: red;
+    color: black;
+    font-family: 'Cabin', sans-serif;
+}
+
+.description2 {
+    padding-left: 12px;
+    color: grey;
+    font-size: 17px;
+    padding-right: 12px;
+    font-family: 'Cabin', sans-serif;
+}
+
+.paragraph p {
+    padding-left: 12px;
+    font-size: 0.875rem;
+    font-family: 'Cabin', sans-serif;
+}
+
+.gdp {
+    padding-top: 0px;
+    padding-left: 12px;
+    color: rgb(136, 136, 136);
+    text-transform: uppercase;
+}
+
+.gdp1 {
+    padding-left: 12px;
+}
+
+.population {
+    padding-left: 12px;
+    color: rgb(136, 136, 136);
+    text-transform: uppercase;
+}
+
+.pupulation1 {
+    padding-left: 12px;
+}
+
+.gdpPerCapita {
+    padding-left: 12px;
+    color: rgb(136, 136, 136);
+    text-transform: uppercase;
+}
+
+.gdpPerCapita1 {
+    padding-left: 12px;
+}
+
+#population1 {
+    padding-left: 12px;
+    color: rgb(136, 136, 136);
+    text-transform: uppercase;
+}
+
+.population2 {
+    padding-left: 12px;
+}
+
+.beOurGest {
+    color: red;
+    font-size: 30px;
+    padding-left: 10px;
+    text-align: center;
+}
+
+canvas {
+
+    border: 1px solid white;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+body {
+    position: absolute;
+    z-index: -2;
+
+}
+
+.svg:first-child {
+    margin-left: 8%;
+}
+
+.can-vas {
+    max-width: 100%;
+}

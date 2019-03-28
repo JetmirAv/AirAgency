@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: black;
+    outline: none;
+}
+
+img,
+iframe,
+video,
+object {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Rokkit"
+}
+
+body {
+    margin: 0 5%;
+
+}
+
+header {
+    margin: 0 -5.55%;
+    background-color: rgba(226, 226, 226, 0.74);
+    font-size: 140%;
+}
+
+footer {
+    margin: 0 -5.5%;
+    background-color: rgba(226, 226, 226, 0.74);
+    font-family: "PT Sans"
+        font-size: 140%;
+    font-weight: 500;
+    padding: 0 1%;
+    color: #999999;
+}
+
+section {
+    padding: 0;
+    margin: 8% 1.2%;
+    clear: both;
+}
+
+.row:before,
+.row:after {
+    content: "";
+    display: table;
+}
+
+.row:after {
+    clear: both;
+}
+
+.col {
+    display: block;
+    float: left;
+    margin: 1% 0 1% 1.6%;
+}
+
+.col:first-child {
+    margin-left: 0;
+}
+
+.span1-2 {
+    width: 49.2%;
+}
+
+.span1-3 {
+    width: 32.2%;
+}
+
+.span2-3 {
+    width: 64.5%;
+}
+
+.span3-3 {
+    width: 100%;
+}
+
+.span1-4 {
+    width: 23.8%;
+}
+
+.span2-4 {
+    width: 48.4%
+}
+
+.span3-4 {
+    width: 73.8%;
+}
+
+.span4-4 {
+    width: 100%;
+}
+
+.span1-5 {
+    width: 18%;
+}
+
+.span2-5 {
+    width: 38.08%;
+}
+
+.span3-5 {
+    width: 58.08%;
+}
+
+.span4-5 {
+    width: 78.72%;
+}
+
+.span5-5 {
+    width: 100%;
+}

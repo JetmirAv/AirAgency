@@ -1,0 +1,350 @@
+/*******************************************************************************
+                                    Work Description - Start
+*******************************************************************************/
+#big_txt {
+    color: #3e83bc;
+    font-size: 1200%;
+    text-align: center;
+    margin: 3% auto;
+}
+
+.work_description img {
+    padding-top: 15px;
+    padding-left: 100px;
+    height: 70px;
+    width: 60px;
+    margin: 7px 5px 0 5px;
+    border-radius: 6px;
+}
+
+#info_text {
+    font-size: 100%;
+    text-align: center;
+    padding-left: 12px;
+    padding-bottom: 12px;
+    padding-right: 10px;
+
+}
+
+.name {
+    height: 550px;
+}
+.topic {
+    font-size: 200%;
+    position: absolute;
+    z-index: 2;
+    top: 80px;
+    
+}
+.topic h2{
+   color:white;
+}
+
+.name img {
+   
+    top: -21%;
+    left: 0%;
+    width: 160%;
+    position: absolute;
+    z-index: -1;
+    filter: brightness(80%);
+    filter: blur(2px);
+}
+.box:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.box {
+    margin-left: 0.3%;
+    background-color: #c8d9e4;
+    border-radius: 10px;
+    height: 283px;
+}
+
+
+/*******************************************************************************
+                                    Contact - Start
+*******************************************************************************/
+
+.contact {
+    padding-bottom: 10px;
+}
+
+.contact p {
+    margin: 0;
+    font-size: 130%;
+}
+
+.contact row {
+    padding-bottom: 25px;
+}
+
+.contact button {
+    width: auto;
+    height: 30px;
+    font-size: 120%;
+    border-radius: 6px;
+    border-style: none;
+    border: 2px solid #DEDEDE;
+    margin-left: 15px;
+}
+
+.contact input {
+    font-size: 120%;
+    height: 25px;
+    width: 100%;
+    margin: 0;
+}
+
+/*==============================================================================
+                                    Contact us
+==============================================================================*/
+
+
+.cntc {
+    float: left;
+    color: #a5cee0;
+}
+
+label {
+    font-size: 130%;
+    font-family: 400;
+    padding-left: 11%;
+}
+
+input[type="text"]:placeholder-shown,
+input[type="email"]:placeholder-shown {
+    padding: 0 0 0 5%;
+    font-size: 80%;
+
+}
+
+input[type="text"],
+input[type="email"] {
+    margin-left: 3%;
+    font-size: 100%;
+    padding: 1px;
+}
+
+
+.cntc input[type="submit"],
+.cntc input[type="reset"] {
+    width: 30%;
+    height: 30px;
+    border-radius: 10px;
+    margin-top: 4%;
+}
+
+#submit {
+    margin-left: 0;
+}
+
+.soc {
+    padding: 2% 0;
+    float: left;
+}
+
+.cntc h2 {
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-size: 180%;
+}
+
+#message {
+    width: 100%;
+    height: 150px;
+    resize: none;
+    font-family: sans-serif;
+    font-size: 115%;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.details {
+    width: 48%;
+    margin-bottom: 4%;
+}
+
+.details input {
+    width: 90%;
+    border-radius: 5px;
+    margin-left: 9%;
+}
+
+.wrapper {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message label {
+    margin-left: -10%;
+    position: relative;
+    margin-top: 15px;
+}
+
+/*==============================================================================
+                                    Social
+==============================================================================*/
+
+.soc img {
+    width: 38%;
+    height: auto;
+    padding: 0 5%;
+}
+
+.soc input {
+    width: 78%;
+    margin-top: -1%
+}
+
+#sub-submit {
+    width: 15%;
+    height: 20%;
+    border-radius: 10px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    cursor: pointer;
+    background-color: #c1c1c1;
+}
+
+.soc p {
+    margin-top: 0.5px;
+    height: 1.6%;
+    font-weight: 300;
+    text-align: center;
+    font-size: 110%;
+    width: 95%;
+    background-color: #124170;
+    color: #999999;
+}
+
+/*******************************************************************************
+                                    Contact - End
+*******************************************************************************/
+/*******************************************************************************
+                              seksioni   i 10slidephoto 
+*******************************************************************************/
+.kalim {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Slideshow container */
+.kalimet {
+    max-width: auto;
+    position: relative;
+    margin: auto;
+}
+
+/* The dots/bullets/indicators */
+.katrori {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbe;
+    border-radius: 20%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -o-animation-name: fade;
+    -o-animation-duration: 1.5s;
+    -moz-animation-name: fade;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    -ms-animation-name: fade;
+    -ms-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-ms-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@-o-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@-moz-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .text {
+        font-size: 11px
+    }
+}
+
+#fotot10 {
+    width: 95%;
+    height: 420px;
+    margin: 1% 2.5%;
+    text-align: center;
+}
+
+#titulli10foto {
+    text-align: center;
+    line-height: 40px;
+    font-size: 25px;
+    font-family: helvetica, arial, sans-serif;
+    letter-spacing: 3px;
+}
+
+/*******************************************************************************
+                       Mbarimi  i seksionit 10slidefoto
+********************************************************************************/

@@ -1,11 +1,4 @@
-/* ----------------------------------------------------------
-:: Template Name: Classy Nav - Responsive Mega Menu Plugins
-:: Author: Designing World
-:: Author URL: https://themeforest.net/user/designing-world/portfolio
-:: Version: 1.1.0
-:: Created: May 16, 2018
-:: Last Updated: Jan 28, 2019
----------------------------------------------------------- */
+
 .classy-nav-container {
   position: relative;
   z-index: 1;
@@ -49,6 +42,7 @@
   -ms-grid-row-align: center;
   align-items: center; }
   .classy-navbar .nav-brand {
+    width: 150px;
     font-size: 26px;
     font-weight: 500;
     color: #232323;

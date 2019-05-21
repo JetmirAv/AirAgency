@@ -1,12 +1,12 @@
 {
-  "name": "roberto-hotel-and-resort-html-template",
+  "name": "Air Agency",
   "version": "1.0.0",
-  "description": "Roberto Hotel & Resort HTML Template",
+  "description": "Air Agency",
   "main": "index.js",
   "scripts": {
     "start": "gulp"
   },
-  "author": "colorlib",
+  "author": "AirAgency",
   "license": "CC-BY-3.0",
   "devDependencies": {
     "gulp": "^3.9.1",

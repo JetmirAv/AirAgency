@@ -42,6 +42,12 @@
                    <p>Flights List</p>
                </a>
            </li>
+           <li>
+               <a href="flights-table.php">
+                   <i class="pe-7s-note2"></i>
+                   <p>Booked</p>
+               </a>
+           </li>
                 
               
                 <li>

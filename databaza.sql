@@ -28,6 +28,7 @@ img varchar(255) not null,
 createdAt datetime default Now(),
 updatedAt datetime default Now(),
 foreign key (roleId) references Roles(id) 
+on delete restrict on update restrict
 );
 
 create table if not exists Card (
@@ -39,7 +40,7 @@ expYear int not null,
 code int,
 createdAt datetime default Now(),
 updatedAt datetime default Now(),
-foreign key (userId) references Users(id) 
+foreign key (userId) references Users(id) on delete cascade on update no action
 );
 
 create table if not exists Airplane (
@@ -77,9 +78,9 @@ checkIn datetime,
 img varchar(255) not null,
 createdAt datetime default Now(),
 updatedAt datetime default Now(),
-foreign key (fromCity) references City(id),
-foreign key (toCity) references City(id),
-foreign key (planeId) references Airplane(id)
+foreign key (fromCity) references City(id) on delete cascade on update no action,
+foreign key (toCity) references City(id) on delete cascade on update no action,
+foreign key (planeId) references Airplane(id) on delete cascade on update no action
 );
 
 create table if not exists Booked (
@@ -87,10 +88,11 @@ id int auto_increment primary key,
 flightId int, 
 userId int,
 price double,
+quantity int,
 createdAt datetime default Now(),
 updatedAt datetime default Now(),
-foreign key (userId) references Users(id),
-foreign key (flightId) references Flight(id)
+foreign key (userId) references Users(id) on delete cascade on update no action,
+foreign key (flightId) references Flight(id) on delete cascade on update no action
 );
 
 create table if not exists Finished_Flight (
@@ -102,6 +104,8 @@ price double,
 isSale boolean,
 createdAt datetime default Now(),
 updatedAt datetime default Now(),
-foreign key (fromCity) references City(id),
-foreign key (toCity) references City(id)
+foreign key (fromCity) references City(id) on delete set null on update set null,
+foreign key (toCity) references City(id) on delete set null on update set null
 );
+
+

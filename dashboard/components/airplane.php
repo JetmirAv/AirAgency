@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<?php include "head.php" ?>
+<?php include "components/head.php" ?>
 <body>
 
 <div class="wrapper">
@@ -70,7 +70,7 @@
     </div>
 
     <div class="main-panel">
-        <?php include "header.php" ?>
+        <?php include "components/header.php" ?>
 
         <div class="content">
             <div class="container-fluid">
@@ -177,7 +177,7 @@
         </div>
 
 
-<?php include "footer.php" ?>
+<?php include "components/footer.php" ?>
 
     </div>
 </div>
@@ -185,6 +185,6 @@
 
 </body>
 
-<?php include "script.php" ?>
+<?php include "components/script.php" ?>
 
 </html>

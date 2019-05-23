@@ -1,0 +1,46 @@
+                    QUERY
+
+allUsers => img,fullname,gender,email,birthday,state,city,phone, Laurent
+
+fetchUser{User} Lavdimi
+
+fetchCard(userId) => cardNumber, expDate Lavdimi
+
+allFlights => Image, FromId, ToId, PlaneId, Price, isSale, Check in 	Created at 	Updated at Laurent
+fetchFlight({FlightObject}) =>  Image, {From}, {To}, {Plane}, Price, isSale, Check in  	Lavdimi
+
+allAirplanes => Image, Name, Seats, Year of produced, Fuel Capacity, Max Speed, CreatedAt, UpdatedAt  Laurent
+fetchAirplane => Image, Name, Seats, Year of produced, Fuel Capacity, Max Speed, Lavdimi
+
+allBooked {userId city} Laurent
+
+fetchBooked{user city} Lavdimi
+
+allUsersRegisteredThisMonth => count -Jetmir
+profitStatisticThriughYear => profit for every month => sum price -Jetmir
+numberOfFligthsForTwoYears => count -Jetmir
+fiveLastBooked => info name, from, to and price -Jetmir
+
+
+                    Mutation
+
+createUser({user}): token -Jetmir
+editUser({user}):boolean -Jetmir
+deleteUser(userId): boolen -Jetmir
+login(email, password): token -Laurent
+
+
+
+bookFlight(flightId, userId): boolean -Laurent
+unbookFlight(flightId, userId): boolean -Lavdimi
+
+
+
+createFlight({flight}): boolean Rushja
+editFlight({flight}):boolean Rushja
+deleteFlight(flightId): boolean Rushja
+
+createPlane({Plane}):boolean Rushja
+editPlane({Plane}):boolean Rushja
+deletePlan(planId):boolen Rushja
+

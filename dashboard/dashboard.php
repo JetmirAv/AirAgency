@@ -34,10 +34,10 @@
 <body>
 
 <div class="wrapper">
-    <?php  include "sidebar.php"?>
+    <?php  include "components/sidebar.php"?>
 
     <div class="main-panel">
-        <?php include "header.php" ?>
+        <?php include "components/header.php" ?>
 
 
         <div class="content">
@@ -242,14 +242,14 @@
         </div>
 
 
-        <?php include "footer.php" ?>
+        <?php include "components/footer.php" ?>
     </div>
 </div>
 
 
 
 </body>
-<?php include "script.php" ?>
+<?php include "components/script.php" ?>
 
 
 </html>

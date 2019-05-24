@@ -1,6 +1,6 @@
 <?php 
 
-    include "../databaseConfig.php";
+    require_once("../databaseConfig.php");
 
     $thisMonthQuery = "select COUNT(*) as 'num' from users ".
         " where MONTH(createdAt) = MONTH(CURRENT_DATE) ".
@@ -25,6 +25,11 @@
     $thisMonth = $conn->query($thisMonthQuery);
     $total = $conn->query($totalQuery);
     $profitThisYear = $conn->query($thisYearProfit);
+    $flightsOnThisYear = $conn->query($thisYearFlights);
+    $flightsOnLastYear = $conn->query($lastYearFlights);
+
+    $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 
     $thisMonthRecords = $thisMonth->fetch(PDO::FETCH_COLUMN);
     $totalRecords = $total->fetch(PDO::FETCH_COLUMN);
@@ -76,69 +81,72 @@
             });
         profitChart.render();
 
+        let thisYear = new Date().getFullYear();
+        let lastYear = new Date().getFullYear() - 1;
+        
+        date = new Date()
+        // console.log("Hello" + date.getFullYear());
+        console.log(thisYear + " vs " + lastYear + " flight number");
 
-
-        var flightsChart = new CanvasJS.Chart("flightsChart", {
+        var chart = new CanvasJS.Chart("flightsChart", {
             animationEnabled: true,
             title:{
-                text: "Crude Oil Reserves vs Production, 2016"
-            },	
-            axisY: {
-                title: "Billions of Barrels",
-                titleFontColor: "#4F81BC",
-                lineColor: "#4F81BC",
-                labelFontColor: "#4F81BC",
-                tickColor: "#4F81BC"
-            },
-            axisY2: {
-                title: "Millions of Barrels/day",
-                titleFontColor: "#C0504E",
-                lineColor: "#C0504E",
-                labelFontColor: "#C0504E",
-                tickColor: "#C0504E"
+                text: thisYear + " vs " + lastYear + " flight number through months"
             },	
             toolTip: {
                 shared: true
             },
             legend: {
                 cursor:"pointer",
-                itemclick: toggleDataSeries
             },
             data: [{
                 type: "column",
-                name: "Proven Oil Reserves (bn)",
-                legendText: "Proven Oil Reserves",
+                name: thisYear.toString(),
+                legendText: thisYear.toString(),
                 showInLegend: true, 
                 dataPoints:[
-                    { label: "Saudi", y: 266.21 },
-                    { label: "Venezuela", y: 302.25 },
-                    { label: "Iran", y: 157.20 },
-                    { label: "Iraq", y: 148.77 },
-                    { label: "Kuwait", y: 101.50 },
-                    { label: "UAE", y: 97.8 }
+                    <?php
+                            $count1 = 0;
+                            // $months = 0;
+                        while ($flights = $flightsOnThisYear->fetch(PDO::FETCH_ASSOC)):
+                            
+                            echo  "{ label: '". $months[$count1]  . "', y: ". $flights['num'] ." },";
+                            $count1++;
+                            // $months++;
+                        endwhile;        
+                    ?>
+
                 ]
             },
             {
                 type: "column",	
-                name: "Oil Production (million/day)",
-                legendText: "Oil Production",
+                name: lastYear.toString(),
+                legendText: lastYear.toString(),
                 axisYType: "secondary",
                 showInLegend: true,
                 dataPoints:[
-                    { label: "Saudi", y: 10.46 },
-                    { label: "Venezuela", y: 2.27 },
-                    { label: "Iran", y: 3.99 },
-                    { label: "Iraq", y: 4.45 },
-                    { label: "Kuwait", y: 2.92 },
-                    { label: "UAE", y: 3.1 }
-                ]
+                    
+                    <?php
+                            $count2 = 0;
+                            // $countMonths = 0;
+                        while ($flights = $flightsOnLastYear->fetch(PDO::FETCH_ASSOC)):
+                            echo  "{ label: '". $months[$count2]  . "', y: ". $flights['num'] ." },";
+                            $count2++;
+                            // $countMonths++;
+                            if($count1 === $count2){
+                                break;
+                            }
+                        endwhile;        
+                    ?>
+                                ]
             }]
         });
-        flightsChart.render();
+        chart.render();
 
+        
 
+    }
 
-}
 </script>
 
 

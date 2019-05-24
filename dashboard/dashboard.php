@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <?php include "components/head.php" ?>
+<?php include "components/dashboard/charts.php" ?>
+
 <body>
 
 <div class="wrapper">
@@ -16,22 +18,16 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
+                                <h4 class="title">User Statistics</h4>
                             </div>
                             <div class="content">
-                                <!-- <div id="chartContainer"></div> -->
-                                <div id="chartContainer" class="ct-chart ct-perfect-fourth"></div>
+                                <div id="usersChart" class="ct-chart ct-perfect-fourth"></div>
 
                                 <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                                    <div class="legend" style="display: flex; justify-content: space-between;">
+                                        <span><b>This Month:</b> <?php echo $thisMonthRecords; ?></span>
+                                        <span><b>Other:</b> <?php echo $totalRecords; ?></span>
+                                        <span><b>Total:</b> <?php echo $totalRecords + $thisMonthRecords; ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -45,18 +41,8 @@
                                 <p class="category">24 Hours performance</p>
                             </div>
                             <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
+                                <div id="profitChart" class="ct-chart"></div>
+                                
                             </div>
                         </div>
                     </div>
@@ -78,10 +64,6 @@
                                     <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Tesla Model S
                                         <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-check"></i> Data information certified
                                     </div>
                                 </div>
                             </div>
@@ -200,10 +182,7 @@
                                 </div>
 
                                 <div class="footer">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -216,6 +195,5 @@
 </div>
 </body>
 <?php include "components/script.php" ?>
-<?php include "components/registrationChart.php" ?>
 
 </html>

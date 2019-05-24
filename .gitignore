@@ -1,4 +1,8 @@
 databaseConfig.php
 dbConfig.php
 jetmirSQL.sql
+<<<<<<< HEAD
 airagency.sql
+=======
+airagency.sql
+>>>>>>> a9ffe4f8e9434ec0a6c4a8263f64dd31c04bb289

@@ -17,7 +17,7 @@
                                                 <input type="text" class="form-control" placeholder="To...">
                                             </div>
                                         </div>
-                                        <div class="col-md-3" style="width: 90px;">
+                                        <div class="col-md-3" style="width: 80px;">
                                         <label style="padding-right:5px"> Available </label>
                                         <br>
                                         <input type="text" class="form-control">

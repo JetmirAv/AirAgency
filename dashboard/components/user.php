@@ -1,4 +1,35 @@
-                        <div class="card">
+<?php 
+include "../databaseConfig.php";
+
+
+// Query for user
+$sql = "SELECT firstname , lastname , email , password , birthday , gendre , address , city , state , postal , phoneNumber , img , 
+createdAt , updatedAt FROM  users WHERE id=40;";
+
+
+// Query for Card User
+$sqlCard = "SELECT  c.number ,  concat(c.expMonth , '/' , c.expYear) as expDate from Card c 
+INNER JOIN users u 
+ON u.id = c.id 
+WHERE u.id = 40;";
+   
+
+$statement = $conn->prepare($sql);
+$statement->execute();
+$userDetail = $statement->fetchAll(); 
+
+$cardStatement = $conn->prepare($sqlCard);
+$cardStatement -> execute();
+$cardUserDetail = $cardStatement->fetchAll();
+
+
+
+?>
+
+<?php  foreach($userDetail as $userDt){ ?>
+                        
+     <?php foreach($cardUserDetail as $cardUser) { ?>
+                           <div class="card">
                             <div class="header">
                                 <h4 class="title">Edit User</h4>
                             </div>
@@ -8,20 +39,20 @@
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control"  placeholder="First Name">
+                                                <input type="text" class="form-control"  placeholder="First Name" value="<?php echo $userDt["firstname"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>LAST NAME</label>
-                                                <input type="text" class="form-control" placeholder="Last Name">
+                                                <input type="text" class="form-control" placeholder="Last Name" value="<?php echo $userDt["lastname"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 30px;">
                                         <label style="padding-right:5px"> Gender </label>
                                         <br>
                                         <select style="padding:7.5px;">
-                                              <option class="form-group" value="M">M</option>
+                                              <option class="form-group"><?php echo $userDt["gendre"] ?></option>
                                               <option value="F">F</option>
                                         </select> 
                                         </div>
@@ -32,13 +63,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" placeholder="password" class="form-control">
+                                                <input type="password" placeholder="password" class="form-control" value="<?php echo $userDt["password"]?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Birthday</label>l
-                                                <input type="date" class="form-control" placeholder="Birthday">
+                                                <input type="date" class="form-control" placeholder="Birthday" value="<?php echo $userDt["birthday"] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -47,7 +78,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Home Address" width="20">
+                                                <input type="text" class="form-control" placeholder="Home Address" width="20" value="<?php echo $userDt["address"] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -57,20 +88,20 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City">
+                                                <input type="text" class="form-control" placeholder="City" value="<?php echo $userDt["city"] ?>">
                                             </div>
                                         </div>
                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country">
+                                                <input type="text" class="form-control" placeholder="Country" value="<?php echo $userDt["state"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code">
+                                                <input type="text" class="form-control" placeholder="ZIP Code" value="<?php echo $userDt["postal"] ?>">
                                             </div>
                                         </div>
                                      </div>
@@ -78,20 +109,20 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Phone number</label>
-                                                <input type="text" class="form-control" placeholder=" +000-00-000-000">
+                                                <input type="text" class="form-control" placeholder=" +000-00-000-000" value="<?php echo $userDt["phoneNumber"] ?>">
                                             </div>
                                         </div>
                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDt["createdAt"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDt["updatedAt"] ?>">
                                             </div>
                                         </div>
                                      </div>
@@ -99,16 +130,16 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                                 <label>Card Number</label>
-                                                <input type="text" class="form-control" placeholder="Card Number">
+                                                <input type="text" class="form-control" placeholder="Card Number" value="<?php echo $cardUser["number"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $cardUser["expDate"] ?>">
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div> <?php } }?>    
 
                                     <button type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                                     <div class="clearfix"></div>

@@ -4,7 +4,7 @@
 
 <body>
 	<div class="wrapper">
-		<?php include "components/sideBar.php"?>
+		<?php include "components/sidebar.php"?>
 
 
 		<div class="main-panel">

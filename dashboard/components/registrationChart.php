@@ -1,6 +1,6 @@
 <?php 
 
-    include "../../databaseConfig.php";
+    include "../databaseConfig.php";
 
 
     // $stmt = $conn->query("select * from users");
@@ -19,8 +19,6 @@
         " where MONTH(createdAt) = MONTH(CURRENT_DATE) ".
         " AND YEAR(createdAt) = YEAR(CURRENT_DATE);";     
     $thisMonth = $conn->query($thisMonthQuery);
-
-    echo("<script>console.log('SUCESS:".$thisMonth[num] . " ');</script>");
 
     
 ?>

@@ -31,7 +31,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           <a href="">
+                           <a href="#">
                                Account
                             </a>
                         </li>

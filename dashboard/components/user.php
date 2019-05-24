@@ -95,6 +95,20 @@
                                             </div>
                                         </div>
                                      </div>
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <div class="form-group">
+                                                <label>Card Number</label>
+                                                <input type="text" class="form-control" placeholder="Card Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Expire Date</label>
+                                                <input type="datetime" class="form-control" placeholder="                __/__/____">
+                                            </div>
+                                        </div>
+                                    </div>    
 
                                     <button type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                                     <div class="clearfix"></div>

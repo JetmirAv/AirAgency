@@ -8,22 +8,19 @@
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>From City</label>
-                                                <input type="number" class="form-control"  placeholder="cityId" >
+                                                <input type="Text" class="form-control"  placeholder="From..." >
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>To City</label>
-                                                <input type="text" class="form-control" placeholder="To City">
+                                                <input type="text" class="form-control" placeholder="To...">
                                             </div>
                                         </div>
-                                        <div class="col-md-3" style="width: 30px;">
+                                        <div class="col-md-3" style="width: 90px;">
                                         <label style="padding-right:5px"> Available </label>
                                         <br>
-                                        <select style="padding:7.5px;">
-                                              <option class="form-group" value="True">True</option>
-                                              <option value="False">False</option>
-                                        </select> 
+                                        <input type="text" class="form-control">
                                         </div>
 
                                     </div>
@@ -46,16 +43,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Price</label>
-                                                <input type="number" class="form-control" placeholder="Price">
+                                                <input type="Text" class="form-control" placeholder="Price">
                                             </div>
                                         </div>
-                                       <div class="col-md-3" style="width: 30px;">
+                                       <div class="col-md-3" style="width: 90px;">
                                        <label> isSale </label>
                                         <br>
-                                        <select style="padding:7.5px;">
-                                              <option class="form-group" value="True">True</option>
-                                              <option value="False">False</option>
-                                        </select> 
+                                        <input type="text" class="form-control">
                                         </div>
                                        
                                      </div>

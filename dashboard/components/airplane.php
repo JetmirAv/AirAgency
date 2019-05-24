@@ -16,24 +16,24 @@
                                         <div class="col-md-3">
                                             <div class="form-group" style="width:120px;">
                                                 <label>Year Of Produce</label>
-                                                <input type="number" class="form-control" placeholder="Year" min="1800" style="width: 120px; padding-right:20">
+                                                <input type="Text" class="form-control" placeholder="Year" min="1800" style="width: 120px; padding-right:20">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                         <label style="padding-right:5px ; padding-left:-10px;"> Seats </label>
-                                        <input type="number" class="form-control" placeholder="Seats">
+                                        <input type="Text" class="form-control" placeholder="Seats">
                                         </div>
                                     
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Fuel Capacity</label>
-                                                <input type="number" placeholder="Fuel Capacity" class="form-control" style="width: 150px;">
+                                                <input type="Text" placeholder="Fuel Capacity" class="form-control" style="width: 150px;">
                                             </div>
                                         </div>
                                         <div class="col-md-6" style="width:150px;">
                                             <div class="form-group">
                                                 <label>Max Speed</label>l
-                                                <input type="number" class="form-control" placeholder="Max speed" style="width: 150px;">
+                                                <input type="Text" class="form-control" placeholder="Max speed" style="width: 150px;">
                                             </div>
                                         </div>
                                     </div>

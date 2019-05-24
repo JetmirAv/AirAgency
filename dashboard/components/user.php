@@ -57,14 +57,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Mike">
+                                                <input type="text" class="form-control" placeholder="City">
                                             </div>
                                         </div>
                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country" value="Andrew">
+                                                <input type="text" class="form-control" placeholder="Country">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -85,13 +85,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder="                __/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input type="datetime" class="form-control" placeholder="                __/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____">
                                             </div>
                                         </div>
                                      </div>
@@ -105,7 +105,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime" class="form-control" placeholder="                __/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____">
                                             </div>
                                         </div>
                                     </div>    

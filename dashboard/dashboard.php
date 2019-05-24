@@ -20,7 +20,8 @@
                                 <p class="category">Last Campaign Performance</p>
                             </div>
                             <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                                <!-- <div id="chartContainer"></div> -->
+                                <div id="chartContainer" class="ct-chart ct-perfect-fourth"></div>
 
                                 <div class="footer">
                                     <div class="legend">
@@ -215,6 +216,6 @@
 </div>
 </body>
 <?php include "components/script.php" ?>
-
+<?php include "components/registrationChart.php" ?>
 
 </html>

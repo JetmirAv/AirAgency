@@ -37,7 +37,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Users Behavior</h4>
+                                <h4 class="title">Profit in <?php echo date('Y') ?></h4>
                                 <p class="category">24 Hours performance</p>
                             </div>
                             <div class="content">
@@ -58,7 +58,7 @@
                                 <p class="category">All products including Taxes</p>
                             </div>
                             <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
+                                <div id="flightsChart" class="ct-chart"></div>
 
                                 <div class="footer">
                                     <div class="legend">

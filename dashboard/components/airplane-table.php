@@ -6,7 +6,7 @@
 	if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
 	$start_from = ($page-1) * 8;
 
-	$sql = "select concat('assets/img/airplanes/',img) as image,name, seats, yearOfProd,fuelCapacity,maxspeed,createdAt,updatedAt from airplane limit $start_from,8";
+	$sql = "select concat('../airplane-photos/',img) as image,name, seats, yearOfProd,fuelCapacity,maxspeed,createdAt,updatedAt from airplane limit $start_from,8";
 	$rs_result = $conn->query($sql);	
 	$count = $rs_result->rowCount();
 		?>

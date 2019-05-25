@@ -9,8 +9,6 @@
 
     <div class="main-panel">
        <?php include "components/header.php" ?>
-
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">

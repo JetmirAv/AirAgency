@@ -17,9 +17,10 @@ try{
     $maxspeed = $_POST['maxspeed'];
     $additionalDesc = $_POST['additionalDesc'];
     $img = $_POST['img'];
+//    $updatedAt = $_POST['updatedAt'];
     
     
-    $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img where id = 105;";
+    $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = 104;";
     $updateStm = $conn->prepare($updatePlane);
     $pdoExec = $updateStm->execute(array(":name"=>$name,":yearOfProd"=>$yearOfProd,":seats"=>$seats,":fuelCapacity"=>$fuelCapacity,":maxspeed"=>$maxspeed,":additionalDesc"=>$additionalDesc,":img"=>$img));
     

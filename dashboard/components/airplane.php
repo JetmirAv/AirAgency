@@ -205,8 +205,8 @@ $planeDetail = $planeStatement->fetchAll();
                             </div>
                             <div class="content">
 <!--                            <form action="components/dashboard/insertAirplane.php" method="POST">-->
-<!--                               <form action="components/dashboard/updateAirplane.php" method="POST">-->
-                                <form action="components/dashboard/deleteAirplane.php" method="POST">
+                               <form action="components/dashboard/updateAirplane.php" method="POST">
+<!--                                <form action="components/dashboard/deleteAirplane.php" method="POST">-->
                                     <div class="row" style="margin-left:25%">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">

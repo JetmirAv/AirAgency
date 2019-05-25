@@ -1,4 +1,36 @@
-                        <div class="card">
+<?php                            
+ include "../databaseConfig.php";
+
+$sqlBooked = "Select b.id, CONCAT(u.firstname, ' ' , u.lastname) as 'fullname',
+c1.name AS 'From',
+c2.name AS 'To',
+a.name AS 'Plane',
+b.quantity as 'Quantity',
+b.price as 'Price',
+b.createdAt as 'Created At',
+b.updatedAt as 'Update At'
+FROM booked b
+INNER JOIN users u
+ON u.id=b.userId
+INNER JOIN flight f 
+ON b.flightId=f.id
+INNER JOIN city c1
+ON f.fromCity=c1.id
+INNER JOIN city c2
+ON f.toCity=c2.id
+INNER JOIN airplane a
+ON f.planeId=a.id
+where b.id=2;" ; 
+
+$bookedStatement = $conn->prepare($sqlBooked);
+$bookedStatement->execute();
+$bookedDetails = $bookedStatement->fetchAll();
+
+?>                        
+                           
+  <?php foreach($bookedDetails as $bookedDt)   { ?>                        
+                           
+                           <div class="card">
                             <div class="header">
                                 <h4 class="title">Booked Details</h4>
                             </div>
@@ -8,13 +40,13 @@
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>From City</label>
-                                                <input type="text" class="form-control"  placeholder="From..." >
+                                                <input type="text" class="form-control"  placeholder="From..." value="<?php echo $bookedDt['From']; ?>" >
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>To City</label>
-                                                <input type="text" class="form-control" placeholder="To... ">
+                                                <input type="text" class="form-control" placeholder="To... " value="<?php echo $bookedDt['To']; ?> " >
                                             </div>
                                         </div>
                                         
@@ -24,13 +56,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group" style="width:250px;">
                                                 <label>Airplane</label>
-                                                <input type="text" placeholder="Airplane" class="form-control">
+                                                <input type="text" placeholder="Airplane" class="form-control" value="<?php echo $bookedDt['Plane']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group" style="width:188px;">
                                                 <label>Quantity</label>l
-                                                <input type="text" class="form-control" placeholder="Quantity">
+                                                <input type="text" class="form-control" placeholder="Quantity" value="<?php echo $bookedDt['Quantity']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -38,14 +70,14 @@
                                     <div class="col-md-3" style="width: 270px;">
                                             <div class="form-group">
                                                 <label>User</label>
-                                                <input type="text" class="form-control" placeholder="User... ">
+                                                <input type="text" class="form-control" placeholder="User... " value="<?php echo $bookedDt['fullname']; ?>">
                                             </div>
                                         </div>   
                                         
                                         <div class="col-md-4">
                                             <div class="form-group" style="padding-left:10px;">
                                                 <label>Price</label>
-                                                <input type="text" class="form-control" placeholder="Price">
+                                                <input type="text" class="form-control" placeholder="Price" value="<?php echo $bookedDt['Price']; ?>">
                                             </div>
                                         </div>                                                                              
                                      </div>
@@ -53,13 +85,13 @@
                                         <div class="col-md-4" style="margin-right:9%;">
                                             <div class="form-group" style="width:250px;">
                                                 <label>Created at</label>
-                                                <input type="text" class="form-control" placeholder=" __/__/____">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $bookedDt['Created At']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group" style="width:250px;">
                                                 <label>Updated at</label>
-                                                <input type="text" class="form-control" placeholder=" __/__/____">
+                                                <input type="text" class="form-control" placeholder="__/__/____" value="<?php echo $bookedDt['Update At']; } ?>">
                                             </div>
                                         </div>
                                      </div>

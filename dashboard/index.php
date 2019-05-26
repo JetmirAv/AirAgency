@@ -1,8 +1,10 @@
-<!doctype html>
-<html lang="en">
+
+<?php  
+	session_start();
+?>
+<html>
 <?php include "components/head.php" ?>
 <?php include "components/dashboard/charts.php" ?>
-
 <body>
 
 <div class="wrapper">

@@ -1,5 +1,5 @@
 <?php
-include_once("../../databaseConfig.php");
+include_once("../databaseConfig.php");
 include_once("generateJWT.php");
 include_once("validations.php");
 
@@ -87,7 +87,7 @@ if (isset($_POST['register'])) {
             else if (($_FILES["form-img"]["size"] > 2000000)) {
                 $errmsg = "Image size exceeds 2MB";
                 array_push($errors, $errmsg);
-            }    // Validate image file dimension
+            }    // Validate image file dimensi..on
             else {
                 $profilepic = $_FILES['form-img']['name'];
                 $expProfilepic = explode('.', $profilepic);
@@ -96,7 +96,7 @@ if (isset($_POST['register'])) {
                 $rand = rand(10000, 99999);
                 $encname = $date . $rand;
                 $profilepicName = md5($encname) . '.' . $profilepicExptype;
-                $profilepicPath = "../../uploads/user-img/" . $profilepicName;
+                $profilepicPath = "../uploads/user-img/" . $profilepicName;
     
                 if (move_uploaded_file($_FILES["form-img"]["tmp_name"], $profilepicPath)) {
                     
@@ -137,11 +137,15 @@ if (isset($_POST['register'])) {
             $getRole = $conn->prepare("Select roleId from users where id=?");
             $getRole->execute([$insertedId]);
 
+            $roleId = $getRole->fetch();
+            print_r($roleId);
+            print($roleId['roleId']);
             $_SESSION["loggedin"] = true;
             $_SESSION["name"] = $firstname;
-            $_SESSION["token"] = generateJWT($insertedId, $email, $firstname);
+            $_SESSION["token"] = generateJWT($insertedId, $roleId['roleId'], $email, $firstname);
 
-            header("location: ../index.php");
+            header("location: ../main/index.php");
+            die();
 
 
         } else {
@@ -152,5 +156,6 @@ if (isset($_POST['register'])) {
         $emailErr = "Email alredy exists";
         $errors.array_push($emailErr);
         header('location: ' . $_SERVER["HTTP_REFERER"]);
+        die();
     }
 }

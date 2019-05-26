@@ -1,24 +1,25 @@
 <?php
 
-include_once("helpers/verifyJWT.php");
-include_once("helpers/getDataJWT.php");
+require("verifyJWT.php");
+require("getDataJWT.php");
 
 $text = '<a href="./login.php">LOGIN<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
 $isAuth = false;
 $logOut = '';
 // print_r($_SESSION);
-
+$dataArr = Array();
 if (isset($_SESSION['token']) && $_SESSION["token"]) {
     
+    $dataArr = getDataJWT($_SESSION['token']);
     $token = $_SESSION["token"];
     $isLogged = verifyJWT($_SESSION['token']);
     if ($isLogged) {
         // echo "<script>console.log('Right');</script>";
-        $dataArr = getDataJWT($_SESSION['token']);
         // echo $dataArr->name;
         $text = '<a href="./profile.php">' . $dataArr->name . '</a>';
-        $logOut = '<a href="helpers/logOut.php" style="cursor: pointer;disabled: true; background-color:gray;">Log Out</a>';
+        $logOut = '<a href="../global/logOut.php" style="cursor: pointer;disabled: true; background-color:gray;">Log Out</a>';
         $isAuth = true;
+        echo "<script>console.log('". $dataArr->role . "');</script>";
     } else {
         echo "<script>console.log('Wrong');</script>";
     }
@@ -26,18 +27,23 @@ if (isset($_SESSION['token']) && $_SESSION["token"]) {
     // echo "Wrong";
 }
 
+$path = $_SERVER['PHP_SELF'];
+$path = explode('/', $path);
 
 if (!$isAuth) {
-    $path = $_SERVER['PHP_SELF'];
-    $path = explode('/', $path);
+    // if(in_array('dashboard', $path)){
+        
+    //     header('location: http://localhost/AirAgency/main', true, 303);
+    //     die();
+    // }
     $path = end($path);
     // echo "<script>console.log('" . $_SERVER['PHP_SELF'] . " " . $path . "');</script>";
 
     switch ($path){
         case 'booked.php':
             header('location: login.php'); 
+            die();
             break;
-            
         default: 
             break;                
     }
@@ -46,15 +52,21 @@ if (!$isAuth) {
 } else {
     $path = $_SERVER['PHP_SELF'];
     $path = explode('/', $path);
-    $path = end($path);
+    $endPath = end($path);
     // echo "<script>console.log('" . $_SERVER['PHP_SELF'] . " " . $path . "');</script>";
 
-    switch ($path){
+    switch ($endPath){
         case 'login.php':
             header('location: index.php'); 
+            die();
             break;
-            
         default: 
             break;                
+    }
+    if($dataArr->role == 2){
+        if(in_array('dashboard', $path)){
+            header('location: http://localhost/AirAgency/main', true, 303);
+            die();
+        }
     }
 }

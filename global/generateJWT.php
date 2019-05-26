@@ -1,8 +1,8 @@
 <?php
-include_once("../../dbConfig.php");
+include_once("../dbConfig.php");
 include_once("base64EncDec.php");
 
-    function generateJWT($id, $email, $name): string 
+    function generateJWT($id, $role, $email, $name): string 
         {
 
         $header = [
@@ -12,6 +12,7 @@ include_once("base64EncDec.php");
 
         $payload = [
             "id"        => $id,
+            "role"      => $role,
             "email"     => $email,
             "name"      => $name
         ];

@@ -118,10 +118,10 @@
 																height:400px;
 																overflow: scroll;
 																text-align: center;">
-								<form role="form" action="helpers/register.php" method="post" class="registration-form" enctype="multipart/form-data">
+								<form role="form" action="../global/register.php" method="post" class="registration-form" enctype="multipart/form-data">
 									<div class="form-group">
+										<label style="color:rgba(0.1, 0.1, 0.1, 0.5);" id="inputlabel" for="form-img">Profile picture</label>
 										<input type="file" name="form-img" placeholder="profile picture" class="inputfile" id="inputfile" data-multiple-caption="{count} files selected">
-										<label onclick="document.getElementById('inputfile').click()" id="inputlabel" for="form-img">Profile picture</label>
 									</div>
 
 									<div class="form-group">

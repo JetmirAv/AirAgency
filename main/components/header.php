@@ -1,7 +1,7 @@
 <?php include_once("constants.php"); 
 	session_start();
 ?>
-<?php include_once("helpers/isLogged.php") ?>
+<?php include_once("../global/isLogged.php") ?>
 <!-- Header Area Start -->
 <header class="header-area">
     <!-- Search Form -->
@@ -69,7 +69,7 @@
                                 <li class="active"><a href="./index.php">Home</a></li>
                                 <li><a href="./flights.php">Flights</a></li>
                                 <li><a href="./about.php">About Us</a></li>
-                                <li><a href="./blog.php">News</a></li>
+                                <li><a href="./booked.php">Booked</a></li>
                                 <li><a href="./contact.php">Contact</a></li>
                             </ul>
                             <!-- Search -->

@@ -9,6 +9,7 @@
         switch ($path){
             case 'flights.php':
                 header('location: login.php'); 
+                die();
                 break;
             default: 
                 break;                

@@ -12,7 +12,7 @@
 			</div>
 			<ul class="nav">
 				<li>
-					<a href="dashboard.php">
+					<a href="index.php">
 						<i class="pe-7s-graph"></i>
 						<p>Dashboard</p>
 					</a>

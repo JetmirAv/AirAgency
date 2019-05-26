@@ -1,5 +1,5 @@
 <?php 
-    include_once("helpers/base64EncDec.php");
+    include_once("base64EncDec.php");
 
     function getDataJWT($token){
         $payload = explode('.', $token)[1];

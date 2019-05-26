@@ -1,4 +1,7 @@
-<?php include_once("constants.php") ?>
+<?php include_once("constants.php"); 
+	session_start();
+?>
+<?php include_once("helpers/isLogged.php") ?>
 <!-- Header Area Start -->
 <header class="header-area">
     <!-- Search Form -->
@@ -76,11 +79,11 @@
 
                             <!-- Book Now -->
                             <div class="book-now-btn ml-3 ml-lg-5">
-                                <a href="./login.php">Log In<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                <?php echo $text; ?>
                             </div>
                             
                             <div class="book-now-btn ml-3 ml-lg-5">
-                                <a style="disabled: true; background-color:transparent;"></a>
+                                <?php echo $logOut; ?>
                             </div>
                         </div>
                         <!-- Nav End -->

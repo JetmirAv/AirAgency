@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	include_once("../databaseConfig.php");
+	include_once("helpers/generateJWT.php");
+
 
 	// initializing variables
 	$username = "";
@@ -9,29 +11,90 @@
 
 	// REGISTER USER
 	if (isset($_POST['register'])) {
+		
+		$errMessage = "";
+
+		//Prepared statement
+		$statement = $conn->prepare('INSERT INTO testtable (name, lastname, age)
+		VALUES (:fname, :sname, :age)');
+	
+
 		// receive all input values from the form
-		$firstname = $_POST['form-first-name'];
-		$lastname = $_POST['form-last-name'];
-		$email = $_POST['form-email'];
-		$password = $_POST['form-password'];
-		$birthdate = $_POST['form-date'];
-		$gender = $_POST['form-gender'];
-		$address = $_POST['form-address'];
-		$city = $_POST['form-city'];
-		$state = $_POST['form-state'];
-		$postal = $_POST['form-postal'];
-		$phone = $_POST['form-phone'];
+		$firstname = trim($_POST['form-first-name']);
+		$lastname = trim($_POST['form-last-name']);
+		$email = trim($_POST['form-email']);
+		$password = trim($_POST['form-password']);
+		$birthdate = date("Y-m-d", strtotime(trim($_POST['form-date'])));
+		$gender = (int)trim($_POST['form-gender']);
+		$address = trim($_POST['form-address']);
+		$city = trim($_POST['form-city']);
+		$state = trim($_POST['form-state']);
+		$postal = trim($_POST['form-postal']);
+		$phone = trim($_POST['form-phone']);
 
 
-		echo $firstname . $lastname . 
-		$email . $password .
-		$birthdate .		$gender .
-		$address .
-		$city .
-		$state .
-		$postal .
+		echo $firstname . " " .  $lastname . " " .  
+		$email . " " .  $password . " " . 
+		$birthdate . " Gender: " . 		$gender . " Address: " . 
+		$address . " " . 
+		$city . " " . 
+		$state . " " . 
+		$postal . " " . 
 		$phone ;
 
+		echo "<br>";
+		//Email check 
+		$emailCheck = $conn->prepare("Select * from users where email=?");
+		$emailCheck->execute([$email]);
+		
+		echo $emailCheck->rowCount();
+		echo "<br>";
+		echo gettype($emailCheck);
+		echo "<br>";		
+		if($emailCheck->rowCount() <=0){
+			$emailCheck = null;
+			$password = password_hash($password, PASSWORD_DEFAULT);
+			echo $password;
+			$createUser = $conn->prepare("INSERT INTO users" . 
+				"(roleId, firstname, lastname, email, password, birthday,".
+				" gendre, address, city, state, postal, phoneNumber, img) ".
+				"VALUES " .
+				"(2, :firstname, :lastname, :email, :password, :birthday,".
+				" :gendre, :address, :city, :state, :postal, :phoneNumber, 'usernew.jpg') ");
+			$createUser->execute([
+				'firstname' => $firstname,
+				'lastname' => $lastname,
+				'email' => $email,
+				'password' => $password,
+				'birthday' => $birthdate,
+				'gendre' => $gender,
+				'address' => $address,
+				'city' => $city,
+				'state' => $state,
+				'postal' => $postal,
+				'phoneNumber' => $phone,
+			]);	
+			echo "<br>" . "<br>";
+
+			echo $createUser->rowCount();
+			$arr = $createUser->errorInfo();
+			print_r($arr);
+			$insertedId = $conn->lastInsertId();
+
+			$getRole = $conn->prepare("Select roleId from users where id=?");
+			$getRole->execute([$insertedId]);
+
+			$_SESSION["loggedin"] = true;
+			$_SESSION["name"] = $firstname;
+			$_SESSION["token"] = generateJWT($insertedId, $email, $firstname);
+			echo "    " . $_SESSION['token'];
+		
+
+
+			
+			// header("location: index.php");    
+
+		}
 		// // form validation: ensure that the form is correctly filled ...
 		// // by adding (array_push()) corresponding error unto $errors array
 		// if (empty($username)) { array_push($errors, "Username is required"); }

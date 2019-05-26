@@ -1,5 +1,7 @@
 <html lang="en">
-<?php include 'components/head.php' ?>
+<?php 
+    include 'components/head.php';
+?>
 <body>
     <!-- Preloader -->
     <div id="preloader">
@@ -7,9 +9,12 @@
     </div>
     <!-- /Preloader -->
     <!-- Header Area Start -->
-    <?php include 'components/header.php' ?>
+    <?php 
+        include 'components/header.php'; 
+        // include 'helpers/isAuth.php';
+    ?>
     <!-- Header Area End -->
-
+    
     <!-- Welcome Area Start -->
     <section class="welcome-area">
         <div class="welcome-slides owl-carousel">

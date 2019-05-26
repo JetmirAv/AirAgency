@@ -63,10 +63,10 @@ if (!$isAuth) {
         default: 
             break;                
     }
-    if($dataArr->role == 2){
-        if(in_array('dashboard', $path)){
-            header('location: http://localhost/AirAgency/main', true, 303);
-            die();
-        }
-    }
+    // if($dataArr->role == 2){
+    //     if(in_array('dashboard', $path)){
+    //         header('location: http://localhost/AirAgency/main', true, 303);
+    //         die();
+    //     }
+    // }
 }

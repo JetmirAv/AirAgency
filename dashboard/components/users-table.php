@@ -8,8 +8,19 @@
 	$count = $rs_result->rowCount();
 		?>
 
-<div class="header">
-	<h4 class="title">Number of users:<?php echo "$count" ?></h4>
+<div class="header" >
+	<h4 style="display: inline-block; width: 40%" class="title">Number of users:<?php echo "$count" ?></h4>
+	
+	<a href="user.php" style=" font: bold 11px Arial;
+												text-decoration: none;
+												background-color: #EEEEEE;
+												color: #333333;
+												padding: 2px 6px 2px 6px;
+												border-top: 1px solid #CCCCCC;
+												border-right: 1px solid #333333;
+												border-bottom: 1px solid #333333;
+												border-left: 1px solid #CCCCCC;
+												height:30px" >Create User</a>
 </div>
 <div class="content table-responsive table-full-width">
 	<table class='table table-hover table-striped' style="table-layout: fixed;">

@@ -1,7 +1,8 @@
 <?php
-
-        // session_destroy();
+        session_start();
+        session_destroy();
+        // $_SESSION['token'] = null;
         echo "Hello";
-        header('location: {$_SERVER["HTTP_REFERER"]}');
+        header('location: ' . $_SERVER["HTTP_REFERER"]);
 
 ?>

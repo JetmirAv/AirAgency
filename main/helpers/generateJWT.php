@@ -1,6 +1,6 @@
 <?php
-include_once("../dbConfig.php");
-include_once("helpers/base64EncDec.php");
+include_once("../../dbConfig.php");
+include_once("base64EncDec.php");
 
     function generateJWT($id, $email, $name): string 
         {

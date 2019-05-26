@@ -68,6 +68,11 @@ if (isset($_POST['register'])) {
     }    // Validate image file dimensi..on
 
 
+    if($gender == 1){
+        $gender = "M";
+    } else {
+        $gender = "F";
+    }
 
     // echo $firstname . " " .  $lastname . " " .  
     // $email . " " .  $password . " " . 

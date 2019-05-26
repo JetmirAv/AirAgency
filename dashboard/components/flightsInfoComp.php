@@ -29,7 +29,7 @@ $flightDetail = $flightStatement->fetchAll();
 ?>
                
 <?php 
-include "../databaseConfig.php";
+//include "../databaseConfig.php";
 $allCities = "select id,name from city order by name ; ";
 $cityStm = $conn->prepare($allCities);
 $cityStm->execute();
@@ -44,16 +44,15 @@ $results = $cityStm->fetchAll();
                                 <h4 class="title">Edit Flights</h4>
                             </div>
                             <div class="content">
-                                <form action="components/dashboard/updateFlight.php" method="post">
+<!--                                <form action="components/dashboard/insertFlight.php" method="post">-->
+                                   <form action="components/dashboard/updateFlight.php" method="post">
                                     <div class="row">
-<!--
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>From City</label>
-                                                <input type="Text"  class="form-control"  placeholder="From..." value="<?php echo $flightDt['From City'];  ?> ">
+                                                <input type="Text" name="fromCity"  class="form-control"  placeholder="From..." value="<?php echo $flightDt['From City'];  ?> ">
                                             </div>
                                         </div>
--->
                                         
                                            <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
@@ -61,7 +60,7 @@ $results = $cityStm->fetchAll();
                                                   <select name="fromCity">
                                                     <option value="fromCity" >Select</option>
                                                     <?php foreach($results as $output) {?>
-                                                    <option value="id"><?php echo $output["name"]; ?></option>
+                                                    <option value = <?php $output["id"]?> ><?php echo $output["name"]; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -94,7 +93,7 @@ $results = $cityStm->fetchAll();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Airplane</label>
-                                                <input type="text" placeholder="Airplane" class="form-control" value="<?php echo $flightDt['Airplane']; ?>">
+                                                <input name="planeId" type="text" placeholder="Airplane" class="form-control" value="<?php echo $flightDt['Airplane']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -114,23 +113,27 @@ $results = $cityStm->fetchAll();
                                        <div class="col-md-3" style="width: 90px;">
                                        <label> isSale </label>
                                         <br>
-                                        <input name="isSale" type="text" class="form-control" value="<?php echo $flightDt['isSale']; ?>">
+                                        <input name="isSale" type="number" class="form-control" value="<?php echo $flightDt['isSale']; ?>">
                                         </div>
                                        
                                      </div>
                                      <div class="row">
+
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDt['created At'];?>">
+                                                <input name="createdAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDt['created At'];?>">
                                             </div>
                                         </div>
+
+
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
                                                 <input name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDt['update At'];?>">
                                             </div>
                                         </div>
+
                                      </div>
 
                                     <button name="submit" type="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>

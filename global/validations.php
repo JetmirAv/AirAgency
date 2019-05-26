@@ -21,8 +21,6 @@ function valid_password($str)
 function valide_date($date)
 {
     $dateArr  = explode('-', $date);
-    print_r($dateArr);
-    echo $dateArr[0] . "   " . $dateArr[1] . "   " . $dateArr[2];
     if (count($dateArr) == 3) {
         
         if (checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {

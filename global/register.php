@@ -13,6 +13,12 @@ $errors = array();
 // REGISTER USER
 if (isset($_POST['register'])) {
 
+    $allowed_image_extension = array(
+        "png",
+        "jpg",
+        "jpeg"
+    );
+
     // receive all input values from the form
     $firstname = trim($_POST['form-first-name']);
     $lastname = trim($_POST['form-last-name']);
@@ -27,19 +33,39 @@ if (isset($_POST['register'])) {
     $phone = trim($_POST['form-phone']);
 
 
-    if(!valid_email($email)){
+    if (!valid_email($email)) {
         $errmsg = "Invalid email";
         array_push($errors, $errmsg);
-    } else if (!valid_password($password)){
+    }
+    if (!valid_password($password)) {
         $errmsg = "Password mus contain at least 8 characters one upper case one lower case and on number.";
-        array_push($errors, $errmsg);  
-    } else if (!valide_date($birthdate)){
+        array_push($errors, $errmsg);
+    }
+    if (!valide_date($birthdate)) {
         $errmsg = "Date is invalid";
         array_push($errors, $errmsg);
-    } else if(!valid_phone($phone)){
+    }
+    if (!valid_phone($phone)) {
         $errmsg = "Invalid phone number";
         array_push($errors, $errmsg);
     }
+
+    // Get image file extension
+    $file_extension = pathinfo($_FILES["form-img"]["name"], PATHINFO_EXTENSION);
+
+    // Validate file input to check if is not empty
+    if (!file_exists($_FILES["form-img"]["tmp_name"])) {
+        $errmsg = "Choose image file to upload.";
+        array_push($errors, $errmsg);
+    }    // Validate file input to check if is with valid extension
+    else if (!in_array($file_extension, $allowed_image_extension)) {
+        $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
+        array_push($errors, $errmsg);
+    }    // Validate image file size
+    else if (($_FILES["form-img"]["size"] > 2000000)) {
+        $errmsg = "Image size exceeds 2MB";
+        array_push($errors, $errmsg);
+    }    // Validate image file dimensi..on
 
 
 
@@ -52,109 +78,91 @@ if (isset($_POST['register'])) {
     // $postal . " " . 
     // $phone ;
 
-    echo "<br>";
     //Email check 
-    $emailCheck = $conn->prepare("Select * from users where email=?");
-    $emailCheck->execute([$email]);
 
     // echo $emailCheck->rowCount();
     // echo "<br>";
     // echo gettype($emailCheck);
     // echo "<br>";		
-    if ($emailCheck->rowCount() <= 0) {
-        $emailCheck = null;
-        if(count($errors) <=0){
+    if (count($errors) <= 0) {
+        $emailCheck = $conn->prepare("Select * from users where email=?");
+        $emailCheck->execute([$email]);
+        if ($emailCheck->rowCount() <= 0) {
+            $emailCheck = null;
             //Image 2
-    
-            $allowed_image_extension = array(
-                "png",
-                "jpg",
-                "jpeg"
-            );
-    
-            // Get image file extension
-            $file_extension = pathinfo($_FILES["form-img"]["name"], PATHINFO_EXTENSION);
-    
-            // Validate file input to check if is not empty
-            if (!file_exists($_FILES["form-img"]["tmp_name"])) {
-                $errmsg = "Choose image file to upload.";
+
+
+
+
+            $profilepic = $_FILES['form-img']['name'];
+            $expProfilepic = explode('.', $profilepic);
+            $profilepicExptype = $expProfilepic[1];
+            $date = date('m/d/Yh:i:sa', time());
+            $rand = rand(10000, 99999);
+            $encname = $date . $rand;
+            $profilepicName = md5($encname) . '.' . $profilepicExptype;
+            $profilepicPath = "../uploads/user-img/" . $profilepicName;
+
+            if (move_uploaded_file($_FILES["form-img"]["tmp_name"], $profilepicPath)) { } else {
+                $errmsg = "Problem in uploading image files.";
                 array_push($errors, $errmsg);
-            }    // Validate file input to check if is with valid extension
-            else if (!in_array($file_extension, $allowed_image_extension)) {
-                $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
-                array_push($errors, $errmsg);
-            }    // Validate image file size
-            else if (($_FILES["form-img"]["size"] > 2000000)) {
-                $errmsg = "Image size exceeds 2MB";
-                array_push($errors, $errmsg);
-            }    // Validate image file dimensi..on
-            else {
-                $profilepic = $_FILES['form-img']['name'];
-                $expProfilepic = explode('.', $profilepic);
-                $profilepicExptype = $expProfilepic[1];
-                $date = date('m/d/Yh:i:sa', time());
-                $rand = rand(10000, 99999);
-                $encname = $date . $rand;
-                $profilepicName = md5($encname) . '.' . $profilepicExptype;
-                $profilepicPath = "../uploads/user-img/" . $profilepicName;
-    
-                if (move_uploaded_file($_FILES["form-img"]["tmp_name"], $profilepicPath)) {
-                    
-                } else {
-                    $errmsg = "Problem in uploading image files.";
-                    array_push($errors, $errmsg);
-                    throw new Error("Error while uploading file");
-                }
             }
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $createUser = $conn->prepare("INSERT INTO users" .
-                "(roleId, firstname, lastname, email, password, birthday," .
-                " gendre, address, city, state, postal, phoneNumber, img) " .
-                "VALUES " .
-                "(2, :firstname, :lastname, :email, :password, :birthday," .
-                " :gendre, :address, :city, :state, :postal, :phoneNumber, :img) ");
-            $createUser->execute([
-                'firstname' => $firstname,
-                'lastname' => $lastname,
-                'email' => $email,
-                'password' => $password,
-                'birthday' => $birthdate,
-                'gendre' => $gender,
-                'address' => $address,
-                'city' => $city,
-                'state' => $state,
-                'postal' => $postal,
-                'phoneNumber' => $phone,
-                'img' => $profilepicName
-            ]);
-            echo "<br>" . "<br>";
 
-            echo $createUser->rowCount();
-            $arr = $createUser->errorInfo();
-            print_r($arr);
-            $insertedId = $conn->lastInsertId();
+            if (count($errors) <= 0) {
+                $password = password_hash($password, PASSWORD_DEFAULT);
+                $createUser = $conn->prepare("INSERT INTO users" .
+                    "(roleId, firstname, lastname, email, password, birthday," .
+                    " gendre, address, city, state, postal, phoneNumber, img) " .
+                    "VALUES " .
+                    "(2, :firstname, :lastname, :email, :password, :birthday," .
+                    " :gendre, :address, :city, :state, :postal, :phoneNumber, :img) ");
+                $createUser->execute([
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'email' => $email,
+                    'password' => $password,
+                    'birthday' => $birthdate,
+                    'gendre' => $gender,
+                    'address' => $address,
+                    'city' => $city,
+                    'state' => $state,
+                    'postal' => $postal,
+                    'phoneNumber' => $phone,
+                    'img' => $profilepicName
+                ]);
+                echo "<br>" . "<br>";
 
-            $getRole = $conn->prepare("Select roleId from users where id=?");
-            $getRole->execute([$insertedId]);
+                echo $createUser->rowCount();
+                $arr = $createUser->errorInfo();
+                print_r($arr);
+                $insertedId = $conn->lastInsertId();
 
-            $roleId = $getRole->fetch();
-            print_r($roleId);
-            print($roleId['roleId']);
-            $_SESSION["loggedin"] = true;
-            $_SESSION["name"] = $firstname;
-            $_SESSION["token"] = generateJWT($insertedId, $roleId['roleId'], $email, $firstname);
+                $getRole = $conn->prepare("Select roleId from users where id=?");
+                $getRole->execute([$insertedId]);
 
-            header("location: ../main/index.php");
-            die();
+                $roleId = $getRole->fetch();
+                print_r($roleId);
+                print($roleId['roleId']);
+                $_SESSION["loggedin"] = true;
+                $_SESSION["name"] = $firstname;
+                $_SESSION["token"] = generateJWT($insertedId, $roleId['roleId'], $email, $firstname);
 
-
+                header("location: ../main/index.php");
+                die();
+            } else {
+                $_SESSION['errors'] = $errors;
+                header('location: ' . $_SERVER["HTTP_REFERER"]);
+                die();
+            }
         } else {
-            echo $birthdate;
-            print_r($errors);
+            $emailErr = "Email alredy exists";
+            $errors . array_push($emailErr);
+            $_SESSION['errors'] = $errors;
+            header('location: ' . $_SERVER["HTTP_REFERER"]);
+            die();
         }
     } else {
-        $emailErr = "Email alredy exists";
-        $errors.array_push($emailErr);
+        $_SESSION['errors'] = $errors;
         header('location: ' . $_SERVER["HTTP_REFERER"]);
         die();
     }

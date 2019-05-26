@@ -36,17 +36,23 @@ if (!$isAuth) {
     //     header('location: http://localhost/AirAgency/main', true, 303);
     //     die();
     // }
-    $path = end($path);
-    // echo "<script>console.log('" . $_SERVER['PHP_SELF'] . " " . $path . "');</script>";
-
-    switch ($path){
-        case 'booked.php':
-            header('location: login.php'); 
-            die();
-            break;
-        default: 
-            break;                
+    
+    if(in_array('main', $path)){
+        $path = end($path);
+        // echo "<script>console.log('" . $_SERVER['PHP_SELF'] . " " . $path . "');</script>";
+    
+    
+        switch ($path){
+            case 'booked.php':
+                header('location: login.php'); 
+                die();
+                break;
+            default: 
+                break;                
+        }
     }
+    
+    
 
 
 } else {

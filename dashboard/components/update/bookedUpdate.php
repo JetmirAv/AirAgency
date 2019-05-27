@@ -20,7 +20,7 @@ INNER JOIN city c2
 ON f.toCity=c2.id
 INNER JOIN airplane a
 ON f.planeId=a.id
-where b.id=2;" ; 
+where b.id=3;" ; 
 
 $bookedStatement = $conn->prepare($sqlBooked);
 $bookedStatement->execute();

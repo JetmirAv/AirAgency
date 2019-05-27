@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-8">
-                  <?php include "components/booked.php"?>
+                  <?php include "components/update/bookedUpdate.php"?>
                     </div>
                     
                     </div>

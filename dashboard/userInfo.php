@@ -12,7 +12,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <?php include "components/user.php"?>
+                    <?php include "components/update/userUpdate.php"?>
                 </div>
             </div>
         </div>

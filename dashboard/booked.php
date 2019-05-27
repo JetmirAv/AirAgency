@@ -23,7 +23,6 @@
         </div>
       <?php include "components/footer.php" ?>
     </div>
-</div>
 
 
 </body>

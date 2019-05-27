@@ -35,7 +35,9 @@ $bookedDetails = $bookedStatement->fetchAll();
                                 <h4 class="title">Booked Details</h4>
                             </div>
                             <div class="content">
-                                <form>
+<!--
+                                <form action="components/dashboard/deleteBooked.php" method="POST">
+-->
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
@@ -79,7 +81,10 @@ $bookedDetails = $bookedStatement->fetchAll();
                                                 <label>Price</label>
                                                 <input type="text" class="form-control" placeholder="Price" value="<?php echo $bookedDt['Price']; ?>">
                                             </div>
-                                        </div>                                                                              
+                                        </div>                                                             <!-- <div class="form-group" style="padding-left:10px;">
+                                                <label>Id</label>
+                                                <input type="text" class="form-control" placeholder="id" value="" name="id">
+                                            </div>  -->              
                                      </div>
                                      <div class="row">
                                         <div class="col-md-4" style="margin-right:9%;">

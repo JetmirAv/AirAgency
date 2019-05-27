@@ -5,13 +5,16 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<?php include "../databaseConfig.php" ?>
 	<?php
-	$sql = "select id, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight ORDER BY id asc limit 10 ";
-	$rs_result = $conn->query($sql);
-	$flight_id = '';
+	$sql = "select id,concat('../uploads/flight-img/',img)as image, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight limit 10 ";
+	$countRows="select count(*) as count from flight";
+	$numberOfRows=$conn->query($countRows);
+	$count = $numberOfRows->fetch();
+	$rsResult = $conn->query($sql);
+	$flightId = '';
 	?>
 
 	<div class="header">
-		<h4 class="title">Number of flights:<?php echo $flight_id ?></h4>
+		<h4 class="title">Number of flights:<?php echo $count['count'] ?></h4>
 	</div>
 	<div class="content table-responsive table-full-width">
 
@@ -28,11 +31,11 @@
 				<th>Created at</th>
 				<th>Updated at</th>
 			</thead>
-			<tbody id="load_data_table">
+			<tbody id="loadDataTable">
 				<?php
-				foreach ($rs_result as $row) {
+				foreach ($rsResult as $row) {
 					echo '<tr>
-							<td style="padding:2px ; padding-left:10px"><img src="assets/img/faces/face-0.jpg" width=35;height=35; style="border-radius:50% ; padding:0px;"> </td>
+							<td style="padding:2px ; padding-left:10px"><img src='.$row["image"] .' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
 							<td>'.$row["fromCity"] .'</td>
 							<td>' . $row["toCity"] . '</td>
 							<td style="padding-left:25px;">' . $row["planeId"] . '</td>
@@ -44,14 +47,14 @@
 							<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
 						  </tr>';
 				}
-					$flight_id = $row["id"];
+					$flightId = $row["id"];
 				?>
 			</tbody>
 
 		</table>
-		<table id="first_row">
-			<tr id="remove_row">
-				<button type="button" name="btn_more" data-vid="<?php echo $flight_id; ?>" id="btn_more" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
+		<table id="firstRow">
+			<tr id="removeRow">
+				<button type="button" name="btnMore" data-vid="<?php echo $flightId; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 			</tr>
 		</table>
 	</div>
@@ -60,24 +63,24 @@
 
 <script>
 	$(document).ready(function() {
-		$(document).on('click', '#btn_more', function() {
-			var last_flight_id = $(this).data("vid");
-			$('#btn_more').html("Loading...");
+		$(document).on('click', '#btnMore', function() {
+			var lastFlightId = $(this).data("vid");
+			$('#btnMore').html("Loading...");
 			$.ajax({
 				url: "components/tables/loading-flights.php",
 				method: "POST",
 				data: {
-					last_flight_id: last_flight_id
+					lastFlightId: lastFlightId
 				},
 				dataType: "html",
 				success: function(data) {
 					if (data != '') {
-						$('#btn_more').remove();
-						$('#remove_row').remove();
-						$('#load_data_table').append(data);
+						$('#btnMore').remove();
+						$('#removeRow').remove();
+						$('#loadDataTable').append(data);
 
 					} else {
-						$('#btn_more').html("No Data");
+						$('#btnMore').html("No Data");
 					}
 				}
 			});

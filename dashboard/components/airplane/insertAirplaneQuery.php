@@ -64,16 +64,13 @@
 //
 //
 //    
-    
+   
+include "../../databaseConfig.php";
     
 
-$servername = 'localhost';
-$username = "root";
-$password = "";
-$database = 'airagency';
 try{
-     $conn = new PDO("mysql:host=localhost;dbname=airagency", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//    $conn = new PDO("mysql:host=localhost;dbname=airagency", $username, $password);
+//    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $name = $_POST['name'];
     $yearOfProd = $_POST['yearOfProd'];

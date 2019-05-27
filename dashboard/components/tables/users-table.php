@@ -29,10 +29,10 @@
 				<th width=5%>Name</th>
 				<th width=3%>Gendre</th>
 				<th width=5%>Birthday</th>
+				<th width='8%'>Email</th>
 				<th width=7%>State</th>
 				<th width=7%>City</th>
 				<th width=5%>Phone Number</th>
-				<th width='8%'>Email</th>
 			</thead>
 			<tbody id="load_data_table">
 				<?php	
@@ -40,23 +40,24 @@
 	foreach($rs_result as $row){
 			echo' <tr>
 					<td style="padding:2px ; padding-left:10px"><img src="assets/img/faces/face-0.jpg" width=35;height=35; style="border-radius:50% ; padding:0px;"> </td>
-					<td>'.$row["id"].'</td>
+					<td>'.$row["fullname"].'</td>
 					<td style="padding-left:25px;">'.$row["gendre"].'</td>
 					<td>'.$row["birthday"].'</td>
 					<td style="width:14% ; overflow:hidden;  position: relative;">'.$row["email"].'</td>
 					<td>'.$row["state"].'</td>
 					<td>'.$row["city"].'</td>
 					<td>'.$row["phoneNumber"].'</td>
+					<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
+						  
 				</tr>';}
-				
-					$user_id = 11;
+				$user_id = $row["id"] + 1;
 				?>
 			</tbody>
 
 		</table>
 		<table id="first_row">
 			<tr id="remove_row">
-				<button type="button" name="btn_more" data-vid="<?php echo $user_id; ?>" id="btn_more" class="btn btn-success form-control">more</button>
+				<button type="button" name="btn_more" data-vid="<?php echo $user_id; ?>" id="btn_more" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 			</tr>
 		</table>
 
@@ -69,7 +70,7 @@
 				var last_flight_id = $(this).data("vid");
 				$('#btn_more').html("Loading...");
 				$.ajax({
-					url: "components/loading-users.php",
+					url: "components/tables/loading-users.php",
 					method: "POST",
 					data: {
 						last_flight_id: last_flight_id

@@ -17,7 +17,7 @@
 						<div class="col-md-12">
 						</div>
 
-						<?php include "components/users-table.php" ?>
+						<?php include "components/tables/users-table.php" ?>
 
 					</div>
 				</div>

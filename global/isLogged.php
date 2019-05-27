@@ -19,7 +19,7 @@ if (isset($_SESSION['token']) && $_SESSION["token"]) {
         $text = '<a href="./profile.php">' . $dataArr->name . '</a>';
         $logOut = '<a href="../global/logOut.php" style="cursor: pointer;disabled: true; background-color:gray;">Log Out</a>';
         $isAuth = true;
-        echo "<script>console.log('". $dataArr->role . "');</script>";
+        // echo "<script>console.log('". $dataArr->role . "');</script>";
     } else {
         echo "<script>console.log('Wrong');</script>";
     }

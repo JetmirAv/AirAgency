@@ -3,16 +3,18 @@ include_once("../databaseConfig.php");
 include_once("generateJWT.php");
 include_once("validations.php");
 
-// print_r(PHP_SESSION_ACTIVE);
-// print_r(session_status() == PHPSES);
 session_start();
-// initializing variables
-$errors = array();
 
+
+echo "Fillimi";
 
 // REGISTER USER
 if (isset($_POST['register'])) {
 
+    $_SESSION['sucess'] = "";
+
+    $errors = array();
+    $_SESSION['errors'] = $errors;
     $allowed_image_extension = array(
         "png",
         "jpg",
@@ -52,7 +54,13 @@ if (isset($_POST['register'])) {
 
     // Get image file extension
     $file_extension = pathinfo($_FILES["form-img"]["name"], PATHINFO_EXTENSION);
-
+    echo "<br/>";
+    echo $email;
+    echo "<br/>";
+    print_r($_FILES['form-img']);
+    echo "<br/>";
+    echo !file_exists($_FILES["form-img"]["tmp_name"]) ? 'true' : 'false';
+    echo "<br/>";
     // Validate file input to check if is not empty
     if (!file_exists($_FILES["form-img"]["tmp_name"])) {
         $errmsg = "Choose image file to upload.";
@@ -68,7 +76,7 @@ if (isset($_POST['register'])) {
     }    // Validate image file dimensi..on
 
 
-    if($gender == 1){
+    if ($gender == 1) {
         $gender = "M";
     } else {
         $gender = "F";
@@ -152,8 +160,19 @@ if (isset($_POST['register'])) {
                 $_SESSION["name"] = $firstname;
                 $_SESSION["token"] = generateJWT($insertedId, $roleId['roleId'], $email, $firstname);
 
-                header("location: ../main/index.php");
-                die();
+                //Redirecting ...
+                $path = $_SERVER['PHP_SELF'];
+                $path = explode('/', $path);
+
+                if (in_array('main', $path)) {
+                    header("location: ../main/index.php");
+                    die();
+                } else {
+                    $_SESSION['errors'] = null;
+                    $_SESSION['sucess'] = "User created successfuly.";
+                    header('location: ' . $_SERVER["HTTP_REFERER"]);
+                    die();
+                }
             } else {
                 $_SESSION['errors'] = $errors;
                 header('location: ' . $_SERVER["HTTP_REFERER"]);

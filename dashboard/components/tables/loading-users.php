@@ -26,11 +26,11 @@ if ($count > 0) {
 					<td >'.$row["fullname"].'</td>
 					<td  style="padding-left:25px;">'.$row["gendre"].'</td>
 					<td >'.$row["birthday"].'</td>
-					<td style="width:14% ; overflow:hidden;  position: relative;">'.$row["email"].'</td>
+					<td style="width:8% ; overflow:hidden;  position: relative;">'.$row["email"].'</td>
 					<td style="width=200px;">'.$row["state"].'</td>
 					<td>'.$row["city"].'</td>
 					<td>'.$row["phoneNumber"].'</td>
-					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' '. $row["id"] .'\')"  data-arg1="1234" class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
+					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' '. $row["id"] .'\')"  data-arg1="1234" class="btn btn-success form-control" style="width:15%;background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
 				
 				</tr>';}
 				

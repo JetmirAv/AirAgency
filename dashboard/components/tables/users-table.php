@@ -19,7 +19,8 @@
 		width: 100%;
 		height: 100%;
 		z-index: 300"></div>
-	<div id="userInfo" style="
+	<form action="components/delete/deleteUser.php" method="POST">
+		<div id="userInfo" style="
 		position: absolute;
 		background-color: #eee;
 		display: none;
@@ -28,22 +29,22 @@
 		width: 40%;
 		height: 25%;
 		z-index: 500;
-		text-align: center"
-		>
-		<h3>Delete User</h3>
-		<h4 style="font-weight: 300" id="user"></h5>
-		<div style="display:flex;
+		text-align: center">
+			<h3>Delete User</h3>
+			<h4 style="font-weight: 300" id="user">
+				</h5>
+				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
-			<button id="bttnCancel">Cancel</button>
-			<button>Delete</button>
+					<button id="bttnCancel">Cancel</button>
+					<button id="bttnDelete" type="submit" name="deleteUser">Delete</button>
+				</div>
 		</div>
-	</div>	
-
+	</form>
 	<div class="header">
 		<h4 style="display: inline-block; width: 40%" class="title">Number of users:</h4>
 
-		<a href="user.php" style=" font: bold 11px Arial;
+		<a href="userInsert.php" style=" font: bold 11px Arial;
 												text-decoration: none;
 												background-color: #EEEEEE;
 												color: #333333;
@@ -58,13 +59,13 @@
 		<table class='table table-hover table-striped' style="table-layout: ;">
 			<thead>
 				<th width=3%>Image</th>
-				<th width=5%>Name</th>
+				<th width=15%>Name</th>
 				<th width=3%>Gendre</th>
-				<th width=5%>Birthday</th>
+				<th width=8%>Birthday</th>
 				<th width=8%>Email</th>
 				<th width=7%>State</th>
 				<th width=7%>City</th>
-				<th width=5%>Phone Number</th>
+				<th width=12%>Phone Number</th>
 			</thead>
 			<tbody id="load_data_table">
 				<?php
@@ -75,11 +76,11 @@
 					<td>' . $row["fullname"] . '</td>
 					<td style="padding-left:25px;">' . $row["gendre"] . '</td>
 					<td>' . $row["birthday"] . '</td>
-					<td style="width:14% ; overflow:hidden;  position: relative;">' . $row["email"] . '</td>
+					<td style="width:8% ; overflow:hidden;  position: relative;">' . $row["email"] . '</td>
 					<td>' . $row["state"] . '</td>
 					<td>' . $row["city"] . '</td>
 					<td>' . $row["phoneNumber"] . '</td>
-					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
+					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="width:15%; background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
 						  
 				</tr>';
 				}
@@ -119,25 +120,44 @@
 			});
 		});
 
-		let userInfo = document.getElementById("userInfo"); 
+		let userInfo = document.getElementById("userInfo");
 		let backdrop = document.getElementById("backdrop");
+		let userId, userName, userEmail = '';
+
 		function deleteHandler(id, name, email) {
 			userInfo.style.display = "block";
 			backdrop.style.display = "block";
+			userId = id;
+			userName = name;
+			userEmail = email;
 			console.log("ID: " + id + " Name: " + name + " Email: " + email);
-			document.getElementById('user').innerHTML = "ID: " + id + "<br/>" + 
-				" Full Name: " + name + "<br/>" + 
-				" Email: " + email
+			document.getElementById('user').innerHTML = "ID: " + id + "<br/>" +
+				" Full Name: " + name + "<br/>" +
+				" Email: " + email;
+				
 		}
 
 		backdrop.onclick = () => {
 			userInfo.style.display = "none";
-			backdrop.style.display = "none";	
+			backdrop.style.display = "none";
 		}
+
 
 		document.getElementById("bttnCancel").onclick = (e) => {
 			e.preventDefault();
 			userInfo.style.display = "none";
 			backdrop.style.display = "none";
 		}
+
+		document.getElementById("bttnDelete").onclick = (e) => {
+			e.preventDefault();
+			$.ajax({
+			url: "components/delete/deleteUser.php",
+			type: "POST",
+			data:{"id":userId}
+			}).done(function(data) {
+				alert(data);
+			});
+		}
+
 	</script>

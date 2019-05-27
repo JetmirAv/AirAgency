@@ -30,7 +30,7 @@ if ($count > 0) {
 					<td style="width=200px;">'.$row["state"].'</td>
 					<td>'.$row["city"].'</td>
 					<td>'.$row["phoneNumber"].'</td>
-					<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
+					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' '. $row["id"] .'\')"  data-arg1="1234" class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
 				
 				</tr>';}
 				

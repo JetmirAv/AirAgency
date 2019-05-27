@@ -54,13 +54,15 @@
                         </div>
                         <!-- Room Content -->
                         <div class="room-content">
-                            <h2>Destination</h2>
-                            <h4>400$ <span>/ Day</span></h4>
+                            <h2>Title</h2>
+                            <h4>400&euro;</h4>
                             <div class="room-feature">
                                 <h6>From: <span>Prishtina</span></h6>
-                                <h6>Avalible: <span>100</span></h6>
+                                <h6>To: <span>Spain</span></h6>
                                 <h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
                                 <h6>Time: <span><?php echo date("H-m"); ?></span></h6>
+                                <h6>Avalible: <span>100</span></h6>
+                                <span style="display:block; width: 20px; "><input min=0 type="number" /></span>
                             </div>
                             <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right"
                                     aria-hidden="true"></i></a>

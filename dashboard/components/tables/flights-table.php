@@ -6,8 +6,8 @@
 	<?php include "../databaseConfig.php" ?>
 	<?php
 	$sql = "select id,concat('../uploads/flight-img/',img)as image, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight limit 10 ";
-	$countRows="select count(*) as count from flight";
-	$numberOfRows=$conn->query($countRows);
+	$countRows = "select count(*) as count from flight";
+	$numberOfRows = $conn->query($countRows);
 	$count = $numberOfRows->fetch();
 	$rsResult = $conn->query($sql);
 	$flightId = '';
@@ -18,7 +18,7 @@
 	</div>
 	<div class="content table-responsive table-full-width">
 
-		<table class="table table-hover table-striped">
+		<table class="table table-hover table-striped" id="sourceTable">
 
 			<thead>
 				<th>Image</th>
@@ -34,9 +34,9 @@
 			<tbody id="loadDataTable">
 				<?php
 				foreach ($rsResult as $row) {
-					echo '<tr>
-							<td style="padding:2px ; padding-left:10px"><img src='.$row["image"] .' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
-							<td>'.$row["fromCity"] .'</td>
+					echo '<tr id=' . $row['id'] . '>
+							<td style="padding:2px ; padding-left:10px"><img src=' . $row["image"] . ' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
+							<td>' . $row["fromCity"] . '</td>
 							<td>' . $row["toCity"] . '</td>
 							<td style="padding-left:25px;">' . $row["planeId"] . '</td>
 							<td>' . $row["price"] . '</td>
@@ -47,7 +47,7 @@
 							<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
 						  </tr>';
 				}
-					$flightId = $row["id"];
+				$flightId = $row["id"];
 				?>
 			</tbody>
 
@@ -57,12 +57,49 @@
 				<button type="button" name="btnMore" data-vid="<?php echo $flightId; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 			</tr>
 		</table>
+		<input type="text" id="fillname" value="" />
 	</div>
 </div>
 
 
 <script>
 	$(document).ready(function() {
+		var pickedup;
+
+// $(document).ready(function() {
+//     $( "#sourceTable tbody tr" ).on( "click", function( event ) {
+ 
+//           // get back to where it was before if it was selected :
+//           if (pickedup != null) {
+//               pickedup.css( "background-color", "#ffccff" );
+//           }
+ 
+//           $("#fillname").val($(this).find("td").eq(1).html());
+//           $( this ).css( "background-color", "red" );
+ 
+//           pickedup = $( this );
+//     });
+// }); 
+	// 	$('#sourceTable tbody tr').click(function() {
+    //     var href = $(this).find("a").attr("href");
+    //     if(href) {
+    //         window.location = href;
+    //     }
+    // });
+// 	$("#loadDataTable tr" ).click(function() {
+//    var bid = this.id; // button ID 
+//    var trid = $(this).closest('tr').attr('id'); // table row ID 
+//    $("#fillname").val($(this).find("tr").attr('id'));
+
+   $('tbody').on('click','tr',function(e) {
+    var txt = $(this).attr('id');
+	window.location.href='../dashboard/flightsInfo.php';
+	//alert (txt);
+ });
+
+
+
+
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");
 			$('#btnMore').html("Loading...");
@@ -86,5 +123,4 @@
 			});
 		});
 	});
-
 </script>

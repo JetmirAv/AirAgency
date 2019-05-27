@@ -3,7 +3,9 @@ include "../databaseConfig.php";
 
 // Query Flights
  
-$sqlFlight="SELECT  c1.name as 'From City' ,
+$sqlFlight="SELECT c1.id as 'fromCityId',
+c2.id as 'toCityId',
+c1.name as 'From City',
 c2.name as 'To City',
 f.avalible as 'Available',
 a.name as 'Airplane',
@@ -20,9 +22,6 @@ ON f.toCity=c2.id
 INNER JOIN Airplane a 
 ON f.planeId=a.id
 WHERE f.id=5;";
-
-
-
 $flightStatement = $conn->prepare($sqlFlight);
 $flightStatement->execute();
 $flightDetail = $flightStatement->fetchAll(); 
@@ -37,7 +36,7 @@ $results = $cityStm->fetchAll();
 
 ?>
                
-    <?php foreach($flightDetail as $flightDt) { ?>
+    
                 <div class="col-md-8">
 					 <div class="card">
                             <div class="header">
@@ -45,24 +44,49 @@ $results = $cityStm->fetchAll();
                             </div>
                             <div class="content">
 <!--                                <form action="components/dashboard/insertFlight.php" method="post">-->
-                                   <form action="components/dashboard/updateFlight.php" method="post">
+                                   <form action="components/flight/updateFlight.php" method="post">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>From City</label>
-                                                <input type="Text" name="fromCity"  class="form-control"  placeholder="From..." value="<?php echo $flightDt['From City'];  ?> ">
+                                                <input type="Text" name="fromCity"  class="form-control"  placeholder="From..." value="<?php echo $flightDetail['From City'];  ?> ">
                                             </div>
                                         </div>
-                                        
+<!--                                           <?php echo $flightDetail['fromCityId']; ?>-->
                                            <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>From City</label>
-                                                  <select name="fromCity">
-                                                    <option value="fromCity" >Select</option>
-                                                    <?php foreach($results as $output) {?>
-                                                    <option value = <?php $output["id"]?> ><?php echo $output["name"]; ?></option>
-                                                    <?php } ?>
+                                                   
+                                                   
+                                                   <?php echo $flightDetail['FromCity']; ?>
+                                                  <select name="<?php $flightDetail['fromCityId']?>">
+                                                    <?php foreach($results as $output) 
+                                                        {
+                                                           if($output['id']==$flightDetail['fromCityId'])
+                                                           {
+                                                               ?>
+                                                                <option value = "<?php $flightDetail['fromCityId']?> " selected>
+                                                                        <?php  echo $flightDetail['From City']; ?>
+                                                                </option>
+                                                           <?php 
+                                                           }
+
+                                                            ?>
+                                                            <option value = "<?php $flightDetail['From City']?> ">
+                                                            <?php  echo $output['name']; ?></option>
+                                                           <?php 
+                                                        }
+                                                       
+                                                      ?>
+                                                   
                                                 </select>
+                                                
+                                         
+                                                
+                                                
+                                                
+                                            
+                                              
                                             </div>
                                         </div>
                                         
@@ -152,7 +176,7 @@ $results = $cityStm->fetchAll();
                                      <a href="#">
                                     <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
 
-                                      <h4 class="title"><?php echo $flightDt['From City'] . " To " .  $flightDt['To City']; }?><br />
+                                      <h4 class="title"><?php echo $flightDt['From City'] . " To " .  $flightDt['To City']; ?><br />
                                          <small>michael24</small>
                                       </h4>
                                     </a>

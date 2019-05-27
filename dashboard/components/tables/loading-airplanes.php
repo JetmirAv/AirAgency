@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../dbConfig.php";
+include_once "../../../dbConfig.php";
 
 $dsn = "mysql:host=" . HOST . ";dbname=" . DBNAME;
 try {
@@ -10,17 +10,17 @@ try {
 }
 
 $output = '';
-$airplane_id = '';
+$airplaneId = '';
 sleep(1);
-$data = (int)$_POST['last_flight_id'];
+$data = (int)$_POST['lastFlightId'];
 
-$sql = "select id, concat('assets/img/airplanes/',img) as image,name, seats, yearOfProd,fuelCapacity,maxspeed,createdAt,updatedAt from airplane where id >".$data." order by id asc limit 10";
+$sql = "select id, concat('../uploads/airplane-img/',img) as image,name, seats, yearOfProd,fuelCapacity,maxspeed,createdAt,updatedAt from airplane where id >".$data." order by id asc limit 10";
 
-$rs_result = $conn->query($sql);
-$count = $rs_result->rowCount();
+$rsResult = $conn->query($sql);
+$count = $rsResult->rowCount();
 if ($count > 0) {
-	foreach ($rs_result as $row) {
-		$airplane_id = $row['id'];
+	foreach ($rsResult as $row) {
+		$airplaneId = $row['id'];
 		$output .= '
                 <tr>
 				<td style="padding:2px ; padding-left:10px"><img src="'.$row["image"].'" width=35; height=35; style="border-radius:50% ; padding:0px;"> </td></td>
@@ -30,12 +30,13 @@ if ($count > 0) {
 				<td>'.$row["fuelCapacity"].'</td>
 				<td>'.$row["maxspeed"].'</td>
 				<td>'.$row["createdAt"].'</td>
-				<th>'.$row["updatedAt"].'</th>
+				<td>'.$row["updatedAt"].'</td>
+				<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
 			</tr>';
 	}
 	$output .= '
-		<tr id="remove_row">
-			<td colspan=9><button type="button" name="btn_more" data-vid="' . $airplane_id . '" id="btn_more" class="btn btn-success form-control">more</button></td>
+		<tr id="removeRow">
+			<td colspan=9><button type="button" name="btnMore" data-vid="' . $airplaneId . '" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button></td>
 		</tr>';
 
 	echo $output;

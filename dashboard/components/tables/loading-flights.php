@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../dbConfig.php";
+include_once "../../../dbConfig.php";
 
 $dsn = "mysql:host=" . HOST . ";dbname=" . DBNAME;
 try {
@@ -31,11 +31,12 @@ if ($count > 0) {
 	            	<td>' . $row["checkIn"] . '</td>
 	            	<td>' . $row["createdAt"] . '</td>
             		<td>' . $row["updatedAt"] . '</td>
+					<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
 				</tr> ';
 	}
 	$output .= '
 		<tr id="remove_row">
-			<td colspan=9><button type="button" name="btn_more" data-vid="' . $flight_id . '" id="btn_more" class="btn btn-success form-control">more</button></td>
+			<td colspan=10><button type="button" name="btn_more" data-vid="' . $flight_id . '" id="btn_more" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button></td>
 		</tr>';
 
 	echo $output;

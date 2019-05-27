@@ -41,6 +41,7 @@
 							<td>' . $row["checkIn"] . '</td>
 							<td>' . $row["createdAt"] . '</td>
 							<td>' . $row["updatedAt"] . '</td>
+							<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
 						  </tr>';
 				}
 					$flight_id = $row["id"];
@@ -50,7 +51,7 @@
 		</table>
 		<table id="first_row">
 			<tr id="remove_row">
-				<button type="button" name="btn_more" data-vid="<?php echo $flight_id; ?>" id="btn_more" class="btn btn-success form-control">more</button>
+				<button type="button" name="btn_more" data-vid="<?php echo $flight_id; ?>" id="btn_more" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 			</tr>
 		</table>
 	</div>
@@ -63,7 +64,7 @@
 			var last_flight_id = $(this).data("vid");
 			$('#btn_more').html("Loading...");
 			$.ajax({
-				url: "components/loading-flights.php",
+				url: "components/tables/loading-flights.php",
 				method: "POST",
 				data: {
 					last_flight_id: last_flight_id

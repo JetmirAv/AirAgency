@@ -19,7 +19,7 @@
 						<div class="col-md-12">
 						</div>
 
-						<?php include "components/flights-table.php"; ?>
+						<?php include "components/tables/flights-table.php"; ?>
 
 
 					</div>

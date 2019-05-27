@@ -10,31 +10,36 @@
 	?>
 
 
-	<div id="modal" style="
-				position:fixed;
-				z-index: 500;
-				width:40%;
-				height:40%;
-				top: 30%;
-				left:30%;" class="card card-user">
-		<div class="content">
-			<div class="author">
-				<a href="#">
-					<img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..." />
+	<div id="backdrop" style="
+		position: fixed;
+		display: none;
+		background-color: rgba(0, 0, 0, 0.5);
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 300"></div>
+	<div id="userInfo" style="
+		position: absolute;
+		background-color: #eee;
+		display: none;
+		top: 30%;
+		left: 30%;
+		width: 40%;
+		height: 25%;
+		z-index: 500;
+		text-align: center"
+		>
+		<h3>Delete User</h3>
+		<h4 style="font-weight: 300" id="user"></h5>
+		<div style="display:flex;
+					flex-direction: row;
+					justify-content: space-evenly ">
+			<button id="bttnCancel">Cancel</button>
+			<button>Delete</button>
+		</div>
+	</div>	
 
-					<h4 class="title">Some name<br />
-						<small>michael24</small>
-					</h4>
-				</a>
-			</div>
-			<p class="description text-center"> "Lamborghini Mercy <br>
-				Your chick she so thirsty <br>
-				I'm in that two seat Lambo"
-			</p>
-	</div>
-
-
-	</div>
 	<div class="header">
 		<h4 style="display: inline-block; width: 40%" class="title">Number of users:</h4>
 
@@ -56,7 +61,7 @@
 				<th width=5%>Name</th>
 				<th width=3%>Gendre</th>
 				<th width=5%>Birthday</th>
-				<th width='8%'>Email</th>
+				<th width=8%>Email</th>
 				<th width=7%>State</th>
 				<th width=7%>City</th>
 				<th width=5%>Phone Number</th>
@@ -74,7 +79,7 @@
 					<td>' . $row["state"] . '</td>
 					<td>' . $row["city"] . '</td>
 					<td>' . $row["phoneNumber"] . '</td>
-					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')"  data-arg1="1234" class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
+					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
 						  
 				</tr>';
 				}
@@ -114,12 +119,25 @@
 			});
 		});
 
-		let modalShow = false;
+		let userInfo = document.getElementById("userInfo"); 
+		let backdrop = document.getElementById("backdrop");
+		function deleteHandler(id, name, email) {
+			userInfo.style.display = "block";
+			backdrop.style.display = "block";
+			console.log("ID: " + id + " Name: " + name + " Email: " + email);
+			document.getElementById('user').innerHTML = "ID: " + id + "<br/>" + 
+				" Full Name: " + name + "<br/>" + 
+				" Email: " + email
+		}
 
-		function deleteHandler(name) {
-			console.log("Clicked " + modalShow + " " + name)
-			modalShow = !modalShow;
-			console.log("Clicked2 " + modalShow + " " + name)
+		backdrop.onclick = () => {
+			userInfo.style.display = "none";
+			backdrop.style.display = "none";	
+		}
 
+		document.getElementById("bttnCancel").onclick = (e) => {
+			e.preventDefault();
+			userInfo.style.display = "none";
+			backdrop.style.display = "none";
 		}
 	</script>

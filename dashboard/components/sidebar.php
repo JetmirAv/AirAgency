@@ -18,7 +18,7 @@
 					</a>
 				</li>
 				<li class="active">
-					<a href="user.php">
+					<a href="userInfo.php">
 						<i class="pe-7s-user"></i>
 						<p>User Profile</p>
 					</a>

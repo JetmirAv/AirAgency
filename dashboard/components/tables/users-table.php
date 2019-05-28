@@ -5,8 +5,13 @@
 	<?php include "../databaseConfig.php" ?>
 	<?php
 	$sql = "select id,img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users order by id asc  limit 10";
-	$rs_result = $conn->query($sql);
-	$user_id = '';
+	$rsResult = $conn->query($sql);
+	$userId = '';
+
+	$countRows = "select count(*) as count from users where roleId=2";
+	$numberOfRows = $conn->query($countRows);
+	$count = $numberOfRows->fetch();
+
 	?>
 
 
@@ -42,7 +47,7 @@
 		</div>
 	</form>
 	<div class="header">
-		<h4 style="display: inline-block; width: 40%" class="title">Number of users:</h4>
+		<h4 style="display: inline-block; width: 40%" class="title">Number of users:<?php echo $count['count']?></h4>
 
 		<a href="userInsert.php" style=" font: bold 11px Arial;
 												text-decoration: none;
@@ -56,21 +61,22 @@
 												height:30px">Create User</a>
 	</div>
 	<div class="content table-responsive table-full-width">
-		<table class='table table-hover table-striped' style="table-layout: ;">
+		<table class='table table-hover table-striped' style="table-layout:fixed;"  width='100%'>
 			<thead>
-				<th width=3%>Image</th>
-				<th width=15%>Name</th>
-				<th width=3%>Gendre</th>
+				<th width=5%>Image</th>
+				<th width=13%>Name</th>
+				<th width=8%>Gendre</th>
 				<th width=8%>Birthday</th>
-				<th width=8%>Email</th>
-				<th width=7%>State</th>
-				<th width=7%>City</th>
-				<th width=12%>Phone Number</th>
+				<th width=20%>Email</th>
+				<th width=12%>State</th>
+				<th width=13.5%>City</th>
+				<th width=11%>Phone Number</th>
+				<th width=10%></th>
 			</thead>
-			<tbody id="load_data_table">
+			<tbody id="loadDataTable">
 				<?php
 
-				foreach ($rs_result as $row) {
+				foreach ($rsResult as $row) {
 					echo ' <tr>
 					<td style="padding:2px ; padding-left:10px"><img src="assets/img/faces/face-0.jpg" width=35;height=35; style="border-radius:50% ; padding:0px;"> </td>
 					<td>' . $row["fullname"] . '</td>
@@ -80,40 +86,40 @@
 					<td>' . $row["state"] . '</td>
 					<td>' . $row["city"] . '</td>
 					<td>' . $row["phoneNumber"] . '</td>
-					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="width:15%; background-color:dodgerblue; padding-left:3px; padding-right:3px" on >Delete</button></td>
+					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
 						  
 				</tr>';
 				}
-				$user_id = $row["id"] + 1;
+				$userId = $row["id"] + 1;
 				?>
 			</tbody>
 
 		</table>
-		<button type="button" name="btn_more" data-vid="<?php echo $user_id; ?>" id="btn_more" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
+		<button type="button" name="btnMore" data-vid="<?php echo $userId; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 
 	</div>
 	</div>
 
 	<script>
 		$(document).ready(function() {
-			$(document).on('click', '#btn_more', function() {
-				var last_flight_id = $(this).data("vid");
-				$('#btn_more').html("Loading...");
+			$(document).on('click', '#btnMore', function() {
+				var lastUserId = $(this).data("vid");
+				$('#btnMore').html("Loading...");
 				$.ajax({
 					url: "components/tables/loading-users.php",
 					method: "POST",
 					data: {
-						last_flight_id: last_flight_id
+						lastUserId: lastUserId
 					},
 					dataType: "html",
 					success: function(data) {
 						if (data != '') {
-							$('#btn_more').remove();
-							// $('#remove_row').remove();
-							$('#load_data_table').append(data);
+							$('#btnMore').remove();
+							 $('#removeRow').remove();
+							$('#loadDataTable').append(data);
 
 						} else {
-							$('#btn_more').html("No Data");
+							$('#btnMore').html("No Data");
 						}
 					}
 				});

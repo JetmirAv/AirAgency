@@ -1,27 +1,29 @@
 <?php
-    include '../../../databaseConfig.php';
+include '../../../databaseConfig.php';
+session_start();
+$_SESSION['deleteSucess'] = null;
+$_SESSION['deleteError'] = null;
 
-        if(isset($_REQUEST['id'])){
-            
-            $deleteQuery = "delete from users where id = ?";
-            $deleteUser = $conn->prepare($deleteQuery);
-            $deleteUser->execute([$_REQUEST['id']]);
-            if($deleteUser->rowCount() > 0){
-                $_SESSION['deleteSucess'] = "Sukses";
-                header("location: " . $_SERVER["HTTP_REFERER"]);
-            } else {
-                $_SESSION['deleteError'] = "Error";
+if (isset($_REQUEST['id'])) {
 
-                header("location: " . $_SERVER["HTTP_REFERER"]);                
-            }
+    $findUserQuery = "select * from users where id = ?";
+    $findUser = $conn->prepare($findUserQuery);
+    $findUser->execute([$_REQUEST['id']]);
+
+    $row = $findUser->fetchAll()[0];;
+    if ($row[1] != 1) {
+        $deleteQuery = "delete from users where id = ?";
+        $deleteUser = $conn->prepare($deleteQuery);
+        $deleteUser->execute([$_REQUEST['id']]);
+        if ($deleteUser->rowCount() > 0) {
+            $_SESSION['deleteSucess'] = "Sukses";
         } else {
-            // echo "Wrong";
             $_SESSION['deleteError'] = "Error";
-            header('location: index.php');
         }
+    } else {
+        $_SESSION['deleteError'] = "Error cant delete Admin";
 
-
-
-    
-
-?>
+    }
+} else {
+    $_SESSION['deleteError'] = "Error";
+}

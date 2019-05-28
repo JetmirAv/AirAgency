@@ -47,8 +47,14 @@
 		</div>
 	</form>
 	<div class="header">
-		<h4>
+		<h4 style="color:orange">
 			<?php
+				if(isset($_SESSION['result'])){
+					foreach($_SESSION['result'] as $res){
+						echo $res . " ";
+					};
+				}
+
 				if(isset($_SESSION['deleteSucess'])){
 					echo $_SESSION['deleteSucess'];
 				}

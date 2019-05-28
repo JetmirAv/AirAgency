@@ -24,7 +24,7 @@ ON f.planeId=a.id
 WHERE f.id=5;";
 $flightStatement = $conn->prepare($sqlFlight);
 $flightStatement->execute();
-$flightDetail = $flightStatement->fetchAll(); 
+$flightDetail = $flightStatement->fetch(); 
 ?>
                
 <?php 
@@ -102,13 +102,13 @@ $results = $cityStm->fetchAll();
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>To City</label>
-                                                <input type="text" name="toCity" class="form-control" placeholder="To..." value="<?php echo $flightDt['To City'];  ?>">
+                                                <input type="text" name="toCity" class="form-control" placeholder="To..." value="<?php echo $flightDetail['To City'];  ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 80px;">
                                         <label style="padding-right:5px"> Available </label>
                                         <br>
-                                        <input type="text" name="avalible" class="form-control" value="<?php echo $flightDt['Available']; ?>">
+                                        <input type="text" name="avalible" class="form-control" value="<?php echo $flightDetail['Available']; ?>">
                                         </div>
 
                                     </div>
@@ -117,13 +117,13 @@ $results = $cityStm->fetchAll();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Airplane</label>
-                                                <input name="planeId" type="text" placeholder="Airplane" class="form-control" value="<?php echo $flightDt['Airplane']; ?>">
+                                                <input name="planeId" type="text" placeholder="Airplane" class="form-control" value="<?php echo $flightDetail['Airplane']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>CheckIn</label>l
-                                                <input name="checkIn" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDt['CheckIn']; ?>">
+                                                <input name="checkIn" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['CheckIn']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -131,13 +131,13 @@ $results = $cityStm->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Price</label>
-                                                <input name="price" type="Text" class="form-control" placeholder="Price" value="<?php echo $flightDt['Price']; ?>">
+                                                <input name="price" type="Text" class="form-control" placeholder="Price" value="<?php echo $flightDetail['Price']; ?>">
                                             </div>
                                         </div>
                                        <div class="col-md-3" style="width: 90px;">
                                        <label> isSale </label>
                                         <br>
-                                        <input name="isSale" type="number" class="form-control" value="<?php echo $flightDt['isSale']; ?>">
+                                        <input name="isSale" type="number" class="form-control" value="<?php echo $flightDetail['isSale']; ?>">
                                         </div>
                                        
                                      </div>
@@ -146,7 +146,7 @@ $results = $cityStm->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input name="createdAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDt['created At'];?>">
+                                                <input name="createdAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['created At'];?>">
                                             </div>
                                         </div>
 
@@ -154,7 +154,7 @@ $results = $cityStm->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDt['update At'];?>">
+                                                <input name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['update At'];?>">
                                             </div>
                                         </div>
 
@@ -176,7 +176,7 @@ $results = $cityStm->fetchAll();
                                      <a href="#">
                                     <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
 
-                                      <h4 class="title"><?php echo $flightDt['From City'] . " To " .  $flightDt['To City']; ?><br />
+                                      <h4 class="title"><?php echo $flightDetail['From City'] . " To " .  $flightDetail['To City']; ?><br />
                                          <small>michael24</small>
                                       </h4>
                                     </a>

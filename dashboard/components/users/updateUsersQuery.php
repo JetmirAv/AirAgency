@@ -26,11 +26,11 @@ try{
 //    $updatedAt = $_POST['updatedAt'];
     
     
-    $updatePlane = "update users set firstname = :firstname, lastname = :lastname, email = :email, password = :password, birthday = :birthday, gendre = :gendre, address=:address city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 10;";
+    $updatePlane = "update users set firstname = :firstname, lastname = :lastname, email = :email, password = :password, birthday = :birthday, gendre = :gendre, address=:address , city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 15;";
     $updateStm = $conn->prepare($updatePlane);
     $pdoExec = $updateStm->execute(array(":firstname"=>$firstname,":lastname"=>$lastname,":email"=>$email,":password"=>$password,":birthday"=>$birthday,":gendre"=>$gendre,":address"=>$address,":city"=>$city,":state"=>$state,":postal"=>$postal,":phoneNumber"=>$phoneNumber,":img"=>$img));
     
-    $updateCard = "update card set number=:number , updatedAt = NOW() where id=10;";
+    $updateCard = "update card c inner join users u on c.userId=u.id set number=:number where u.id=15;";
     $updateCardStm = $conn->prepare($updateCard);
     $pdoExecCard = $updateCardStm->execute(array(":number"=>$number)); 
     

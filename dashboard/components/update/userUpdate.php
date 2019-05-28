@@ -37,24 +37,24 @@ $cardUserDetail = $cardStatement->fetchAll();
                                 <h4 class="title">Edit User</h4>
                             </div>
                             <div class="content">
-                                <form>
+                         <form action="components/users/updateUsersQuery.php" method="post">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control"  placeholder="First Name" value="<?php echo $userDt["firstname"] ?>">
+                                                <input type="text" name="firstname" class="form-control"  placeholder="First Name" value="<?php echo $userDt["firstname"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>LAST NAME</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="<?php echo $userDt["lastname"] ?>">
+                                                <input type="text" name="lastname" class="form-control" placeholder="Last Name" value="<?php echo $userDt["lastname"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 30px;">
                                         <label style="padding-right:5px"> Gender </label>
                                         <br>
-                                        <select style="padding:7.5px;">
+                                        <select name="gender" style="padding:7.5px;">
                                               <option class="form-group"><?php echo $userDt["gendre"] ?></option>
                                               <option value="F">F</option>
                                         </select> 
@@ -66,13 +66,13 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" placeholder="password" class="form-control" value="<?php echo $userDt["password"]?>">
+                                                <input type="password" name="password" placeholder="password" class="form-control" value="<?php echo $userDt["password"]?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Birthday</label>l
-                                                <input type="date" class="form-control" placeholder="Birthday" value="<?php echo $userDt["birthday"] ?>">
+                                                <input type="date" name="birthday" class="form-control" placeholder="Birthday" value="<?php echo $userDt["birthday"] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Home Address" width="20" value="<?php echo $userDt["address"] ?>">
+                                                <input type="text" name="address" class="form-control" placeholder="Home Address" width="20" value="<?php echo $userDt["address"] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -91,20 +91,20 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="<?php echo $userDt["city"] ?>">
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="<?php echo $userDt["city"] ?>">
                                             </div>
                                         </div>
                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country" value="<?php echo $userDt["state"] ?>">
+                                                <input type="text" name="state" class="form-control" placeholder="Country" value="<?php echo $userDt["state"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
-                                                <input type="text" class="form-control" placeholder="ZIP Code" value="<?php echo $userDt["postal"] ?>">
+                                                <input type="text" name="postal" class="form-control" placeholder="ZIP Code" value="<?php echo $userDt["postal"] ?>">
                                             </div>
                                         </div>
                                      </div>
@@ -112,7 +112,7 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Phone number</label>
-                                                <input type="text" class="form-control" placeholder=" +000-00-000-000" value="<?php echo $userDt["phoneNumber"] ?>">
+                                                <input type="text" name="phoneNumber" class="form-control" placeholder=" +000-00-000-000" value="<?php echo $userDt["phoneNumber"] ?>">
                                             </div>
                                         </div>
                                        
@@ -133,15 +133,19 @@ $cardUserDetail = $cardStatement->fetchAll();
                                       <div class="col-md-4">
                                         <div class="form-group">
                                                 <label>Card Number</label>
-                                                <input type="text" class="form-control" placeholder="Card Number" value="<?php echo $cardUser["number"] ?>">
+                                                <input type="text" name="card" class="form-control" placeholder="Card Number" value="<?php echo $cardUser["number"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $cardUser["expDate"] ?>">
+                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $cardUser["expDate"] ?>">
                                             </div>
                                         </div>
+                                         <div class="form-group">
+                                                <label>Image</label>
+                                                <input type="file" name="img" placeholder="Image" value="img" style="width: 120px;">
+                                            </div> 
                                     </div> <?php } }?>    
 
                                     <button type="submit" class="btn btn-info btn-fill pull-right">Update User</button>

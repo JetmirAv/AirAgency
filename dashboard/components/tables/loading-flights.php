@@ -21,7 +21,7 @@ if ($count > 0) {
 	foreach ($rsResult as $row) {
 		$flightId = $row['id'];
 		$output .= '
-                <tr>
+                <tr id='.$row['id'].'>
 				<td style="padding:2px ; padding-left:10px"><img src='.$row["image"] .' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
 				<td>' . $row["fromCity"] . '</td>   
 					<td>' . $row["toCity"] . '</td>

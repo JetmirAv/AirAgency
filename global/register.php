@@ -156,8 +156,6 @@ if (isset($_POST['register'])) {
                 $roleId = $getRole->fetch();
                 print_r($roleId);
                 print($roleId['roleId']);
-                $_SESSION["loggedin"] = true;
-                $_SESSION["name"] = $firstname;
                 $_SESSION["token"] = generateJWT($insertedId, $roleId['roleId'], $email, $firstname);
 
                 //Redirecting ...

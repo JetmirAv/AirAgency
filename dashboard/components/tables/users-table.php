@@ -24,7 +24,7 @@
 		height: 100%;
 		z-index: 300"></div>
 	<form action="components/delete/deleteUser.php" method="POST">
-		<div id="userInfo" style="
+		<div id="userDelete" style="
 		position: fixed;
 		background-color: #eee;
 		display: none;
@@ -141,7 +141,7 @@
 			});
 		});
 
-		let userInfo = document.getElementById("userInfo");
+		let userInfo = document.getElementById("userDelete");
 		let backdrop = document.getElementById("backdrop");
 		let userId, userName, userEmail = '';
 

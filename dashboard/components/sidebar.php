@@ -84,7 +84,7 @@
 		case 'airplane-table.php':
 			document.getElementById("airplane-table").setAttribute('class', 'active')
 			break;
-		case 'flight.php':
+		case 'flights.php':
 			document.getElementById("flights").setAttribute('class', 'active')
 			break;
 		case 'booked-table.php':

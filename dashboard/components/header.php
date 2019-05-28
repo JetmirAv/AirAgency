@@ -31,7 +31,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="profile.php">
+                    <a href="userInfo.php">
                         Account
                     </a>
                 </li>

@@ -4,32 +4,27 @@ include "../databaseConfig.php";
 
 // Query for user
 $sql = "SELECT firstname , lastname , email , password , birthday , gendre , address , city , state , postal , phoneNumber , img , 
-createdAt , updatedAt FROM  users WHERE id=2;";
+createdAt , updatedAt FROM  users WHERE id=10;";
 
 
 // Query for Card User
-$sqlCard = "SELECT  c.number ,  concat(c.expMonth , '/' , c.expYear) as expDate from Card c 
+$sqlCard = "SELECT  c.number as 'number' ,  concat(c.expMonth , '/' , c.expYear) as expDate from Card c 
 INNER JOIN users u 
 ON u.id = c.id 
-WHERE u.id = 2;";
+WHERE u.id = 10;";
    
 
 $statement = $conn->prepare($sql);
 $statement->execute();
-$userDetail = $statement->fetchAll(); 
+$userDetail = $statement->fetch(); 
 
 $cardStatement = $conn->prepare($sqlCard);
 $cardStatement -> execute();
-$cardUserDetail = $cardStatement->fetchAll();
+$cardUserDetail = $cardStatement->fetch();
 
 
 
 ?>
-
-<?php  foreach($userDetail as $userDt){ ?>
-                        
-     <?php foreach($cardUserDetail as $cardUser) { ?>
-
 
                     <div class="col-md-8">                         
 						 <div class="card">
@@ -42,20 +37,20 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>First Name</label>
-                                                <input type="text" name="firstname" class="form-control"  placeholder="First Name" value="<?php echo $userDt["firstname"] ?>">
+                                                <input type="text" name="firstname" class="form-control"  placeholder="First Name" value="<?php echo $userDetail["firstname"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>LAST NAME</label>
-                                                <input type="text" name="lastname" class="form-control" placeholder="Last Name" value="<?php echo $userDt["lastname"] ?>">
+                                                <input type="text" name="lastname" class="form-control" placeholder="Last Name" value="<?php echo $userDetail["lastname"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 30px;">
                                         <label style="padding-right:5px"> Gender </label>
                                         <br>
-                                        <select name="gender" style="padding:7.5px;">
-                                              <option class="form-group"><?php echo $userDt["gendre"] ?></option>
+                                        <select name="gendre" style="padding:7.5px;">
+                                              <option class="form-group"><?php echo $userDetail["gendre"] ?></option>
                                               <option value="F">F</option>
                                         </select> 
                                         </div>
@@ -66,13 +61,13 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" name="password" placeholder="password" class="form-control" value="<?php echo $userDt["password"]?>">
+                                                <input type="password" name="password" placeholder="password" class="form-control" value="<?php echo $userDetail["password"]?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Birthday</label>l
-                                                <input type="date" name="birthday" class="form-control" placeholder="Birthday" value="<?php echo $userDt["birthday"] ?>">
+                                                <input type="date" name="birthday" class="form-control" placeholder="Birthday" value="<?php echo $userDetail["birthday"] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +76,15 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" name="address" class="form-control" placeholder="Home Address" width="20" value="<?php echo $userDt["address"] ?>">
+                                                <input type="text" name="address" class="form-control" placeholder="Home Address" width="20" value="<?php echo $userDetail["address"] ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" name="email" class="form-control" placeholder="Home Address" width="20" value="<?php echo $userDetail["email"] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -91,20 +94,20 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" name="city" class="form-control" placeholder="City" value="<?php echo $userDt["city"] ?>">
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="<?php echo $userDetail["city"] ?>">
                                             </div>
                                         </div>
                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" name="state" class="form-control" placeholder="Country" value="<?php echo $userDt["state"] ?>">
+                                                <input type="text" name="state" class="form-control" placeholder="Country" value="<?php echo $userDetail["state"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
-                                                <input type="text" name="postal" class="form-control" placeholder="ZIP Code" value="<?php echo $userDt["postal"] ?>">
+                                                <input type="text" name="postal" class="form-control" placeholder="ZIP Code" value="<?php echo $userDetail["postal"] ?>">
                                             </div>
                                         </div>
                                      </div>
@@ -112,20 +115,20 @@ $cardUserDetail = $cardStatement->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Phone number</label>
-                                                <input type="text" name="phoneNumber" class="form-control" placeholder=" +000-00-000-000" value="<?php echo $userDt["phoneNumber"] ?>">
+                                                <input type="text" name="phoneNumber" class="form-control" placeholder=" +000-00-000-000" value="<?php echo $userDetail["phoneNumber"] ?>">
                                             </div>
                                         </div>
                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDt["createdAt"] ?>">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["createdAt"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDt["updatedAt"] ?>">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["updatedAt"] ?>">
                                             </div>
                                         </div>
                                      </div>
@@ -133,20 +136,20 @@ $cardUserDetail = $cardStatement->fetchAll();
                                       <div class="col-md-4">
                                         <div class="form-group">
                                                 <label>Card Number</label>
-                                                <input type="text" name="card" class="form-control" placeholder="Card Number" value="<?php echo $cardUser["number"] ?>">
+                                                <input type="text" name="number" class="form-control" placeholder="Card Number" value="<?php echo $cardUserDetail["number"]?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $cardUser["expDate"] ?>">
+                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $cardUserDetail["expDate"] ?>">
                                             </div>
                                         </div>
                                          <div class="form-group">
                                                 <label>Image</label>
                                                 <input type="file" name="img" placeholder="Image" value="img" style="width: 120px;">
                                             </div> 
-                                    </div> <?php } }?>    
+                                    </div>    
 
                                     <button type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                                     <div class="clearfix"></div>
@@ -164,7 +167,7 @@ $cardUserDetail = $cardStatement->fetchAll();
                                      <a href="#">
                                     <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
 
-                                      <h4 class="title"><?php echo $userDt["firstname"] . " " . $userDt["lastname"];?> <br />
+                                      <h4 class="title"><?php echo $userDetail["firstname"] . " " . $userDetail["lastname"];?> <br />
                                          <small>michael24</small>
                                       </h4>
                                     </a>

@@ -24,11 +24,10 @@ where b.id=3;" ;
 
 $bookedStatement = $conn->prepare($sqlBooked);
 $bookedStatement->execute();
-$bookedDetails = $bookedStatement->fetchAll();
+$bookedDetails = $bookedStatement->fetch();
 
 ?>                        
                            
-  <?php foreach($bookedDetails as $bookedDt)   { ?>                        
                            
                            <div class="card">
                             <div class="header">
@@ -42,13 +41,13 @@ $bookedDetails = $bookedStatement->fetchAll();
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                 <label>From City</label>
-                                                <input type="text" class="form-control"  placeholder="From..." value="<?php echo $bookedDt['From']; ?>" >
+                                                <input type="text" class="form-control"  placeholder="From..." value="<?php echo $bookedDetails['From']; ?>" >
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="width: 300px;">
                                             <div class="form-group">
                                                 <label>To City</label>
-                                                <input type="text" class="form-control" placeholder="To... " value="<?php echo $bookedDt['To']; ?> " >
+                                                <input type="text" class="form-control" placeholder="To... " value="<?php echo $bookedDetails['To']; ?> " >
                                             </div>
                                         </div>
                                         
@@ -58,13 +57,13 @@ $bookedDetails = $bookedStatement->fetchAll();
                                         <div class="col-md-6">
                                             <div class="form-group" style="width:250px;">
                                                 <label>Airplane</label>
-                                                <input type="text" placeholder="Airplane" class="form-control" value="<?php echo $bookedDt['Plane']; ?>">
+                                                <input type="text" placeholder="Airplane" class="form-control" value="<?php echo $bookedDetails['Plane']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group" style="width:188px;">
                                                 <label>Quantity</label>l
-                                                <input type="text" class="form-control" placeholder="Quantity" value="<?php echo $bookedDt['Quantity']; ?>">
+                                                <input type="text" class="form-control" placeholder="Quantity" value="<?php echo $bookedDetails['Quantity']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -72,14 +71,14 @@ $bookedDetails = $bookedStatement->fetchAll();
                                     <div class="col-md-3" style="width: 270px;">
                                             <div class="form-group">
                                                 <label>User</label>
-                                                <input type="text" class="form-control" placeholder="User... " value="<?php echo $bookedDt['fullname']; ?>">
+                                                <input type="text" class="form-control" placeholder="User... " value="<?php echo $bookedDetails['fullname']; ?>">
                                             </div>
                                         </div>   
                                         
                                         <div class="col-md-4">
                                             <div class="form-group" style="padding-left:10px;">
                                                 <label>Price</label>
-                                                <input type="text" class="form-control" placeholder="Price" value="<?php echo $bookedDt['Price']; ?>">
+                                                <input type="text" class="form-control" placeholder="Price" value="<?php echo $bookedDetails['Price']; ?>">
                                             </div>
                                         </div>                                                             <!-- <div class="form-group" style="padding-left:10px;">
                                                 <label>Id</label>
@@ -90,13 +89,13 @@ $bookedDetails = $bookedStatement->fetchAll();
                                         <div class="col-md-4" style="margin-right:9%;">
                                             <div class="form-group" style="width:250px;">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $bookedDt['Created At']; ?>">
+                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $bookedDetails['Created At']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group" style="width:250px;">
                                                 <label>Updated at</label>
-                                                <input type="text" class="form-control" placeholder="__/__/____" value="<?php echo $bookedDt['Update At']; } ?>">
+                                                <input type="text" class="form-control" placeholder="__/__/____" value="<?php echo $bookedDetails['Update At'];  ?>">
                                             </div>
                                         </div>
                                      </div>

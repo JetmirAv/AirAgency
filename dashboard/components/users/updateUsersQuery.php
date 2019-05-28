@@ -19,14 +19,20 @@ try{
     $state = $_POST['state'];
     $postal = $_POST['postal'];
     $phoneNumber = $_POST['phoneNumber'];
-    $gender = $_POST['gender'];
+    $gendre = $_POST['gendre'];
     $img = $_POST['img'];
+    $birthday=$_POST['birthday'];
+    $number = $_POST['number'];
 //    $updatedAt = $_POST['updatedAt'];
     
     
-    $updatePlane = "update users set firstname = :firstname, lastname = :lastname, email = :email, password = :password, birthday = :birthday, gender = :gender, img = :img, updatedAt = NOW() where id = 104;";
+    $updatePlane = "update users set firstname = :firstname, lastname = :lastname, email = :email, password = :password, birthday = :birthday, gendre = :gendre, address=:address city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 10;";
     $updateStm = $conn->prepare($updatePlane);
-    $pdoExec = $updateStm->execute(array(":name"=>$name,":yearOfProd"=>$yearOfProd,":seats"=>$seats,":fuelCapacity"=>$fuelCapacity,":maxspeed"=>$maxspeed,":additionalDesc"=>$additionalDesc,":img"=>$img));
+    $pdoExec = $updateStm->execute(array(":firstname"=>$firstname,":lastname"=>$lastname,":email"=>$email,":password"=>$password,":birthday"=>$birthday,":gendre"=>$gendre,":address"=>$address,":city"=>$city,":state"=>$state,":postal"=>$postal,":phoneNumber"=>$phoneNumber,":img"=>$img));
+    
+    $updateCard = "update card set number=:number , updatedAt = NOW() where id=10;";
+    $updateCardStm = $conn->prepare($updateCard);
+    $pdoExecCard = $updateCardStm->execute(array(":number"=>$number)); 
     
         echo "Connection successfully";
     

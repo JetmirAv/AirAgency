@@ -26,7 +26,7 @@
 		z-index: 300"></div>
 	<form action="components/delete/deleteUser.php" method="POST">
 		<div id="userInfo" style="
-		position: absolute;
+		position: fixed;
 		background-color: #eee;
 		display: none;
 		top: 30%;
@@ -162,7 +162,7 @@
 			type: "POST",
 			data:{"id":userId}
 			}).done(function(data) {
-				alert(data);
+				location.reload();
 			});
 		}
 

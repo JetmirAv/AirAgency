@@ -4,8 +4,10 @@ include "../databaseConfig.php";
 // Query Flights
  
 $sqlFlight="SELECT c1.id as 'fromCityId',
-a.name as 'airplaneName',
+a.id as 'airplaneId',
+a.name as 'AirplaneName',
 f.planeId as 'planeId',
+f.toCity as 'toCity',
 f.fromCity as 'fromCity',
 c2.id as 'toCityId',
 c1.name as 'From City',
@@ -37,7 +39,10 @@ $cityStm = $conn->prepare($allCities);
 $cityStm->execute();
 $results = $cityStm->fetchAll();
 
+
+
 ?>
+
    <?php 
 //include "../databaseConfig.php";
 $allPlanes = "select id,name from airplane order by name ; ";
@@ -47,7 +52,7 @@ $planeResults = $planeStm->fetchAll();
 
 ?>           
               
-               
+
     
                 <div class="col-md-8">
 					 <div class="card">
@@ -70,23 +75,27 @@ $planeResults = $planeStm->fetchAll();
                                            <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                
-                                               <?php echo $flightDetail['fromCity']?>
+                                               <?php //echo $flightDetail['toCity']?>
                                                 <label>From City</label>      
                                                   <select name="fromCity">
+
                                                     <?php foreach($results as $output) 
                                                         {
                                                            if($output['id']==$flightDetail['fromCity'])
                                                            {
                                                                ?>
-                                                                <option value = "<?php echo $flightDetail['fromCity']?> " selected >
+
+                                                                <option value = "<?php echo $flightDetail['fromCityId'] ?>" selected >
                                                                         <?php  echo $flightDetail['From City']; ?>
-                                                                </option>
+                                                                    </option>
                                                            <?php 
                                                            }
 
                                                             ?>
-                                                            <option value = "<?php $flightDetail['From City']?> ">
+
+                                                            <option value = "<?php echo $output['id']?> selected">
                                                             <?php  echo $output['name']; ?></option>
+
                                                            <?php 
                                                         }
                                                        
@@ -99,22 +108,22 @@ $planeResults = $planeStm->fetchAll();
                                                <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                
-                                               
-                                                <label>From City</label>      
+                                                <?php //echo $flightDetail['toCity'];?>
+                                                <label>To City</label>      
                                                   <select name="toCity">
                                                     <?php foreach($results as $output) 
                                                         {
-                                                           if($output['id']==$flightDetail['toCityId'])
+                                                           if($output['id']==$flightDetail['toCity'])
                                                            {
                                                                ?>
-                                                                <option value = "<?php echo $flightDetail['toCityId']?> " selected >
+                                                               <option value = "<?php echo $flightDetail['toCityId']?> " selected >
                                                                         <?php  echo $flightDetail['To City']; ?>
                                                                 </option>
                                                            <?php 
                                                            }
 
                                                             ?>
-                                                            <option value = "<?php $flightDetail['To City']?> ">
+                                                            <option value = "<?php echo $output['id']?> selected ">
                                                             <?php  echo $output['name']; ?></option>
                                                            <?php 
                                                         }
@@ -142,29 +151,31 @@ $planeResults = $planeStm->fetchAll();
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+<!--
                                                 <label>Airplane</label>
-                                                <input name="planeId" type="text" placeholder="Airplane" class="form-control" value="<?php echo $flightDetail['Airplane']; ?>">
+                                                <input name="planeId" type="text" placeholder="Airplane" class="form-control" value="<?php //echo $flightDetail['Airplane']; ?>">
+-->
                                                 
                                                 
                                                  <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                
-                                               <?php echo $flightDetail['fromCity']?>
-                                                <label>From City</label>      
+                                               <?php //echo $flightDetail['fromCity']?>
+                                                <label>Airplane</label>      
                                                   <select name="planeId">
                                                     <?php foreach($planeResults as $planeOutput) 
                                                         {
                                                            if($planeOutput['id']==$flightDetail['planeId'])
                                                            {
                                                                ?>
-                                                                <option value = "<?php echo $flightDetail['planeId']?> " selected >
-                                                                        <?php  echo $flightDetail['airplaneName']; ?>
+                                                                <option value = "<?php echo $flightDetail['airplaneId']?> " selected >
+                                                                        <?php  echo $flightDetail['AirplaneName']; ?>
                                                                 </option>
                                                            <?php 
                                                            }
 
                                                             ?>
-                                                            <option value = "<?php $flightDetail['airplaneName']?> ">
+                                                            <option value = "<?php echo $planeOutput['id']?> selected ">
                                                             <?php  echo $planeOutput['name']; ?></option>
                                                            <?php 
                                                         }

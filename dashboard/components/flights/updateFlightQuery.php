@@ -17,7 +17,7 @@ if(isset($_POST['updateFlight']))
 {
     
     
-    $fromCity =(int)trim($_POST['fromCity']);
+    $fromCity =(int)$_POST['fromCity'];
     $toCity = (int)trim($_POST['toCity']);
     $planeId = (int)trim($_POST['planeId']);
     $avalible = (int)trim($_POST['avalible']);
@@ -26,12 +26,12 @@ if(isset($_POST['updateFlight']))
     $checkIn = date(trim($_POST['checkIn']));
     $img = $_POST['img'];
 //    $updatedAt = $_POST['updatedAt'];
-    echo $fromCity;
+    echo $toCity;
     
-    $updateFlight = " Update flight set  fromCity = '$fromCity', toCity = '$toCity',planeId = '$planeId', avalible = '$avalible', price = '$price', isSale = '$isSale', checkIn = '$checkIn' , img = '$img', updatedAt=NOW() where id = '101'    and (fromCity in(select id from city where name='$fromCity') and toCity in (select id from city where name= '$toCity')); ";
+    $updateFlight = " Update flight set  fromCity ='$fromCity' , toCity = '$toCity', planeId = '$planeId', avalible = '$avalible', price = '$price', isSale = '$isSale', checkIn = '$checkIn' , img = '$img', updatedAt=NOW() where id = '101'    and ('$fromCity' in(select id from city ) and '$toCity' in (select id from city)); ";
     $updateStm = $conn->prepare($updateFlight);
     print_r($updateFlight);
-    $pdoExec = $updateStm->execute(array(":fromCity"=>$fromCity,":toCity"=>$toCity, "planeId"=>$planeId,  ":avalible"=>$avalible,":price"=>$price,":isSale"=>$isSale, ":checkIn"=>$checkIn, ":img"=>$img));
+    $pdoExec = $updateStm->execute(array(":fromCity"=>$fromCity, ":toCity"=>$toCity, ":planeId"=>$planeId, ":avalible"=>$avalible, ":price"=>$price, ":isSale"=>$isSale, ":checkIn"=>$checkIn, ":img"=>$img));
     
     
     
@@ -42,7 +42,7 @@ if(isset($_POST['updateFlight']))
 //    $updateFlight = " Update flight set  fromCity = '$fromCity, toCity = :toCity,planeId = :planeId, avalible = :avalible, price = :price, isSale = :isSale, checkIn = :checkIn, img = :img, updatedAt=NOW() where id = 101 and (fromCity in(select id from city where name=:fromCity) or toCity in (select id from city where name= :toCity)); ";
     
     
-        echo "Connection successfully";
+        echo "Updated successfully";
     
 }
     

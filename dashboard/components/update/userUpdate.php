@@ -4,14 +4,14 @@ include "../databaseConfig.php";
 
 // Query for user
 $sql = "SELECT firstname , lastname , email , password , birthday , gendre , address , city , state , postal , phoneNumber , img , 
-createdAt , updatedAt FROM  users WHERE id=15;";
+createdAt , updatedAt FROM  users WHERE id=14;";
 
 
 // Query for Card User
 $sqlCard = "SELECT  c.number as 'number' ,  concat(c.expMonth , '/' , c.expYear) as expDate from Card c 
 INNER JOIN users u 
 ON u.id = c.id 
-WHERE u.id = 15;";
+WHERE u.id = 14;";
    
 
 $statement = $conn->prepare($sql);
@@ -136,13 +136,13 @@ $cardUserDetail = $cardStatement->fetch();
                                       <div class="col-md-4">
                                         <div class="form-group">
                                                 <label>Card Number</label>
-                                                <input type="number" name="number" class="form-control" placeholder="Card Number" value="<?php echo $cardUserDetail["number"]?>">
+                                                <input type="text" name="number" class="form-control" placeholder="Card Number" value="<?php echo $cardUserDetail["number"]?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime"  class="form-control" placeholder="__/__/____" value="<?php echo $cardUserDetail["expDate"] ?>">
+                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $cardUserDetail["expDate"] ?>">
                                             </div>
                                         </div>
                                          <div class="form-group">

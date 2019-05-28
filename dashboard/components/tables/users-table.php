@@ -47,6 +47,16 @@
 		</div>
 	</form>
 	<div class="header">
+		<h4>
+			<?php
+				if(isset($_SESSION['deleteSucess'])){
+					echo $_SESSION['deleteSucess'];
+				}
+				if(isset($_SESSION['deleteError'])){
+					echo $_SESSION['deleteError'];
+				}
+			?>	
+		</h4>
 		<h4 style="display: inline-block; width: 40%" class="title">Number of users:<?php echo $count['count']?></h4>
 
 		<a href="userInsert.php" style=" font: bold 11px Arial;

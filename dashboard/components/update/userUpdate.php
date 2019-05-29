@@ -20,7 +20,7 @@ u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
  FROM  users u
-LEFT JOIN Card c on u.id=c.userId where u.id=67;";
+LEFT JOIN Card c on u.id=c.userId where u.id=" . $dataArr->id ;
    
 
 $statement = $conn->prepare($sql);  
@@ -72,8 +72,8 @@ $userDetail = $statement->fetch();
                                         <label style="padding-right:5px"> Gender </label>
                                         <br>
                                         <select name="gendre" style="padding:7.5px;">
-                                              <option class="form-group"><?php echo $userDetail["gendre"] ?></option>
-                                              <option value="F">F</option>
+                                              <option <?php echo $userDetail["gendre"] == "M" ? "selected" : "" ?> value="M">M</option>
+                                              <option <?php echo $userDetail["gendre"] == "F" ? "selected" : "" ?> value="F">F</option>
                                         </select> 
                                         </div>
 

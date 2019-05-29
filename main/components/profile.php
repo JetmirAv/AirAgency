@@ -90,7 +90,7 @@ if ($findUserQuery->rowCount() > 0) {
         flex-direction: row;
         justify-content: space-around;
         align-content: center;" class="row">
-                    <div style="" class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Email</label>
                             <input value="<?php echo $user[3] ?>" name="form-email" type="text" placeholder="email" class="form-control">

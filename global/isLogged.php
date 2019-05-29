@@ -7,9 +7,9 @@ $text = '<a href="./login.php">LOGIN<i class="fa fa-long-arrow-right" aria-hidde
 $isAuth = false;
 $logOut = '';
 // print_r($_SESSION);
-$dataArr = Array();
+$dataArr = array();
 if (isset($_SESSION['token'])) {
-    
+
     $dataArr = getDataJWT($_SESSION['token']);
     $token = $_SESSION["token"];
     $isLogged = verifyJWT($_SESSION['token']);
@@ -31,48 +31,48 @@ $path = $_SERVER['PHP_SELF'];
 $path = explode('/', $path);
 
 if (!$isAuth) {
-    if(in_array('dashboard', $path)){
-        
-        header('location: http://localhost/AirAgency/main', true, 303);
-        die();
-    }
-    
-    if(in_array('main', $path)){
+    // if (in_array('dashboard', $path)) {
+
+    //     header('location: http://localhost/AirAgency/main', true, 303);
+    //     die();
+    // }
+
+    if (in_array('main', $path)) {
         $path = end($path);
         // echo "<script>console.log('" . $_SERVER['PHP_SELF'] . " " . $path . "');</script>";
-    
-    
-        switch ($path){
+
+
+        switch ($path) {
             case 'booked.php':
-                header('location: login.php'); 
+                header('location: login.php');
                 die();
                 break;
-            default: 
-                break;                
+            case 'profile.php':
+                header('location: login.php');
+                die();
+                break;
+            default:
+                break;
         }
     }
-    
-    
-
-
 } else {
     $path = $_SERVER['PHP_SELF'];
     $path = explode('/', $path);
     $endPath = end($path);
     // echo "<script>console.log('" . $_SERVER['PHP_SELF'] . " " . $path . "');</script>";
 
-    switch ($endPath){
+    switch ($endPath) {
         case 'login.php':
-            header('location: index.php'); 
+            header('location: index.php');
             die();
             break;
-        default: 
-            break;                
+        default:
+            break;
     }
-    if($dataArr->role != 1){
-        if(in_array('dashboard', $path)){
-            header('location: http://localhost/AirAgency/main', true, 303);
-            die();
-        }
-    }
+    // if ($dataArr->role != 1) {
+    //     if (in_array('dashboard', $path)) {
+    //         header('location: http://localhost/AirAgency/main', true, 303);
+    //         die();
+    //     }
+    // }
 }

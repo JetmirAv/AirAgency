@@ -40,8 +40,8 @@
 				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
-					<button id="bttnCancel">Cancel</button>
-					<button id="bttnDelete" type="submit" name="deleteUser">Delete</button>
+					<button id="bttnConfirmCancel">Cancel</button>
+					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
 				</div>
 		</div>
 	</form>
@@ -117,12 +117,7 @@
 	</div>
 
 	<script>
-		$('tbody').on('click', 'tr', function(e) {
-			var txt = $(this).attr('id');
-			window.location.href = '../dashboard/userInfo.php';
-			//alert (txt);
-		});
-
+		
 		$(document).ready(function() {
 			$(document).on('click', '#btnMore', function() {
 				var lastUserId = $(this).data("vid");
@@ -171,13 +166,13 @@
 		}
 
 
-		document.getElementById("bttnCancel").onclick = (e) => {
+		document.getElementById("bttnConfirmCancel").onclick = (e) => {
 			e.preventDefault();
 			userInfo.style.display = "none";
 			backdrop.style.display = "none";
 		}
 
-		document.getElementById("bttnDelete").onclick = (e) => {
+		document.getElementById("bttnConfirmDelete").onclick = (e) => {
 			e.preventDefault();
 			$.ajax({
 				url: "components/delete/deleteUser.php",

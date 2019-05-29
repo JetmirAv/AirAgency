@@ -14,7 +14,39 @@
 	?>
 
 	<div class="header">
-		<h4 class="title">Number of flights:<?php echo $count['count'] ?></h4>
+	
+		
+		<h4 style="color:orange">
+			<?php
+			if (isset($_SESSION['result'])) {
+				foreach ($_SESSION['result'] as $res) {
+					echo $res . " ";
+				};
+			}
+
+			if (isset($_SESSION['deleteSucess'])) {
+				echo $_SESSION['deleteSucess'];
+			}
+			if (isset($_SESSION['deleteError'])) {
+				echo $_SESSION['deleteError'];
+			}
+			?>
+		</h4>
+    	<h4 style="display: inline-block; width: 40%" class="title">Number of flights:<?php echo $count['count'] ?></h4>
+		<a href="userInsert.php" style=" font: bold 11px Arial;
+												text-decoration: none;
+												background-color: #EEEEEE;
+												color: #333333;
+												padding: 2px 6px 2px 6px;
+												border-top: 1px solid #CCCCCC;
+												border-right: 1px solid #333333;
+												border-bottom: 1px solid #333333;
+												border-left: 1px solid #CCCCCC;
+												height:30px">Create Flight</a>
+	
+		
+		
+		
 	</div>
 	<div class="content table-responsive table-full-width">
 
@@ -67,11 +99,11 @@
 		var pickedup;
 
 
-		$('tbody').on('click', 'tr', function(e) {
-			var txt = $(this).attr('id');
-			window.location.href = '../dashboard/flightsInfo.php';
-			//alert (txt);
-		});
+//		$('tbody').on('click', 'tr', function(e) {
+//			var txt = $(this).attr('id');
+//			window.location.href = '../dashboard/flightsInfo.php';
+//			//alert (txt);
+//		});
 
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");
@@ -96,4 +128,53 @@
 			});
 		});
 	});
+    
+    
+    
+    
+    let flightInfo = document.getElementById("flightInfo");
+		let backdrop = document.getElementById("backdrop");
+		let flightId, origin, destination = '';
+
+		function deleteHandler(id, name, email) {
+			flightInfo.style.display = "block";
+			backdrop.style.display = "block";
+			flightId = id;
+			origin = fromCity;
+			destination = toCity;
+			console.log("ID: " + id + " FromCity: " + fromCity + " toCity: " + toCity);
+			document.getElementById('flight').innerHTML = "ID: " + id + "<br/>" +
+				" OriginId: " + fromCity + "<br/>" +
+				" DestinationId: " + email;
+				
+		}
+
+		backdrop.onclick = () => {
+			flightInfo.style.display = "none";
+			backdrop.style.display = "none";
+		}
+
+
+		document.getElementById("bttnCancel").onclick = (e) => {
+			e.preventDefault();
+			flightInfo.style.display = "none";
+			backdrop.style.display = "none";
+		}
+
+		document.getElementById("bttnDelete").onclick = (e) => {
+			e.preventDefault();
+			$.ajax({
+			url: "components/flights/deleteFlightQuery.php",
+			type: "POST",
+			data:{"id":flightId}
+			}).done(function(data) {
+				location.reload();
+			});
+		}
+    
+    
+    
+    
+    
+    
 </script>

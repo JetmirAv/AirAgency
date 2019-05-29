@@ -1,3 +1,37 @@
+<?php 
+include "../databaseConfig.php";
+
+// Query Flights
+ 
+$sqlFlight="SELECT c1.id as 'fromCityId',
+a.id as 'airplaneId',
+a.name as 'AirplaneName',
+f.planeId as 'planeId',
+f.toCity as 'toCity',
+f.fromCity as 'fromCity',
+c2.id as 'toCityId',
+c1.name as 'From City',
+c2.name as 'To City',
+f.avalible as 'Available',
+a.name as 'Airplane',
+f.checkIn as  'CheckIn',
+f.price as 'Price',
+f.isSale as 'isSale',
+f.createdAt as 'created At',
+f.updatedAt as 'update At',
+f.img as 'Image'
+FROM flight f INNER JOIN city c1 
+ON f.fromCity = c1.id
+INNER JOIN city c2 
+ON f.toCity=c2.id
+INNER JOIN Airplane a 
+ON f.planeId=a.id
+WHERE f.id=101;";
+$flightStatement = $conn->prepare($sqlFlight);
+$flightStatement->execute();
+$flightDetail = $flightStatement->fetch(); 
+?>
+
 <?php
 include "../databaseConfig.php";
 
@@ -8,30 +42,53 @@ $results = $cityStm->fetchAll();
 
 ?>
 
+<?php 
+$allPlanes = "select id,name from airplane order by name ; ";
+$planeStm = $conn->prepare($allPlanes);
+$planeStm->execute();
+$planeResults = $planeStm->fetchAll(); ?>
+
+
 <div class="col-md-8">
     <div class="card">
         <div class="header">
             <h4 class="title">Edit Flights</h4>
         </div>
         <div class="content">
-            <form action="components/dashboard/updateFlight.php" method="post">
+            <form action="../dashboard/components/flights/insertFlightQuery.php" method="post">
                 <div class="row">
+<!--
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px;">
                             <label>From City</label>
                             <input type="Text" name="fromCity" class="form-control" placeholder="From...">
                         </div>
                     </div>
+-->
 
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px;">
                             <label>From City</label>
+<!--
                             <select name="fromCity">
                                 <option value="fromCity">Select</option>
-                                <?php foreach ($results as $output) { ?>
-                                    <option value=<?php $output["id"] ?>><?php echo $output["name"]; ?></option>
-                                <?php } ?>
+                                <?php //foreach ($results as $output){ ?>
+                                    <option value="<?php //$output["id"] ?>"><?php //echo $output["name"]; ?></option>
+                                <?php //} ?>
                             </select>
+                            
+-->
+                            
+                                      <select name="fromCity">
+
+                                                    <?php foreach($results as $output) { ?>
+
+                                                            <option value = "<?php echo $output['id']?> ">
+                                                            <?php  echo $output['name']; ?></option>
+
+                                                           <?php } ?>
+                                                   
+                                                </select>
                         </div>
                     </div>
 
@@ -47,7 +104,29 @@ $results = $cityStm->fetchAll();
                     <div class="col-md-3" style="width: 300px;">
                         <div class="form-group">
                             <label>To City</label>
-                            <input type="text" name="toCity" class="form-control" placeholder="To...">
+<!--                            <input type="text" name="toCity" class="form-control" placeholder="To...">-->
+<!--
+                       <select name="toCity">
+                                <option value="toCity">Select</option>
+                                <?php //foreach ($results as $output) { ?>
+                                    <option value="<?php// $output["id"] ?>" ><?php// echo $output["name"]; ?></option>
+                                <?php //} ?>
+                            </select>
+                            
+                            
+                            
+  -->                                          <select name="toCity">
+                                                      <?php foreach($results as $output) { ?>
+                                                            <option value = "<?php echo $output['id']?> ">
+                                                            <?php  echo $output['name']; ?></option>
+
+                                                           <?php } ?>
+                                                   
+                                                </select>
+                            
+                            
+                            
+
                         </div>
                     </div>
                     <div class="col-md-3" style="width: 80px;">
@@ -62,7 +141,26 @@ $results = $cityStm->fetchAll();
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Airplane</label>
-                            <input name="planeId" type="text" placeholder="Airplane" class="form-control">
+<!--                            <input name="planeId" type="text" placeholder="Airplane" class="form-control">-->
+<!--
+                        <select name="planeId">
+                                <option value="planeId">Select</option>
+                                <?php //foreach ($planeResults as $planeOutput) { ?>
+                                    <option value="<?php// $planeOutput["id"] ?>"><?php //echo $planeOutput["name"]; ?></option>
+                                <?php//}?>
+                            </select>
+-->
+                       <select  name="planeId">
+                           
+                                         <?php foreach($planeResults as $planeOutput) { ?>
+                                                
+                                                <option value = "<?php echo $planeOutput['id']?> ">
+                                                <?php  echo $planeOutput['name']; ?></option>
+
+                                              <?php } ?>
+                           
+                           
+                       </select>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -76,7 +174,7 @@ $results = $cityStm->fetchAll();
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Price</label>
-                            <input name="price" type="Text" class="form-control" placeholder="Price">
+                            <input name="price" type="number" class="form-control" placeholder="Price">
                         </div>
                     </div>
                     <div class="col-md-3" style="width: 90px;">
@@ -88,6 +186,7 @@ $results = $cityStm->fetchAll();
                 </div>
                 <div class="row">
 
+<!--
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Created at</label>
@@ -102,10 +201,11 @@ $results = $cityStm->fetchAll();
                             <input name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____">
                         </div>
                     </div>
+-->
 
                 </div>
 
-                <button name="submit" type="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>
+                <button name="insertFlight" type="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>
                 <div class="clearfix"></div>
             </form>
         </div>

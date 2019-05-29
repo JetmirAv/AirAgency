@@ -77,15 +77,15 @@ $error_message = array();
     // Validate file input to check if is not empty
     if (!file_exists($_FILES["img"]["tmp_name"])) {
         $errmsg = "Choose image file to upload.";
-        array_push($errors, $errmsg);
+        array_push($error_message, $errmsg);
     }    // Validate file input to check if is with valid extension
     else if (!in_array($file_extension, $allowed_image_extension)) {
         $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
-        array_push($errors, $errmsg);
+        array_push($error_message, $errmsg);
     }    // Validate image file size
     else if (($_FILES["img"]["size"] > 2000000)) {
         $errmsg = "Image size exceeds 2MB";
-        array_push($errors, $errmsg);
+        array_push($error_message, $errmsg);
     }    // Validate image file dimensi..on
 
 
@@ -93,21 +93,21 @@ $error_message = array();
         
     if(count($error_message)<=0){  
         
-         $profilepic = $_FILES['img']['name'];
+            $profilepic = $_FILES['img']['name'];
             $expProfilepic = explode('.', $profilepic);
             $profilepicExptype = $expProfilepic[1];
             $date = date('m/d/Yh:i:sa', time());
             $rand = rand(10000, 99999);
             $encname = $date . $rand;
             $profilepicName = md5($encname) . '.' . $profilepicExptype;
-            $profilepicPath = "/../../uploads/user-img/" . $profilepicName;
+            $profilepicPath = "../../uploads/user-img/" . $profilepicName;
 
             if (move_uploaded_file($_FILES["img"]["tmp_name"], $profilepicPath)) { } else {
                 $errmsg = "Problem in uploading image files.";
-                array_push($errors, $errmsg);
+                array_push($error_message, $errmsg);
             }
         
-        if(count($errors)<= 0){
+        if(count($error_message)<= 0){
             echo "<br>";
         echo $password==="" ? "asf" : 'password = :password';    
         echo "<br>";

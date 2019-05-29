@@ -119,7 +119,7 @@
 	<script>
 		$('tbody').on('click', 'tr', function(e) {
 			var txt = $(this).attr('id');
-			window.location.href = '../dashboard/flightsInfo.php';
+			window.location.href = '../dashboard/userInfo.php';
 			//alert (txt);
 		});
 

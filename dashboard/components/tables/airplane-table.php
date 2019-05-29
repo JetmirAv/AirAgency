@@ -36,7 +36,7 @@
 
 				<?php
 				foreach ($rsResult as $row) {
-					echo ' <tr>
+					echo ' <tr id=' . $row['id'] . '>
 				<td style="padding:2px ; padding-left:10px"><img src="' . $row["image"] . '" width=35; height=35; style="border-radius:50% ; padding:0px;"> </td></td>
 				<td>' . $row["name"] . '</td>
 				<td style="padding-left:25px;">' . $row["seats"] . '</td>
@@ -63,6 +63,11 @@
 
 
 <script>
+	$('tbody').on('click', 'tr', function(e) {
+		var txt = $(this).attr('id');
+		window.location.href = '../dashboard/airplaneInfo.php';
+		//alert (txt);
+	});
 	$(document).ready(function() {
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");

@@ -22,7 +22,7 @@ if ($count > 0) {
 	foreach ($rsResult as $row) {
 		$airplaneId = $row['id'];
 		$output .= '
-                <tr>
+                <tr id=' . $row['id'] . '>
                     <td style="padding-left:25px;">' . $row['id'] . '</td>
                     <td style="padding-left:25px;">' . $row['flightId'] . '</td>
                     <td>' . $row['userId'] . '</td>
@@ -40,4 +40,3 @@ if ($count > 0) {
 
 	echo $output;
 }
-?>

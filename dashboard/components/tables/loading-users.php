@@ -42,4 +42,3 @@ if ($count > 0) {
 
 	echo $output;
 }
-?>

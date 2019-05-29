@@ -57,7 +57,7 @@
 				<button type="button" name="btnMore" data-vid="<?php echo $flightId; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 			</tr>
 		</table>
-		<input type="text" id="fillname" value="" />
+
 	</div>
 </div>
 
@@ -66,39 +66,12 @@
 	$(document).ready(function() {
 		var pickedup;
 
-// $(document).ready(function() {
-//     $( "#sourceTable tbody tr" ).on( "click", function( event ) {
- 
-//           // get back to where it was before if it was selected :
-//           if (pickedup != null) {
-//               pickedup.css( "background-color", "#ffccff" );
-//           }
- 
-//           $("#fillname").val($(this).find("td").eq(1).html());
-//           $( this ).css( "background-color", "red" );
- 
-//           pickedup = $( this );
-//     });
-// }); 
-	// 	$('#sourceTable tbody tr').click(function() {
-    //     var href = $(this).find("a").attr("href");
-    //     if(href) {
-    //         window.location = href;
-    //     }
-    // });
-// 	$("#loadDataTable tr" ).click(function() {
-//    var bid = this.id; // button ID 
-//    var trid = $(this).closest('tr').attr('id'); // table row ID 
-//    $("#fillname").val($(this).find("tr").attr('id'));
 
-   $('tbody').on('click','tr',function(e) {
-    var txt = $(this).attr('id');
-	window.location.href='../dashboard/flightsInfo.php';
-	//alert (txt);
- });
-
-
-
+		$('tbody').on('click', 'tr', function(e) {
+			var txt = $(this).attr('id');
+			window.location.href = '../dashboard/flightsInfo.php';
+			//alert (txt);
+		});
 
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");

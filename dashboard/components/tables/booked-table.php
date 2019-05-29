@@ -33,7 +33,7 @@
 
                 foreach ($rsResult as $row) {
                     echo '
-						<tr>
+						<tr id=' . $row['id'] . '>
                             <td style="padding-left:25px;">' . $row['id'] . '</td>
 						    <td style="padding-left:25px;">' . $row['flightId'] . '</td>
 							<td>' . $row['userId'] . '</td>
@@ -43,9 +43,9 @@
                             <td>' . $row['updatedAt'] . '</td> 
                             <td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>                   
                         </tr>';
-                        $airplaneId = $row['id'];
-                    }
-               
+                    $airplaneId = $row['id'];
+                }
+
                 ?>
             </tbody>
         </table>
@@ -59,6 +59,11 @@
 </div>
 
 <script>
+    $('tbody').on('click', 'tr', function(e) {
+        var txt = $(this).attr('id');
+        window.location.href = '../dashboard/bookedInfo.php';
+        //alert (txt);
+    });
     $(document).ready(function() {
         $(document).on('click', '#btnMore', function() {
             var lastFlightId = $(this).data("vid");

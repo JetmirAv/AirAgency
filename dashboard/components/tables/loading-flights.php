@@ -31,7 +31,7 @@ if ($count > 0) {
 	            	<td>' . $row["checkIn"] . '</td>
 	            	<td>' . $row["createdAt"] . '</td>
             		<td>' . $row["updatedAt"] . '</td>
-					<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
+					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
 				</tr> ';
 	}
 	$output .= '

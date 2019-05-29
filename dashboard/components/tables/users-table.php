@@ -1,6 +1,3 @@
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	</head>
 	<?php include "../databaseConfig.php" ?>
 	<?php
 	$sql = "select id,concat('../uploads/user-img/',img) as img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users order by id asc  limit 10";
@@ -36,7 +33,7 @@
 		text-align: center">
 			<h3>Delete User</h3>
 			<h4 style="font-weight: 300" id="user">
-				</h5>
+				</h4>
 				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">

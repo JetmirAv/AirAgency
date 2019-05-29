@@ -1,8 +1,5 @@
 <div class="card">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	</head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 	<?php include "../databaseConfig.php" ?>
 	<?php
 	$sql = "select id,concat('../uploads/flight-img/',img)as image, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight limit 10 ";
@@ -14,6 +11,36 @@
 	?>
 
 	<div class="header">
+	
+	<div id="backdrop" style="
+		position: fixed;
+		display: none;
+		background-color: rgba(0, 0, 0, 0.5);
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 300"></div>
+		<div id="flightInfo" style="
+		position: fixed;
+		background-color: #eee;
+		display: none;
+		top: 30%;
+		left: 30%;
+		width: 40%;
+		height: 25%;
+		z-index: 500;
+		text-align: center">
+			<h3>Delete Flight</h3>
+			<h4 style="font-weight: 300" id="flight">
+				</h4>
+				<div style="display:flex;
+					flex-direction: row;
+					justify-content: space-evenly ">
+					<button id="bttnConfirmCancel">Cancel</button>
+					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
+				</div>
+		</div>
 	
 		
 		<h4 style="color:orange">
@@ -33,7 +60,7 @@
 			?>
 		</h4>
     	<h4 style="display: inline-block; width: 40%" class="title">Number of flights:<?php echo $count['count'] ?></h4>
-		<a href="userInsert.php" style=" font: bold 11px Arial;
+		<a href="flightsInsert.php" style=" font: bold 11px Arial;
 												text-decoration: none;
 												background-color: #EEEEEE;
 												color: #333333;
@@ -76,7 +103,8 @@
 							<td>' . $row["checkIn"] . '</td>
 							<td>' . $row["createdAt"] . '</td>
 							<td>' . $row["updatedAt"] . '</td>
-							<td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>
+							<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
+
 						  </tr>';
 				}
 				$flightId = $row["id"];
@@ -134,18 +162,15 @@
     
     let flightInfo = document.getElementById("flightInfo");
 		let backdrop = document.getElementById("backdrop");
-		let flightId, origin, destination = '';
+		let flightId = '';
 
-		function deleteHandler(id, name, email) {
+		function deleteHandler(id) {
+            console.log("Bravo")
 			flightInfo.style.display = "block";
 			backdrop.style.display = "block";
 			flightId = id;
-			origin = fromCity;
-			destination = toCity;
-			console.log("ID: " + id + " FromCity: " + fromCity + " toCity: " + toCity);
-			document.getElementById('flight').innerHTML = "ID: " + id + "<br/>" +
-				" OriginId: " + fromCity + "<br/>" +
-				" DestinationId: " + email;
+			console.log("ID: " + id);
+			document.getElementById('flight').innerHTML = "Are you sure you want to delete the flight with ID: " + id;
 				
 		}
 
@@ -155,14 +180,13 @@
 		}
 
 
-		document.getElementById("bttnCancel").onclick = (e) => {
+		document.getElementById("bttnConfirmCancel").onclick = (e) => {
 			e.preventDefault();
 			flightInfo.style.display = "none";
 			backdrop.style.display = "none";
 		}
 
-		document.getElementById("bttnDelete").onclick = (e) => {
-			e.preventDefault();
+		document.getElementById("bttnConfirmDelete").onclick = (e) => {
 			$.ajax({
 			url: "components/flights/deleteFlightQuery.php",
 			type: "POST",

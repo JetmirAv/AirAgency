@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'components/head.php' ?>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<?php include 'components/head.php' ?>
+  
 <body>
 	<!-- Preloader -->
 	<div id="preloader">
@@ -94,10 +95,10 @@
                                 <h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
 						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
 						<h6>Avalible: <span>100</span></h6>
-						<span style="display:block; width: 20px; "><input min=0 type="number" /></span>
+						<span style="display:block; width: 20px; "><input min=0 type="number" id="quantityValue"/></span>
 					</div>
 					'?>
-					<button type="button" id="bttnDelete" onclick=deleteHandler(100,'Emri','Mbiemri') class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
+					<button type="button" id="bttnDelete" onclick=deleteHandler(88,'Emri','Mbiemri') class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
 				</div>
 			</div>
 
@@ -219,22 +220,29 @@
 </body>
 
 </html>
+ <?php $userConectedId = $dataArr->id; ?>
+
+
 <script>
-	let userInfo = document.getElementById("userDelete");
+    	let userInfo = document.getElementById("userDelete");
 	let backdrop = document.getElementById("backdrop");
 	let userId, userName, userEmail = '';
 
-	function deleteHandler(id, Emri, Mbiemri) {
+	
+	
+	function deleteHandler(id, From, To) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
 		userId = id;
-		userName = name;
-		userEmail = email;
-		console.log("ID: " + id + " Name: " + name + " Email: " + email);
+		userName = From;
+		userEmail = To;
+		console.log("ID: " + id + " Name: " + From + " Email: " + To);
 		document.getElementById('user').innerHTML = "ID: " + id + "<br />" +
-			" Full Name: " + name + "<br />" +
-			" Email: " + email;
-		alert(id);
+			" Full Name: " + To + "<br />" +
+			" Email: " + To;
+
+		//alert(quantity);
+	
 	}
 
 	backdrop.onclick = () => {
@@ -250,16 +258,32 @@
 	}
 	document.getElementById("bttnConfirmDelete").onclick = (e) => {
 		e.preventDefault();
-		$.ajax({
-			url: "components/insert/insertIntoBookingTable.php",
-			type: "POST",
-			data: {
-				"id": userId
-			}
-		}).done(function(data) {
-			location.reload();
-			alert("kdfkbm");
-		});
+    	var userConectedId="<?php echo $userConectedId;?>";
+		var quantity = document.getElementById("quantityValue").value;
+				$.ajax({
+					url: "../dashboard/components/insert/insertIntoBookingTable.php",
+					method: "POST",
+					data: {
+						flightId: userId,
+				        userConectedId: userConectedId,
+     	                quantity:quantity
+					},
+					dataType: "text",
+					success: function(data) {
+						if (data = '') {
+							$('#btnMore').html("No Data");
+						}
+						} else {
+							$('#btnMore').html("No Data");
+						}
+					}
+						
+					});
+				
+		
+	
+
+
 	}
 
 </script>

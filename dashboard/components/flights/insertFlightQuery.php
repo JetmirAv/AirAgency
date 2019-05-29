@@ -1,15 +1,15 @@
 <?php
-$servername = 'localhost';
-$username = "root";
-$password = "";
-$database = 'airagency';
-//include "../databaseConfig.php";
+//$servername = 'localhost';
+//$username = "root";
+//$password = "";
+//$database = 'airagency';
+include "../../../databaseConfig.php";
 
 try{
    
-    $conn = new PDO("mysql:host=localhost;dbname=airagency", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+//    $conn = new PDO("mysql:host=localhost;dbname=airagency", $username, $password);
+//    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$errors = Array();
 if(isset($_POST['insertFlight']))
 {    
     
@@ -29,8 +29,20 @@ if(isset($_POST['insertFlight']))
     $insertStm = $conn->prepare($insertFlight);
     $pdoExec = $insertStm->execute(array("$fromCity"=>'$fromCity', ":toCity"=>'$toCity', ":planeId"=>'$planeId',  ":avalible"=>$avalible, ":price"=>$price, ":isSale"=>$isSale, ":checkIn"=>$checkIn, ":img"=>$img));
     
-    print_r($insertFlight);
-        echo "Inserted successfully";
+//        print_r($insertFlight);
+//        echo "Inserted successfully";
+    
+            if($errors)
+        {
+            $msg = 'gabim';
+            array_push($errors, $msg);
+            $_POST['error'] = $errors;
+        }
+        else
+        {
+            header("location: ". $_SERVER["HTTP_REFERER"]);
+            $_POST['sukses'] = "Sukses";
+        }
     
     
 }

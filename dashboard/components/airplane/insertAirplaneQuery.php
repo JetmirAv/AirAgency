@@ -1,77 +1,16 @@
 <?php
-// Insert data for Airplane from form to database
-//require_once("../databaseConfig.php");
-//if(isset($_POST['submit'])){
-//$insertAirplane="insert into airplane (name, yearOfProd, seats, fuelCapacity, maxspeed, additionalDesc) values (:name, :yearOfProd, :seats, :fuelCapacity, :maxspeed, :additionalDesc) ; ";
-//
-//$name = $_POST["name"];
-//$yearOfProd = $_POST["yearOfProd"];
-//$seats = $_POST["seats"];
-//$fuelCapacity = $_POST["fuelCapacity"];
-//$maxspeed = $_POST["maxspeed"];
-//$additionalDesc = $_POST["additionalDesc"];
-////$img = $_POST['img'];
-//
-//
-//
-//$insertStm = $conn->prepare($insertAirplane);
-//
-//$pdoExec = $insertStm->execute(array(":name"=>$name,":yearOfProd"=>$yearOfProd,":seats"=>$seats,":fuelCapacity"=>$fuelCapacity,":maxspeed"=>$maxspeed,":additionalDesc"=>$additionalDesc));
-//
-//
-//
-////$insertStm->bindParam(':name',$name);
-////$insertStm->bindParam(':yearOfProd',$yearOfProd);
-////$insertStm->bindParam(':seats',$seats);
-////$insertStm->bindParam(':fuelCapacity',$fuelCapacity);
-////$insertStm->bindParam(':maxspeed',$maxspeed);
-////$insertStm->bindParam(':additionaleDesc',$additionaleDesc);
-////$insertStm->bindParam(':img',$img);
-//
-//$insertStm->execute();
-//}
-//$msg ='';
-//$result = false;
-//
-//if(isset($_POST['submit']))
-//{    
-//    require_once("../databaseConfig.php");
-//    
-//    $result = create_airplane();   
-//    
-//}
-//else{echo "error";}
-//
-//
-//function insert_airplane($name, $yearOfProd, $seats, $fuelCapacity, $maxspeed, $additionalDesc)
-//{
-//    global $conn, $msg;
-//    
-//    $insertAirplane="insert into airplane (name, yearOfProd, seats, fuelCapacity, maxspeed, additionalDesc) values(".$conn->quote($name).", ".$conn->quote($yearOfProd).", ".$conn->quote(seats).", ".$conn->quote($seats).", ".$conn->quote(fuelCapacity).", ".$conn->quote(maxspeed).", ".$conn->quote(additionalDesc)." );";
-//    
-//    
-//    if($conn->exec($insertAirplane)===false)
-//    {
-//        $msg = 'Error inserting the airplane';
-//        return false;}
-//    else
-//    {
-//        $msg = "The new airplane $name is created";
-//        return true;
-//    }
-//    
-//}
-//
-//
-//    
-   
-include "../../databaseConfig.php";
+
+
+include "../../../databaseConfig.php";
     
 
 try{
 //    $conn = new PDO("mysql:host=localhost;dbname=airagency", $username, $password);
 //    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    $errors = Array();
+    if(isset($_POST['insertAirplane']))
+{
     $name = $_POST['name'];
     $yearOfProd = $_POST['yearOfProd'];
     $seats = $_POST['seats'];
@@ -96,8 +35,22 @@ try{
     
 //    $stm->execute();
     
-    echo "Connection successfully";
-    
+ //   echo "Connection successfully";
+        
+        
+        
+        if($errors)
+        {
+            $msg = 'gabim';
+            array_push($errors, $msg);
+            $_POST['error'] = $errors;
+        }
+        else
+        {
+            header("location: ". $_SERVER["HTTP_REFERER"]);
+            $_POST['sukses'] = "Sukses";
+        }
+}
 }
 catch(PDOException $ex) {
     echo "Datebase Connection failed: " . $ex->getMessage();

@@ -21,7 +21,7 @@ $planeDetail = $planeStatement->fetch();
                                 <h4 class="title">Edit Airplane</h4>
                             </div>
                             <div class="content">
-                               <form action="components/airplane/updateAirplaneQuery.php" method="POST">
+                               <form action="../dashboard/components/airplane/updateAirplaneQuery.php" method="POST">
                                     <div class="row" style="margin-left:25%">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
@@ -81,7 +81,7 @@ $planeDetail = $planeStatement->fetch();
                                      <textarea rows="5" name="additionalDesc" class="form-control" placeholder="Here can be your description"><?php echo $planeDetail['additionalDesc']; ?></textarea>   
                                      </div>
 
-                                    <button type="submit" value="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>
+                                    <button name="updateAirplane" type="submit" value="submit" class="btn btn-info btn-fill pull-right">Update Airplane</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>

@@ -15,6 +15,7 @@
 	$airplaneId = '';
 	?>
     
+    	<div class="header">
     
     <div id="backdrop" style="
 		position: fixed;
@@ -25,7 +26,7 @@
 		width: 100%;
 		height: 100%;
 		z-index: 300"></div>
-		<div id="userDelete" style="
+		<div id="airplaneInfo" style="
 		position: fixed;
 		background-color: #eee;
 		display: none;
@@ -36,7 +37,7 @@
 		z-index: 500;
 		text-align: center">
 			<h3>Delete Airplane</h3>
-			<h4 style="font-weight: 300" id="user">
+			<h4 style="font-weight: 300" id="airplane">
 				</h4>
 				<div style="display:flex;
 					flex-direction: row;
@@ -47,7 +48,6 @@
 		</div>
 	
     
-    	<div class="header">
 		<h4 style="color:orange">
 			<?php
 			if (isset($_SESSION['result'])) {
@@ -66,7 +66,7 @@
 		</h4>
 		<h4 style="display: inline-block; width: 40%"class="title">Number of airplanes:<?php echo $rowCount['total'] ?></h4>
 
-		<a href="userInsert.php" style=" font: bold 11px Arial;
+		<a href="airplaneInsert.php" style=" font: bold 11px Arial;
 												text-decoration: none;
 												background-color: #EEEEEE;
 												color: #333333;
@@ -75,7 +75,7 @@
 												border-right: 1px solid #333333;
 												border-bottom: 1px solid #333333;
 												border-left: 1px solid #CCCCCC;
-												height:30px">Create User</a>
+												height:30px">Create  Airplane</a>
 	</div>
 
 	<div class="content table-responsive table-full-width">
@@ -155,30 +155,30 @@
     
     
     
-    let userInfo = document.getElementById("userDelete");
+        let airplaneInfo = document.getElementById("airplaneInfo");
 		let backdrop = document.getElementById("backdrop");
-		let userId, airplaneName = '';
+		let airplaneId, airplaneName = '';
 
 		function deleteHandler(id, name, email) {
-			userInfo.style.display = "block";
+			airplaneInfo.style.display = "block";
 			backdrop.style.display = "block";
-			userId = id;
+			airplaneId = id;
 			airplaneName = name;
-			console.log("ID: " + id + " Name: " + name + " Email: " + email);
-			document.getElementById('user').innerHTML = "ID: " + id + "<br/>" +
+			console.log("ID: " + id + " Name: " + name);
+			document.getElementById('airplane').innerHTML = "ID: " + id + "<br/>" +
 				" Name: " + name;
 
 		}
 
 		backdrop.onclick = () => {
-			userInfo.style.display = "none";
+			airplaneInfo.style.display = "none";
 			backdrop.style.display = "none";
 		}
 
 
 		document.getElementById("bttnConfirmCancel").onclick = (e) => {
 			e.preventDefault();
-			userInfo.style.display = "none";
+			airplaneInfo.style.display = "none";
 			backdrop.style.display = "none";
 		}
 
@@ -188,7 +188,7 @@
 				url: "components/airplane/deleteAirplaneQuery.php",
 				type: "POST",
 				data: {
-					"id": userId
+					"id": airplaneId
 				}
 			}).done(function(data) {
 				location.reload();

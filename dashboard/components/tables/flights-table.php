@@ -160,17 +160,17 @@
     
     
     
-    let flightInfo = document.getElementById("flightInfo");
+      let flightInfo = document.getElementById("flightInfo");
 		let backdrop = document.getElementById("backdrop");
 		let flightId = '';
 
 		function deleteHandler(id) {
-            console.log("Bravo")
+         //console.log("Bravo")
 			flightInfo.style.display = "block";
 			backdrop.style.display = "block";
 			flightId = id;
 			console.log("ID: " + id);
-			document.getElementById('flight').innerHTML = "Are you sure you want to delete the flight with ID: " + id;
+			document.getElementById('flight').innerHTML = "Are you sure you want to delete flight with ID: " + id;
 				
 		}
 

@@ -14,15 +14,15 @@ $userId = '';
 sleep(1);
 $data = (int)$_POST['lastUserId'];
 $first_shown=10;
-$sql = "select id,img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users where id >'.$data.' order by id asc  limit 10";
+$sql = "select id,concat('../uploads/user-img/',img) as img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users where id >'.$data.' order by id asc  limit 10";
     $rs_result = $conn->query($sql);
     $count = $rs_result->rowCount();
 if ($count > 0) {
 	foreach ($rs_result as $row) {
 		$userId = $row['id']+1;
 		$output .= '
-              <tr>
-					<td  style="padding:2px ; padding-left:10px"><img src="assets/img/faces/face-0.jpg" width=35;height=35; style="border-radius:50% ; padding:0px;"> </td>
+              <tr id=' . $row['id'] . '>
+					<td  style="padding:2px ; padding-left:10px"><img src=' . $row["img"] . ' width=35; height=35; style="border-radius:50% ; padding:0px;"> </td>
 					<td >'.$row["fullname"].'</td>
 					<td  style="padding-left:25px;">'.$row["gendre"].'</td>
 					<td >'.$row["birthday"].'</td>

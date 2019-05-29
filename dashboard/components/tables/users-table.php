@@ -3,7 +3,7 @@
 	</head>
 	<?php include "../databaseConfig.php" ?>
 	<?php
-	$sql = "select id,img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users order by id asc  limit 10";
+	$sql = "select id,concat('../uploads/user-img/',img) as img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users order by id asc  limit 10";
 	$rsResult = $conn->query($sql);
 	$userId = '';
 
@@ -48,21 +48,21 @@
 	<div class="header">
 		<h4 style="color:orange">
 			<?php
-				if(isset($_SESSION['result'])){
-					foreach($_SESSION['result'] as $res){
-						echo $res . " ";
-					};
-				}
+			if (isset($_SESSION['result'])) {
+				foreach ($_SESSION['result'] as $res) {
+					echo $res . " ";
+				};
+			}
 
-				if(isset($_SESSION['deleteSucess'])){
-					echo $_SESSION['deleteSucess'];
-				}
-				if(isset($_SESSION['deleteError'])){
-					echo $_SESSION['deleteError'];
-				}
-			?>	
+			if (isset($_SESSION['deleteSucess'])) {
+				echo $_SESSION['deleteSucess'];
+			}
+			if (isset($_SESSION['deleteError'])) {
+				echo $_SESSION['deleteError'];
+			}
+			?>
 		</h4>
-		<h4 style="display: inline-block; width: 40%" class="title">Number of users:<?php echo $count['count']?></h4>
+		<h4 style="display: inline-block; width: 40%" class="title">Number of users:<?php echo $count['count'] ?></h4>
 
 		<a href="userInsert.php" style=" font: bold 11px Arial;
 												text-decoration: none;
@@ -76,7 +76,7 @@
 												height:30px">Create User</a>
 	</div>
 	<div class="content table-responsive table-full-width">
-		<table class='table table-hover table-striped' style="table-layout:fixed;"  width='100%'>
+		<table class='table table-hover table-striped' style="table-layout:fixed;" width='100%'>
 			<thead>
 				<th width=5%>Image</th>
 				<th width=13%>Name</th>
@@ -92,8 +92,8 @@
 				<?php
 
 				foreach ($rsResult as $row) {
-					echo ' <tr>
-					<td style="padding:2px ; padding-left:10px"><img src="assets/img/faces/face-0.jpg" width=35;height=35; style="border-radius:50% ; padding:0px;"> </td>
+					echo ' <tr id=' . $row['id'] . '>
+					<td style="padding:2px ; padding-left:10px"><img src=' . $row["img"] . ' width=35; height=35; style="border-radius:50% ; padding:0px;"> </td>
 					<td>' . $row["fullname"] . '</td>
 					<td style="padding-left:25px;">' . $row["gendre"] . '</td>
 					<td>' . $row["birthday"] . '</td>
@@ -102,20 +102,27 @@
 					<td>' . $row["city"] . '</td>
 					<td>' . $row["phoneNumber"] . '</td>
 					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
+
 						  
 				</tr>';
+					$userId = $row["id"];
 				}
-				$userId = $row["id"] + 1;
 				?>
 			</tbody>
 
 		</table>
-		<button type="button" name="btnMore" data-vid="<?php echo $userId; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
+		<button type="button" name="btnMore" data-vid="<?php echo $userId + 1; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 
 	</div>
 	</div>
 
 	<script>
+		$('tbody').on('click', 'tr', function(e) {
+			var txt = $(this).attr('id');
+			window.location.href = '../dashboard/flightsInfo.php';
+			//alert (txt);
+		});
+
 		$(document).ready(function() {
 			$(document).on('click', '#btnMore', function() {
 				var lastUserId = $(this).data("vid");
@@ -130,7 +137,7 @@
 					success: function(data) {
 						if (data != '') {
 							$('#btnMore').remove();
-							 $('#removeRow').remove();
+							$('#removeRow').remove();
 							$('#loadDataTable').append(data);
 
 						} else {
@@ -155,7 +162,7 @@
 			document.getElementById('user').innerHTML = "ID: " + id + "<br/>" +
 				" Full Name: " + name + "<br/>" +
 				" Email: " + email;
-				
+
 		}
 
 		backdrop.onclick = () => {
@@ -173,12 +180,13 @@
 		document.getElementById("bttnDelete").onclick = (e) => {
 			e.preventDefault();
 			$.ajax({
-			url: "components/delete/deleteUser.php",
-			type: "POST",
-			data:{"id":userId}
+				url: "components/delete/deleteUser.php",
+				type: "POST",
+				data: {
+					"id": userId
+				}
 			}).done(function(data) {
 				location.reload();
 			});
 		}
-
 	</script>

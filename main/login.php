@@ -77,13 +77,21 @@
 								<div class="form-top-left">
 									<h3>Login to our site</h3>
 									<p>Enter username and password to log on:</p>
+									<?php 
+										if(isset($_SESSION['error'])){
+											foreach($_SESSION['error'] as $logInError){
+												echo "<p style='color:red'>$logInError</p>";
+											}
+										}									
+									
+									?>
 								</div>
 								<div class="form-top-right">
 									<i class="fa fa-lock"></i>
 								</div>
 							</div>
 							<div class="form-bottom">
-								<form role="form" action="" method="post" class="login-form">
+								<form role="form" action="../global/logIn.php" method="post" class="login-form">
 									<div class="form-group">
 										<label class="sr-only" for="form-username">Username</label>
 										<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">

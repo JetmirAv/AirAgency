@@ -1,7 +1,7 @@
 <?php
 
-include "../../../databaseConfig.php";
-include "../../../global/validations.php"; 
+include "../../databaseConfig.php";
+include '../validations.php'; 
 session_start();
 $error_message = array();
 
@@ -100,7 +100,7 @@ $error_message = array();
             $rand = rand(10000, 99999);
             $encname = $date . $rand;
             $profilepicName = md5($encname) . '.' . $profilepicExptype;
-            $profilepicPath = "../../../uploads/user-img/" . $profilepicName;
+            $profilepicPath = "/../../uploads/user-img/" . $profilepicName;
 
             if (move_uploaded_file($_FILES["img"]["tmp_name"], $profilepicPath)) { } else {
                 $errmsg = "Problem in uploading image files.";
@@ -117,7 +117,7 @@ $error_message = array();
     $updatePlane = "update users set firstname = :firstname, lastname = :lastname, email = :email, ";
         
     $updatePlane = $updatePlane . '' . ($password==="" ? "" : 'password =  :password,' ). " birthday = :birthday, gendre = :gendre, address=:address ,
-    city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 67;";
+    city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 17;";
     
         echo $updatePlane;
                 echo "<br>";
@@ -137,7 +137,7 @@ $error_message = array();
     $pdoExec = $updateStm->execute($params);
 //    
     $updateCard = "update card c inner join users u on c.userId=u.id set c.number=:number,
-    c.expMonth='$expireDatesArray[0]',c.expYear='$expireDatesArray[1]' where u.id=67" ;
+    c.expMonth='$expireDatesArray[0]',c.expYear='$expireDatesArray[1]' where u.id=17" ;
     $updateCardStm = $conn->prepare($updateCard);
     $pdoExecCard = $updateCardStm->execute(array(":number"=>$number)); 
     $_SESSION['sucess'] = "User Updated sucessfuly";

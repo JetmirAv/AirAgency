@@ -20,11 +20,7 @@ u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
  FROM  users u
-<<<<<<< HEAD
 LEFT JOIN Card c on u.id=c.userId where u.id=" . $dataArr->id ;
-=======
-LEFT JOIN Card c on u.id=c.userId where u.id=17;";
->>>>>>> 4a0d5d993d295f37e0ddb59ce63efa68508c4b80
    
 
 $statement = $conn->prepare($sql);  

@@ -15,12 +15,12 @@ u.city as 'city' ,
  u.state as 'state' ,
  u.postal as 'postal' , 
 u.phoneNumber as 'phoneNumber',
- concat('../uploads/user-img/',img) as img , 
+ concat('/../AirAgency/uploads/user-img/',img) as img , 
 u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
  FROM  users u
-LEFT JOIN Card c on u.id=c.userId where u.id=67;";
+LEFT JOIN Card c on u.id=c.userId where u.id=17;";
    
 
 $statement = $conn->prepare($sql);  
@@ -36,7 +36,9 @@ $userDetail = $statement->fetch();
                                 <h4 class="title">Edit User</h4>
                             </div>
                             <div class="content">
-                            <form action="components/users/updateUsersQuery.php" method="post" enctype="multipart/form-data">
+                           
+                            <form action="/../AirAgency/global/users/updateUsersQueryLavda.php" method="post" enctype="multipart/form-data">
+<!--                            <form action="/../AirAgency/uploads/user-img/shpendi.jpg" method="post" enctype="multipart/form-data">-->
                             <div class="row" style="margin-left:300px;">
                             <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->

@@ -3,29 +3,33 @@ include "../databaseConfig.php";
 
 
 // Query for user
-$sql = "SELECT firstname , lastname , email , password , birthday , gendre , address , city , state , postal , phoneNumber , img , 
-createdAt , updatedAt FROM  users WHERE id=14;";
-
-
-// Query for Card User
-$sqlCard = "SELECT  c.number as 'number' ,  concat(c.expMonth , '/' , c.expYear) as expDate from Card c 
-INNER JOIN users u 
-ON u.id = c.id 
-WHERE u.id = 14;";
+$sql = "SELECT u.firstname as 'firstname',
+ u.lastname as 'lastname',
+ u.email as 'email',
+ u.password as 'password',
+ u.birthday as 'birthday', 
+ u.gendre as 'gendre',
+ u.address as 'address' , 
+u.city as 'city' ,
+ u.state as 'state' ,
+ u.postal as 'postal' , 
+u.phoneNumber as 'phoneNumber',
+ u.img as 'img' , 
+u.createdAt as 'createdAt',
+u.updatedAt as 'updatedAt' ,
+ c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
+ FROM  users u
+INNER JOIN Card c on u.id=c.userId where u.id=76;";
    
 
 $statement = $conn->prepare($sql);
 $statement->execute();
 $userDetail = $statement->fetch(); 
 
-$cardStatement = $conn->prepare($sqlCard);
-$cardStatement -> execute();
-$cardUserDetail = $cardStatement->fetch();
 
 
 
 ?>
-
                     <div class="col-md-8">                         
 						 <div class="card">
                             <div class="header">
@@ -136,13 +140,13 @@ $cardUserDetail = $cardStatement->fetch();
                                       <div class="col-md-4">
                                         <div class="form-group">
                                                 <label>Card Number</label>
-                                                <input type="text" name="number" class="form-control" placeholder="Card Number" value="<?php echo $cardUserDetail["number"]?>">
+                                                <input type="text" name="number" class="form-control" placeholder="Card Number" value="<?php echo $userDetail["number"]?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $cardUserDetail["expDate"] ?>">
+                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["expDate"] ?>">
                                             </div>
                                         </div>
                                          <div class="form-group">
@@ -151,7 +155,7 @@ $cardUserDetail = $cardStatement->fetch();
                                             </div> 
                                     </div>    
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
+                                    <button name="userUpdate" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>

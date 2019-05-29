@@ -12,7 +12,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-            <?php include "components/insert/flightsInsert.php"?>
+            <?php include "components/insert/flightInsert.php"?>
                 </div>
             </div>
         </div>

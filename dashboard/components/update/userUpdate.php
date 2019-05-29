@@ -2,11 +2,12 @@
 include "../databaseConfig.php";
 
 
+
+
 // Query for user
 $sql = "SELECT u.firstname as 'firstname',
  u.lastname as 'lastname',
  u.email as 'email',
- u.password as 'password',
  u.birthday as 'birthday', 
  u.gendre as 'gendre',
  u.address as 'address' , 
@@ -14,29 +15,46 @@ u.city as 'city' ,
  u.state as 'state' ,
  u.postal as 'postal' , 
 u.phoneNumber as 'phoneNumber',
- u.img as 'img' , 
+ concat('../uploads/user-img/',img) as img , 
 u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
  FROM  users u
-INNER JOIN Card c on u.id=c.userId where u.id=76;";
+LEFT JOIN Card c on u.id=c.userId where u.id=67;";
    
 
-$statement = $conn->prepare($sql);
+$statement = $conn->prepare($sql);  
 $statement->execute();
 $userDetail = $statement->fetch(); 
 
-
-
-
 ?>
-                    <div class="col-md-8">                         
+                   
+                
+                    <div class="col-md-8" style="margin-left:150px;">                         
 						 <div class="card">
                             <div class="header">
                                 <h4 class="title">Edit User</h4>
                             </div>
                             <div class="content">
-                         <form action="components/users/updateUsersQuery.php" method="post">
+                            <form action="components/users/updateUsersQuery.php" method="post" enctype="multipart/form-data">
+                            <div class="row" style="margin-left:300px;">
+                            <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
+                        <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
+                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
+                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  src="<?php echo $userDetail['img']; ?>" onclick="clicked(this)" />
+                        </div>
+                           </div>
+                                      <?php 
+										if(isset($_SESSION['errors'])){
+											foreach($_SESSION['errors'] as $updateError){
+												echo "<p style='color:red'>$updateError</p>";
+											}
+										}
+                             if(isset($_SESSION['sucess'])){
+												echo "<p style='color:green'>" .$_SESSION['sucess']. "</p>";
+											
+										}		
+									?>
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
@@ -65,7 +83,7 @@ $userDetail = $statement->fetch();
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" name="password" placeholder="password" class="form-control" value="<?php echo $userDetail["password"]?>">
+                                                <input type="password" name="password" placeholder="password" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -149,10 +167,6 @@ $userDetail = $statement->fetch();
                                                 <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["expDate"] ?>">
                                             </div>
                                         </div>
-                                         <div class="form-group">
-                                                <label>Image</label>
-                                                <input type="file" name="img" placeholder="Image" value="img" style="width: 120px;">
-                                            </div> 
                                     </div>    
 
                                     <button name="userUpdate" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
@@ -161,7 +175,7 @@ $userDetail = $statement->fetch();
                             </div>
                         </div>
                       </div>
-					                      <div class="col-md-4">
+			<!--	<div class="col-md-4">
                         <div class="card card-user">
                             <div class="image">
                                 <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
@@ -169,7 +183,7 @@ $userDetail = $statement->fetch();
                             <div class="content">
                                 <div class="author">
                                      <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+                                    <img class="avatar" src='<?php echo $userDetail['img'];?>' style="width=150px; height=150px;" alt="..."/>
 
                                       <h4 class="title"><?php echo $userDetail["firstname"] . " " . $userDetail["lastname"];?> <br />
                                          <small>michael24</small>
@@ -189,7 +203,29 @@ $userDetail = $statement->fetch();
 
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+                    
+                    
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#profileImg')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function clicked() {
+        $("#profileUpload").click()
+    }
+</script>                    
 
 
                    

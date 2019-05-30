@@ -94,8 +94,8 @@
                                 <h6>To: <span>Spain</span></h6>
                                 <h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
 						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<span style="display:block; width: 20px; "><input min=0 type="number" id="quantityValue"/></span>
+						<h6>Avalible: <span id="ticketsAvalible">100</span></h6>
+						<span style="display:block; width: 20px; "><input min=0 max="100" type="number" id="quantityValue"/></span>
 					</div>
 					'?>
 					<button type="button" id="btnInsert" onclick=deleteHandler('Prishtine','Wiene',255) class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
@@ -243,10 +243,10 @@
  <?php $userConectedId = $dataArr->id; ?>
 
 <script>
-    	let userInfo = document.getElementById("userDelete");
+    let userInfo = document.getElementById("userDelete");
 	let backdrop = document.getElementById("backdrop");
 	let  From, To , Price= '';
-	
+
 	
 	function deleteHandler(From, To,Price) {
 		userInfo.style.display = "block";

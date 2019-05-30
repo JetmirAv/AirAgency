@@ -117,4 +117,7 @@ $planeDetail = $planeStatement->fetch();
 
                             </div>
                         </div>
-				<?php 		}?>
+				<?php 		}
+						else{
+						echo "Click on one airplane first ";
+						}

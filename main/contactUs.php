@@ -1,3 +1,6 @@
+
+
+
 <?php include "../databaseConfig.php";            ?>
 
 
@@ -10,7 +13,6 @@ $userId = $_POST['userId'];
 $subject = $_POST['subject'];
 $content = $_POST['content'];
 $rating = $_POST['rating'];
- 
 if($rating>=0){
 
 $insertFeedBacks = "insert into feedbacks(userId,subject,content,rating)
@@ -22,3 +24,4 @@ echo "<p style='color:green;'>Mail Sent. Thank you " . $dataArr->name . ", we wi
 } else {
     echo "<p style='color:red;'>Rating must be positive </p>";
 }
+?>

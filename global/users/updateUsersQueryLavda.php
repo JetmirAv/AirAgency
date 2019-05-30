@@ -20,10 +20,12 @@ $error_message = array();
     $firstname = strip_tags($_POST['firstname']);
     $firstname = str_replace(' ','',$firstname);    
     $firstname = ucfirst(strtolower($firstname));
-        
+    $firstname = trim(ucfirst(strtolower($firstname)));
+
     $lastname = strip_tags($_POST['lastname']);
     $lastname = str_replace(' ','',$lastname);
-    $lastname = ucfirst(strtolower($lastname));    
+    $lastname = ucfirst(strtolower($lastname));
+    $lastname = trim(ucfirst(strtolower($lastname)));    
 
     $email = $_POST['email'];
     $password = $_POST['password'];

@@ -21,17 +21,17 @@ if ($count > 0) {
 	foreach ($rsResult as $row) {
 		$flightId = $row['id'];
 		$output .= '
-                <tr id='.$row['id'].'>
-				<td style="padding:2px ; padding-left:10px"><img src='.$row["image"] .' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
-				<td>' . $row["fromCity"] . '</td>   
-					<td>' . $row["toCity"] . '</td>
-					<td style="padding-left:25px;">' . $row["planeId"] . '</td>
-	                <td>' . $row["price"] . '</td>
-	            	<td>' . $row["isSale"] . '</td>
-	            	<td>' . $row["checkIn"] . '</td>
-	            	<td>' . $row["createdAt"] . '</td>
-            		<td>' . $row["updatedAt"] . '</td>
-					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
+                <tr >
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')" style="padding:2px ; padding-left:10px"><img src='.$row["image"] .' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["fromCity"] . '</td>   
+					<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["toCity"] . '</td>
+					<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')" style="padding-left:25px;">' . $row["planeId"] . '</td>
+	                <td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["price"] . '</td>
+	            	<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["isSale"] . '</td>
+	            	<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["checkIn"] . '</td>
+	            	<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["createdAt"] . '</td>
+            		<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["updatedAt"] . '</td>
+					<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')"><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
 				</tr> ';
 	}
 	$output .= '

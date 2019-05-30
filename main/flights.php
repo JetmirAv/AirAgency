@@ -4,6 +4,36 @@
 	<?php include 'components/head.php' ?>
   
 <body>
+
+
+    <?php
+    include "../databaseConfig.php";
+    $sql = "select c1.id as 'fromCityId',
+            c2.id as 'toCityId',
+            c1.name as 'From',
+            c2.name as 'To',
+            f.avalible as 'Available',
+            f.price as 'Price',
+            f.price * isSale/100 as 'Sale',
+            f.isSale as 'Sale',
+            cast(f.checkIn as date) as 'Date',
+            cast(f.checkIn as time) as 'Time',
+            f.img as 'image',
+            a.id as 'airplaneId',
+            a.name as 'airplaneName'
+            from flight as f 
+            inner join city as c1 on f.fromCity = c1.id
+            inner join city as c2 on f.toCity = c2.id
+            inner join airplane as a on f.planeId = a.id 
+            where f.checkIn >= curdate() and f.checkIn >= current_time() order by f.checkIn desc limit 10 ;";
+
+    //$countAllRows = "select count(*) as count from flight ";
+    $rsResult = $conn->query($sql);
+    //$rowCount = $conn->query($countAllRows);
+    //$Count = $rowCount->fetch();
+    ?>	
+
+
 	<!-- Preloader -->
 	<div id="preloader">
 		<div class="loader"></div>
@@ -34,7 +64,7 @@
 		text-align: center">
 			<h3>Book -></h3>
 			<h4 style="font-weight: 300" id="user">
-				</h5>
+				</h4>
 				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
@@ -73,165 +103,34 @@
 		</div>
 	</section>
 	<!-- Rooms Area Start -->
-	<div class="roberto-rooms-area section-padding-100-0">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-lg-10">
-					<!-- Single Room Area -->
-					<div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-						<!-- Room Thumbnail -->
-						<div class="room-thumbnail">
-							<img src="img/bg-img/43.jpg" alt="">
-						</div>
-						<!-- Room Content -->
-						<?php
-	
-	echo'					<div class="room-content">
-                            <h2>Title</h2>
-                            <h4>400&euro;</h4>
+			<div id="flightId">
+			<?php
+    
+          foreach($rsResult as $row){
+echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
+				<!-- Room Thumbnail -->
+				<div class="room-thumbnail">
+					<img src="img/bg-img/44.jpg" alt="" style="margin-left:50px;">
+				</div>
+				<!-- Room Content -->
+						<div class="room-content">
+                            <h2>'.$row['airplaneName'].'</h2>
+                            <h4>'.$row['Price'].'&euro;<span> /'.$row['Sale'].' with Sale</span></h4>
                             <div class="room-feature">
-                                <h6>From: <span>Prishtina</span></h6>
-                                <h6>To: <span>Spain</span></h6>
-                                <h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
-						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-						<h6>Avalible: <span id="ticketsAvalible">100</span></h6>
+                                <h6>From: <span>'.$row['From'].'</span></h6>
+                                <h6>To: <span>'.$row['To'].'</span></h6>
+                                <h6>Date: <span>'.$row['Date'].'</span></h6>
+						<h6>Time: <span>'.$row['Time'].'</span></h6>
+						<h6>Avalible: <span id="ticketsAvalible">'.$row['Available'].'</span></h6>
 						<span style="display:block; width: 20px; "><input min=0 max="100" type="number" id="quantityValue"/></span>
 					</div>
-					'?>
-					<button type="button" id="btnInsert" onclick=deleteHandler('Prishtine','Wiene',255) class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
-						<p style="color:green; padding-left:20px;" id="insertMessage">
-<!--
-						<?php
-//							if (isset($_SESSION['InsertSucess'] )) {
-//							echo $_SESSION['InsertSucess'];  
-								//isset($_SESSION['InsertSucess']);
-//							}  
-//							if (isset($_SESSION['insertQuantityError'] )) {
-//							echo $_SESSION['insertQuantityError'] ;  
-//							}  
-//							if (isset($_SESSION['insertCardError'] )) {
-							
-//							echo $_SESSION['insertCardError'];   
-							
-//							}  
-							
-							?>
--->
+					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+				</div>
+			</div>
+                            ';}?>
+                            </div>
+         <button type="button" id="bttnMore" class="btn btn-success form-control" style="width:160px; margin-left:48%; margin-bottom:20px; background-color:lightblue">Show More</button>
 
-						</p>
-				</div>
-			</div>
-
-			<!-- Single Room Area -->
-			<div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-				<!-- Room Thumbnail -->
-				<div class="room-thumbnail">
-					<img src="img/bg-img/44.jpg" alt="">
-				</div>
-				<!-- Room Content -->
-				<div class="room-content">
-					<h2>Destination</h2>
-					<h4>400$ <span>/ Day</span></h4>
-					<div class="room-feature">
-						<h6>From: <span>Prishtina</span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
-						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-					</div>
-					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-				</div>
-			</div>
-			<!-- Single Room Area -->
-			<div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-				<!-- Room Thumbnail -->
-				<div class="room-thumbnail">
-					<img src="img/bg-img/45.jpg" alt="">
-				</div>
-				<!-- Room Content -->
-				<div class="room-content">
-					<h2>Destination</h2>
-					<h4>400$ <span>/ Day</span></h4>
-					<div class="room-feature">
-						<h6>From: <span>Prishtina</span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
-						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-					</div>
-					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-				</div>
-			</div>
-			<!-- Single Room Area -->
-			<div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-				<!-- Room Thumbnail -->
-				<div class="room-thumbnail">
-					<img src="img/bg-img/46.jpg" alt="">
-				</div>
-				<!-- Room Content -->
-				<div class="room-content">
-					<h2>Destination</h2>
-					<h4>400$ <span>/ Day</span></h4>
-					<div class="room-feature">
-						<h6>From: <span>Prishtina</span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
-						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-					</div>
-					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-				</div>
-			</div>
-			<!-- Single Room Area -->
-			<div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-				<!-- Room Thumbnail -->
-				<div class="room-thumbnail">
-					<img src="img/bg-img/47.jpg" alt="">
-				</div>
-				<!-- Room Content -->
-				<div class="room-content">
-					<h2>Destination</h2>
-					<h4>400$ <span>/ Day</span></h4>
-					<div class="room-feature">
-						<h6>From: <span>Prishtina</span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
-						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-					</div>
-					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-				</div>
-			</div>
-			<!-- Single Room Area -->
-			<div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-				<!-- Room Thumbnail -->
-				<div class="room-thumbnail">
-					<img src="img/bg-img/48.jpg" alt="">
-				</div>
-				<!-- Room Content -->
-				<div class="room-content">
-					<h2>Destination</h2>
-					<h4>400$ <span>/ Day</span></h4>
-					<div class="room-feature">
-						<h6>From: <span>Prishtina</span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
-						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-					</div>
-					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-				</div>
-			</div>
-
-
-			<!-- Pagination -->
-			<nav class="roberto-pagination wow fadeInUp mb-100" data-wow-delay="1000ms">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next <i class="fa fa-angle-right"></i></a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-	</div>
-	</div>
 	<!-- Rooms Area End -->
 
 
@@ -241,6 +140,50 @@
 
 </html>
  <?php $userConectedId = $dataArr->id; ?>
+ 
+ 
+ 
+ 
+ <script>
+
+    $(document).ready(function() {
+        let offset = 10;
+        $('#bttnMore').click(() => {
+            $('#bttnMore').html("Loading...");
+            $.ajax({
+                url: 'moreFlights.php',
+                type: 'POST',
+                data: {
+                    offset: offset
+                },
+                success: function(data) {
+                    if(data != ""){
+                        offset += 10;
+                        $('#flightId').append(data);
+                        $('#bttnMore').html("Show More");
+                    } else {
+                        $('#bttnMore').html("No  data");
+                    }
+                }
+            });
+        });
+    });
+
+
+</script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 <script>
     let userInfo = document.getElementById("userDelete");
@@ -308,3 +251,4 @@
 	}
 
 </script>
+

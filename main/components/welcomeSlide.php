@@ -1,27 +1,12 @@
 <?php
 include_once "../databaseConfig.php";
 
-$getSalePctQuery = "select isSale from flight group by isSale order by isSale desc limit 3";
+$getSalePctQuery = "select isSale from flight where checkIn > now() group by isSale order by isSale desc limit 3";
 $getSalePct = $conn->prepare($getSalePctQuery);
 $getSalePct->execute();
 $SaleFlights = $getSalePct->fetchAll();
 $indexNum = 1;
 foreach($SaleFlights as $DataSaleFlight):
-    // print_r($DataSaleFlight);
-// $getInSaleFlightsQuery = "select f.id, c1.name, c2.name, f.price,
-// f.isSale, (f.price*f.isSale/100) as 'Sale Price'  from flight f
-// inner join city c1 on f.fromCity = c1.id
-// inner join city c2 on f.toCity = c2.id
-// order by (f.price*f.isSale/100) Desc limit 10";
-// $getInSaleFlights = $conn->prepare($getInSaleFlightsQuery);
-// $getInSaleFlights->execute();
-// $row = $getInSaleFlights->fetchAll();
-
-//     foreach($row as $data){
-//         print_r($data);
-//         echo "Start                <br/>";
-//     }
-
 ?>
 
  <!-- Single Welcome Slide -->
@@ -45,7 +30,8 @@ foreach($SaleFlights as $DataSaleFlight):
          </div>
      </div>
  </div>
-<?php endforeach; ?>
+<?php
+endforeach; ?>
 
 <script>
     function getInSaleFlights(sale){

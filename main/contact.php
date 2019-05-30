@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start(); ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 <?php include 'components/head.php' ?>
+    
 <body>
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader"></div>
-    </div>
+    </div>s
     <!-- /Preloader -->
     <!-- Header Area Start -->
     <?php include 'components/header.php' ?>
@@ -78,10 +82,23 @@
         </div>
     </section>
     <!-- Google Maps & Contact Info Area End -->
-
+  <div class="roberto-contact-form-area section-padding-100">
+  <div class="container">
+        
     <!-- Contact Form Area Start -->
-    <div class="roberto-contact-form-area section-padding-100">
-        <div class="container">
+    
+  <?php if(!$dataArr){ ?>
+        <div class="row">
+                <div class="col-12">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                        <h6>Register now to leave a message</h6>
+                        <a href="login.php">Register now</a>
+                    </div>
+                </div>
+            </div>
+  <?php
+} else { ?>
             <div class="row">
                 <div class="col-12">
                     <!-- Section Heading -->
@@ -91,31 +108,68 @@
                     </div>
                 </div>
             </div>
-
+  
             <div class="row">
                 <div class="col-12">
-                    <!-- Form -->
+                     
                     <div class="roberto-contact-form">
-                        <form action="contactUs.php" method="post">
+                        <form  method="post">
                             <div class="row">
                                 <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
-                                    <input type="text" name="message-name" class="form-control mb-30" placeholder="Your Name">
+                                    <label>Subject</label>
+                                    <input type="text" name="message-name" class="form-control mb-30" placeholder="Subject" id="subject">
                                 </div>
-                                <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
-                                    <input type="email" name="message-email" class="form-control mb-30" placeholder="Your Email">
+                                <div>
+                                <label style="padding-left:10px;">Rating</label>
+                                <input type="number" id="rating" min='0' style="width:100px;  margin-right:5px;" class="form-control mb-30">
                                 </div>
+                                
                                 <div class="col-12 wow fadeInUp" data-wow-delay="100ms">
-                                    <textarea name="message" class="form-control mb-30" placeholder="Your Message"></textarea>
+                                   <label>Content</label>
+                                    <textarea name="message" class="form-control mb-30" placeholder="Your Message" id="content"></textarea>
                                 </div>
                                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="100ms">
-                                  
-                                    <button name="contactUs" type="submit" class="btn roberto-btn mt-15">Send Message</button>
+                                <p id="mesazhi"></p>
+                                    <button name="contactUs" type="button" id="buttonClick" class="btn roberto-btn mt-15">Send Message</button>
                                 </div>
+                                
+                                <?php $userId=$dataArr->id;?>
+
+                                
+                                <script>
+		                             $(document).ready(function() {
+                                    $('#buttonClick').click(function(){
+                                        var subject = $("#subject").val();
+                                        var rating = $("#rating").val();
+                                        var content = $("#content").val(); 
+                                        var userId = "<?php echo $userId; ?>";
+                                         
+                                             $.ajax({
+                                               url: "contactUs.php",
+                                               method: "POST",
+                                                data: {
+                                                    userId: userId, 
+                                                    subject: subject,
+                                                    rating: rating,
+                                                    content:content 
+                                                },
+                                                dataType: "text",
+                                                success: function(data) {
+                                                    $('#mesazhi').append(data);
+                                                        }
+});
+                                    
+                                    });
+                                    
+                            
+        });
+                                </script>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <?php }?>
         </div>
     </div>
     <!-- Contact Form Area End -->

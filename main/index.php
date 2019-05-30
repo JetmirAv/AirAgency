@@ -117,11 +117,11 @@
     </div>
     <!-- Service Area End -->
 
-    <!-- Our Room Area Start -->
+    <!-- Our flights Area Start -->
     <section class="roberto-rooms-area">
         <?php include "components/destinations.php" ?>
     </section>
-    <!-- Our Room Area End -->
+    <!-- Our flights Area End -->
 
     <!-- Testimonials Area Start -->
     <section class="roberto-testimonials-area section-padding-100-0">

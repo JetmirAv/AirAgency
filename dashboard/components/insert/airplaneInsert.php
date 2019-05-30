@@ -4,7 +4,7 @@
             <h4 class="title">Edit Airplane</h4>
         </div>
         <div class="content">
-            <form action="components/dashboard/updateAirplane.php" method="POST">
+            <form action="../dashboard/components/airplane/insertAirplaneQuery.php" method="POST">
                 <div class="row" style="margin-left:25%">
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px;">
@@ -65,7 +65,7 @@
                     <textarea rows="5" name="additionalDesc" class="form-control" placeholder="Here can be your description"></textarea>
                 </div>
 
-                <button type="submit" value="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>
+                <button name="insertAirplane" type="submit" value="submit" class="btn btn-info btn-fill pull-right">Insert Airplane</button>
                 <div class="clearfix"></div>
             </form>
         </div>

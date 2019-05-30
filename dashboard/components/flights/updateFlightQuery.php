@@ -1,18 +1,17 @@
-     
-
-
-
 <?php
-$servername = 'localhost';
-$username = "root";
-$password = "";
-$database = 'airagency';
-//include "../../../databaseConfig.php";
+//$servername = 'localhost';
+//$username = "root";
+//$password = "";
+//$database = 'airagency';
+include "../../../databaseConfig.php";
 
 try{
    
-    $conn = new PDO("mysql:host=localhost; dbname=airagency", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//    $conn = new PDO("mysql:host=localhost; dbname=airagency", $username, $password);
+//    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+$errors = Array();
+    
 if(isset($_POST['updateFlight']))
 {
     
@@ -26,7 +25,7 @@ if(isset($_POST['updateFlight']))
     $checkIn = date(trim($_POST['checkIn']));
     $img = $_POST['img'];
 //    $updatedAt = $_POST['updatedAt'];
-    echo $toCity;
+ //   echo $toCity;
     
     $updateFlight = " Update flight set  fromCity ='$fromCity' , toCity = '$toCity', planeId = '$planeId', avalible = '$avalible', price = '$price', isSale = '$isSale', checkIn = '$checkIn' , img = '$img', updatedAt=NOW() where id = '101'    and ('$fromCity' in(select id from city ) and '$toCity' in (select id from city)); ";
     $updateStm = $conn->prepare($updateFlight);
@@ -35,14 +34,23 @@ if(isset($_POST['updateFlight']))
     
     
     
-    
-    
-    
-    
 //    $updateFlight = " Update flight set  fromCity = '$fromCity, toCity = :toCity,planeId = :planeId, avalible = :avalible, price = :price, isSale = :isSale, checkIn = :checkIn, img = :img, updatedAt=NOW() where id = 101 and (fromCity in(select id from city where name=:fromCity) or toCity in (select id from city where name= :toCity)); ";
     
     
-        echo "Updated successfully";
+        //echo "Updated successfully";
+    
+        
+        if($errors)
+        {
+            $msg = 'gabim';
+            array_push($errors, $msg);
+            $_POST['error'] = $errors;
+        }
+        else
+        {
+            header("location: ". $_SERVER["HTTP_REFERER"]);
+            $_POST['sukses'] = "Sukses";
+        }
     
 }
     

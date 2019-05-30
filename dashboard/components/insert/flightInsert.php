@@ -205,7 +205,7 @@ $planeResults = $planeStm->fetchAll(); ?>
 
                 </div>
 
-                <button name="insertFlight" type="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>
+                <button name="insertFlight" type="submit" class="btn btn-info btn-fill pull-right">Insert Flight</button>
                 <div class="clearfix"></div>
             </form>
         </div>

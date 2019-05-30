@@ -41,7 +41,7 @@
                         <div class="single-contact-info">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <h4>Phone</h4>
-                            <p>+01-234-567-890</p>
+                            <p><?php echo PHONE; ?></p>
                         </div>
                     </div>
                     <!-- Single Contact Info -->
@@ -49,7 +49,7 @@
                         <div class="single-contact-info">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <h4>Address</h4>
-                            <p>Iris Watson, 283 Fusce Rd,NY</p>
+                            <p><?php echo ADDRESS;?></p>
                         </div>
                     </div>
                     <!-- Single Contact Info -->
@@ -65,14 +65,14 @@
                         <div class="single-contact-info">
                             <i class="fa fa-envelope-o" aria-hidden="true"></i>
                             <h4>Email</h4>
-                            <p>Info.colorlib @gmail.com</p>
+                            <p><?php echo EMAIL; ?></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Google Maps -->
                 <div class="google-maps">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82774.69671830302!2d24.077286625210185!3d56.96328499537209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eecfb0e5073ded%3A0x400cfcd68f2fe30!2sRiga%2C+Latvia!5e0!3m2!1sen!2sbd!4v1549536732147" allowfullscreen></iframe>
+                    <iframe src="https://maps.google.com/maps?q=Prishtina&t=&z=13&ie=UTF8&iwloc=&output=embed"allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
                 <div class="col-12">
                     <!-- Form -->
                     <div class="roberto-contact-form">
-                        <form action="#" method="post">
+                        <form action="contactUs.php" method="post">
                             <div class="row">
                                 <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
                                     <input type="text" name="message-name" class="form-control mb-30" placeholder="Your Name">
@@ -108,7 +108,8 @@
                                     <textarea name="message" class="form-control mb-30" placeholder="Your Message"></textarea>
                                 </div>
                                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="100ms">
-                                    <button type="submit" class="btn roberto-btn mt-15">Send Message</button>
+                                  
+                                    <button name="contactUs" type="submit" class="btn roberto-btn mt-15">Send Message</button>
                                 </div>
                             </div>
                         </form>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'components/head.php' ?>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<?php include 'components/head.php' ?>
+  
 <body>
 	<!-- Preloader -->
 	<div id="preloader">
@@ -31,14 +32,14 @@
 		height: 25%;
 		z-index: 500;
 		text-align: center">
-			<h3>Delete User</h3>
+			<h3>Book -></h3>
 			<h4 style="font-weight: 300" id="user">
 				</h5>
 				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
 					<button id="bttnConfirmCancel">Cancel</button>
-					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
+					<button id="bttnConfirmBook" type="submit" name="deleteUser">book</button>
 				</div>
 		</div>
 	</form>
@@ -93,11 +94,31 @@
                                 <h6>To: <span>Spain</span></h6>
                                 <h6>Date: <span><?php echo date("Y-m-d"); ?></span></h6>
 						<h6>Time: <span><?php echo date("H-m"); ?></span></h6>
-						<h6>Avalible: <span>100</span></h6>
-						<span style="display:block; width: 20px; "><input min=0 type="number" /></span>
+						<h6>Avalible: <span id="ticketsAvalible">100</span></h6>
+						<span style="display:block; width: 20px; "><input min=0 max="100" type="number" id="quantityValue"/></span>
 					</div>
 					'?>
-					<button type="button" id="bttnDelete" onclick=deleteHandler(100,'Emri','Mbiemri') class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
+					<button type="button" id="btnInsert" onclick=deleteHandler('Prishtine','Wiene',255) class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
+						<p style="color:green; padding-left:20px;" id="insertMessage">
+<!--
+						<?php
+//							if (isset($_SESSION['InsertSucess'] )) {
+//							echo $_SESSION['InsertSucess'];  
+								//isset($_SESSION['InsertSucess']);
+//							}  
+//							if (isset($_SESSION['insertQuantityError'] )) {
+//							echo $_SESSION['insertQuantityError'] ;  
+//							}  
+//							if (isset($_SESSION['insertCardError'] )) {
+							
+//							echo $_SESSION['insertCardError'];   
+							
+//							}  
+							
+							?>
+-->
+
+						</p>
 				</div>
 			</div>
 
@@ -219,22 +240,26 @@
 </body>
 
 </html>
-<script>
-	let userInfo = document.getElementById("userDelete");
-	let backdrop = document.getElementById("backdrop");
-	let userId, userName, userEmail = '';
+ <?php $userConectedId = $dataArr->id; ?>
 
-	function deleteHandler(id, Emri, Mbiemri) {
+<script>
+    let userInfo = document.getElementById("userDelete");
+	let backdrop = document.getElementById("backdrop");
+	let  From, To , Price= '';
+
+	
+	function deleteHandler(From, To,Price) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
-		userId = id;
-		userName = name;
-		userEmail = email;
-		console.log("ID: " + id + " Name: " + name + " Email: " + email);
-		document.getElementById('user').innerHTML = "ID: " + id + "<br />" +
-			" Full Name: " + name + "<br />" +
-			" Email: " + email;
-		alert(id);
+		Price = Price;
+		From = From;
+		To = To;
+		//console.log("ID: " + id + " Name: " + From + " Email: " + To);
+		document.getElementById('user').innerHTML = " From: " + From + "   <br>   " + " To: " + To +
+			"<br>"+"Price:" + Price;
+
+		//alert(quantity);
+	
 	}
 
 	backdrop.onclick = () => {
@@ -248,18 +273,38 @@
 		userInfo.style.display = "none";
 		backdrop.style.display = "none";
 	}
-	document.getElementById("bttnConfirmDelete").onclick = (e) => {
+	document.getElementById("bttnConfirmBook").onclick = (e) => {
 		e.preventDefault();
-		$.ajax({
-			url: "components/insert/insertIntoBookingTable.php",
-			type: "POST",
-			data: {
-				"id": userId
-			}
-		}).done(function(data) {
-			location.reload();
-			alert("kdfkbm");
-		});
+    	var userConectedId="<?php echo $userConectedId;?>";
+		var quantity = document.getElementById("quantityValue").value;
+		    var flightId=88;
+
+				$.ajax({
+					url: "../dashboard/components/insert/insertIntoBookingTable.php",
+					method: "POST",
+					data: {
+						flightId: flightId,
+				        userConectedId: userConectedId,
+     	                quantity:quantity
+					},
+					dataType: "text",
+					success: function(data) {
+						$('#insertMessage').html(data);
+									userInfo.style.display = "none";
+									backdrop.style.display = "none";
+						
+						
+							}
+						
+						 
+					
+						
+					});
+				
+		
+	
+
+
 	}
 
 </script>

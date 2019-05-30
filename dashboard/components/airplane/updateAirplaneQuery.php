@@ -1,9 +1,15 @@
 <?php
 
-include "../../databaseConfig.php";
+include "../../../databaseConfig.php";
+//$servername = 'localhost';
+//$username = "root";
+//$password = "";
+//$database = 'airagency';
 
 try{
-   
+      
+//    $conn = new PDO("mysql:host=localhost; dbname=airagency", $username, $password);
+//    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $errors = Array();
 
     if(isset($_POST['updateAirplane']))
@@ -20,17 +26,17 @@ try{
         
         
         
-        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = 104;";
+        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = 101;";
         
         
-        
+        //print_r($updatePlane);
 
         $updateStm = $conn->prepare($updatePlane);
         $pdoExec = $updateStm->execute(array(":name"=>$name,":yearOfProd"=>$yearOfProd,":seats"=>$seats,":fuelCapacity"=>$fuelCapacity,":maxspeed"=>$maxspeed,":additionalDesc"=>$additionalDesc,":img"=>$img));
         
-        echo "Connection successfully";
+        echo "Updated successfully";
         
-        if(error)
+        if($errors)
         {
             $msg = 'gabim';
             array_push($errors, $msg);
@@ -45,6 +51,10 @@ try{
     }    
 }
 
+catch(PDOException $ex) {
+    echo "Datebase Connection failed: " . $ex->getMessage();
+}
+$conn = null;
 ?>
 
         

@@ -4,15 +4,16 @@ include "../databaseConfig.php";
 
 
 // Query Airplane 
+if (isset($_GET['id'])){
+   $id = $_GET['id'];
 
-$sqlPlane="select * from airplane where id=1;";
+
+$sqlPlane="select * from airplane where id= ".$id.";";
 
 
 $planeStatement = $conn->prepare($sqlPlane);
 $planeStatement -> execute();
 $planeDetail = $planeStatement->fetch();
-
-
 
 ?> 
                 <div class="col-md-8">
@@ -116,3 +117,4 @@ $planeDetail = $planeStatement->fetch();
 
                             </div>
                         </div>
+				<?php 		}?>

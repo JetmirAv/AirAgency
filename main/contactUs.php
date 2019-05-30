@@ -1,30 +1,24 @@
-<?php include 'components/constants.php' ?>
+<?php include "../databaseConfig.php";            ?>
+
 
 <?php 
-  
 
+session_start();
 
-if(isset($_POST['contactUs'])){
-    
-    $to = EMAIL;; // this is your Email address
-    $from = $_POST['message-email']; // this is the sender's Email address
-    $first_name = $_POST['message-name'];
-    $subject = "Form submission";
-    $subject2 = "Copy of your form submission";
-    $message = $first_name . " "  . " wrote the following:" . "\n\n" . $_POST['message'];
-    $message2 = "Here is a copy of your message " . $first_name . "\n\n" . $_POST['message'];
+require("../global/isLogged.php");
+$userId = $_POST['userId'];
+$subject = $_POST['subject'];
+$content = $_POST['content'];
+$rating = $_POST['rating'];
+ 
+if($rating>=0){
 
-    $headers = "From:" . $from;
-    $headers2 = "From:" . $to;
-    $backMsg = "<p style='color:green;'>Mail Sent. Thank you " . $first_name . ", we will contact you shortly.</p>";
-    
-    echo $backMsg;     
-    
+$insertFeedBacks = "insert into feedbacks(userId,subject,content,rating)
+values(:userId,:subject,:content,:rating)";
+$insertStm = $conn->prepare($insertFeedBacks);
+$pdoExecute = $insertStm -> execute(array(":userId"=>$userId,":subject"=>$subject,":content"=>$content,":rating"=>$rating));
 
-    
-   /* mail($to,$subject,$message,$headers);
-    mail($from,$subject2,$message2,$headers2); // sends a copy of the message to the sender
-    
-*/
+echo "<p style='color:green;'>Mail Sent. Thank you " . $dataArr->name . ", we will contact you shortly.</p>";
+} else {
+    echo "<p style='color:red;'>Rating must be positive </p>";
 }
-?>

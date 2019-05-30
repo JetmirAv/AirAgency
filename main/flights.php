@@ -32,14 +32,14 @@
 		height: 25%;
 		z-index: 500;
 		text-align: center">
-			<h3>Delete User</h3>
+			<h3>Book -></h3>
 			<h4 style="font-weight: 300" id="user">
 				</h5>
 				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
 					<button id="bttnConfirmCancel">Cancel</button>
-					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
+					<button id="bttnConfirmBook" type="submit" name="deleteUser">book</button>
 				</div>
 		</div>
 	</form>
@@ -98,7 +98,27 @@
 						<span style="display:block; width: 20px; "><input min=0 type="number" id="quantityValue"/></span>
 					</div>
 					'?>
-					<button type="button" id="bttnDelete" onclick=deleteHandler(88,'Emri','Mbiemri') class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
+					<button type="button" id="btnInsert" onclick=deleteHandler('Prishtine','Wiene',255) class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px; padding-right:12px" on>Book now</button>
+						<p style="color:green; padding-left:20px;" id="insertMessage">
+<!--
+						<?php
+//							if (isset($_SESSION['InsertSucess'] )) {
+//							echo $_SESSION['InsertSucess'];  
+								//isset($_SESSION['InsertSucess']);
+//							}  
+//							if (isset($_SESSION['insertQuantityError'] )) {
+//							echo $_SESSION['insertQuantityError'] ;  
+//							}  
+//							if (isset($_SESSION['insertCardError'] )) {
+							
+//							echo $_SESSION['insertCardError'];   
+							
+//							}  
+							
+							?>
+-->
+
+						</p>
 				</div>
 			</div>
 
@@ -222,24 +242,21 @@
 </html>
  <?php $userConectedId = $dataArr->id; ?>
 
-
 <script>
     	let userInfo = document.getElementById("userDelete");
 	let backdrop = document.getElementById("backdrop");
-	let userId, userName, userEmail = '';
-
+	let  From, To , Price= '';
 	
 	
-	function deleteHandler(id, From, To) {
+	function deleteHandler(From, To,Price) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
-		userId = id;
-		userName = From;
-		userEmail = To;
-		console.log("ID: " + id + " Name: " + From + " Email: " + To);
-		document.getElementById('user').innerHTML = "ID: " + id + "<br />" +
-			" Full Name: " + To + "<br />" +
-			" Email: " + To;
+		Price = Price;
+		From = From;
+		To = To;
+		//console.log("ID: " + id + " Name: " + From + " Email: " + To);
+		document.getElementById('user').innerHTML = " From: " + From + "   <br>   " + " To: " + To +
+			"<br>"+"Price:" + Price;
 
 		//alert(quantity);
 	
@@ -256,27 +273,31 @@
 		userInfo.style.display = "none";
 		backdrop.style.display = "none";
 	}
-	document.getElementById("bttnConfirmDelete").onclick = (e) => {
+	document.getElementById("bttnConfirmBook").onclick = (e) => {
 		e.preventDefault();
     	var userConectedId="<?php echo $userConectedId;?>";
 		var quantity = document.getElementById("quantityValue").value;
+		    var flightId=88;
+
 				$.ajax({
 					url: "../dashboard/components/insert/insertIntoBookingTable.php",
 					method: "POST",
 					data: {
-						flightId: userId,
+						flightId: flightId,
 				        userConectedId: userConectedId,
      	                quantity:quantity
 					},
 					dataType: "text",
 					success: function(data) {
-						if (data = '') {
-							$('#btnMore').html("No Data");
-						}
-						} else {
-							$('#btnMore').html("No Data");
-						}
-					}
+						$('#insertMessage').html(data);
+									userInfo.style.display = "none";
+									backdrop.style.display = "none";
+						
+						
+							}
+						
+						 
+					
 						
 					});
 				

@@ -114,6 +114,7 @@ id int auto_increment primary key,
 userId int, 
 subject varchar(255),
 content text,
+rating int,
 createdAt datetime,
 updatedAt datetime,
 foreign key(userId) references users(id) on delete cascade on update no action)

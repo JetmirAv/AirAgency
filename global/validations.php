@@ -69,3 +69,19 @@ function check_date($database_date)
 		return false;
 	}
 }
+
+
+
+function check_year($yearOfProd)
+{
+    $year = (new DateTime)->format("Y");
+	if ($yearOfProd<$year)
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+

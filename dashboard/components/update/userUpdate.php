@@ -2,7 +2,12 @@
 include "../databaseConfig.php";
 
 
-
+if (isset($_GET['id'])){
+   $id = $_GET['id'];
+}
+else {
+	$id=$dataArr->id;
+}
 
 // Query for user
 $sql = "SELECT u.firstname as 'firstname',
@@ -20,7 +25,7 @@ u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
  FROM  users u
-LEFT JOIN Card c on u.id=c.userId where u.id=" . $dataArr->id ;
+LEFT JOIN Card c on u.id=c.userId where u.id=".$id."";
    
 
 $statement = $conn->prepare($sql);  
@@ -206,6 +211,7 @@ $userDetail = $statement->fetch();
                             </div>
                         </div>
                     </div>-->
+
                     
                     
 <script>

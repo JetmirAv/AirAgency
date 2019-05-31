@@ -90,15 +90,15 @@
 
 				foreach ($rsResult as $row) {
 					echo ' <tr id=' . $row['id'] . '>
-					<td style="padding:2px ; padding-left:10px"><img src=' . $row["img"] . ' width=35; height=35; style="border-radius:50% ; padding:0px;"> </td>
-					<td>' . $row["fullname"] . '</td>
-					<td style="padding-left:25px;">' . $row["gendre"] . '</td>
-					<td>' . $row["birthday"] . '</td>
-					<td style="width:8% ; overflow:hidden;  position: relative;">' . $row["email"] . '</td>
-					<td>' . $row["state"] . '</td>
-					<td>' . $row["city"] . '</td>
-					<td>' . $row["phoneNumber"] . '</td>
-					<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')" style="padding:2px ; padding-left:10px"><img src=' . $row["img"] . ' width=35; height=35; style="border-radius:50% ; padding:0px;"> </td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')">' . $row["fullname"] . '</td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')" style="padding-left:25px;">' . $row["gendre"] . '</td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')">' . $row["birthday"] . '</td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')" style="width:8% ; overflow:hidden;  position: relative;">' . $row["email"] . '</td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')">' . $row["state"] . '</td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')">' . $row["city"] . '</td>
+					<td onclick="getUserHandler(\'' . $row['id'] . ' \')">' . $row["phoneNumber"] . '</td>
+					<td ><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["fullname"] . '\', \' ' . $row["email"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
 
 						  
 				</tr>';
@@ -139,6 +139,10 @@
 				});
 			});
 		});
+
+			function getUserHandler(id){
+		window.location.href = '../dashboard/userInfo.php?id='+id;
+	}
 
 		let userInfo = document.getElementById("userDelete");
 		let backdrop = document.getElementById("backdrop");

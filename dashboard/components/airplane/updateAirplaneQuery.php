@@ -2,14 +2,18 @@
 include "../../../databaseConfig.php";
 
 session_start();
+
 $errors = array();
+if (isset($_GET['id'])){
+   $id = $_GET['id'];
+
 
     if(isset($_POST['updateAirplane']))
         
     {
         
-         $_SESSION['success'] = "";    
-         $_SESSION['errors'] = $error_message;
+         $_SESSION['sukses'] = "";    
+         $_SESSION['gabimet'] = $errors;
          $allowed_image_extension = array(
          "png",
          "jpg",
@@ -22,13 +26,14 @@ $errors = array();
         $name = ucfirst(strtolower($name));
         $name = trim(ucfirst(strtolower($name)));
 
-        $yearOfProd = int($_POST['yearOfProd']);
-        $seats = int($_POST['seats']);
-        $fuelCapacity = int($_POST['fuelCapacity']);
-        $maxspeed = int($_POST['maxspeed']);
+        $yearOfProd = $_POST['yearOfProd'];
+        $seats = $_POST['seats'];
+        $fuelCapacity = $_POST['fuelCapacity'];
+        $maxspeed = $_POST['maxspeed'];
         $additionalDesc = $_POST['additionalDesc'];
         $img = $_POST['img'];
 
+        echo $img;
     $file_extension = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
     echo "<br/>";
     echo $email;
@@ -63,45 +68,37 @@ $errors = array();
             $rand = rand(10000, 99999);
             $encname = $date . $rand;
             $profilepicName = md5($encname) . '.' . $profilepicExptype;
-            $profilepicPath = "../../uploads/airplane-img/" . $profilepicName;
+            $profilepicPath = "../../../uploads/airplane-img/" . $profilepicName;
 
             if (move_uploaded_file($_FILES["img"]["tmp_name"], $profilepicPath)) { } else {
                 $errmsg = "Problem in uploading image files.";
-                array_push($error_message, $errmsg);
+                array_push($errors, $errmsg);
             }
   
         
         
         
-        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = 101;";
+        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = ".$id.";";
         
         
         //print_r($updatePlane);
 
         $updateStm = $conn->prepare($updatePlane);
-        $pdoExec = $updateStm->execute(array(":name"=>$name,":yearOfProd"=>$yearOfProd,":seats"=>$seats,":fuelCapacity"=>$fuelCapacity,":maxspeed"=>$maxspeed,":additionalDesc"=>$additionalDesc,":img"=>$img));
+        $pdoExec = $updateStm->execute(array(":name"=>$name,":yearOfProd"=>$yearOfProd,":seats"=>$seats,":fuelCapacity"=>$fuelCapacity,":maxspeed"=>$maxspeed,":additionalDesc"=>$additionalDesc,":img"=>$profilepicName));
         
-        echo "Updated successfully";
+        $_SESSION['sukses'] = "Airplane Updated sucessfuly";
+        header('location: ' . $_SERVER["HTTP_REFERER"]);
+        die();
+    } else {
+        $_SESSION['gabimet'] = $errors;
+        header('location: ' . $_SERVER["HTTP_REFERER"]);
+        die();
+    
         
-        if($errors)
-        {
-            $msg = 'gabim';
-            array_push($errors, $msg);
-            $_POST['error'] = $errors;
-        }
-        else
-        {
-            header("location: ". $_SERVER["HTTP_REFERER"]);
-            $_POST['sukses'] = "Sukses";
-        }
-       
-    }    
-}
+    }
+    }
 
-catch(PDOException $ex) {
-    echo "Datebase Connection failed: " . $ex->getMessage();
-}
-$conn = null;
+
 ?>
 
         

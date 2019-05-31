@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'components/head.php' ?>
-<body>
+<?php include 'components/head.php'; 
+      include '../databaseConfig.php';
+      session_start();
+      require("../global/isLogged.php");
+    
+ ?>
+<body>    
 
-	
+<?php 
+
+$userId=$dataArr->id;
+$sql="select b.userId  , c1.name as 'From' , c2.name as 'To' , f.price as 'Price' ,
+f.isSale as 'Sale' , (f.price - (f.price* f.isSale/100)) as 'SalePrice' ,
+b.quantity as 'TicketsBought',
+b.createdAt as 'boookedDate'  from flight f 
+INNER JOIN city c1 on f.fromCity=c1.id 
+INNER JOIN city c2 ON f.toCity=c2.id
+INNER JOIN booked b ON b.flightId=f.id   where b.userId='.$userId.' ; " ;
+
+$sqlQuery=$conn->prepare($sql);
+$sqlQuery->execute();
+$sqlStm = $sqlQuery->fetchAll();    
+    
+?>
+																			
 	<!-- Preloader -->
     <div id="preloader">
         <div class="loader"></div>
@@ -43,21 +64,25 @@
 				<th></th>
 			</thead>
 			<tbody id="loadDataTable">
-
-               <tr id="1">
-				<td>Prishtin</td>
-				<td>Wiene</td>
-				<td>500</td>
-				<td>0</td>
-				<td style="padding-left:40px ;">0</td>
-			    <td style="padding-left:60px ;">5</td>
-			    <td>25-04-20019 10:10:10</td>
+     
+      <?php foreach($sqlStm as $row){
+      echo ' 
+                <tr id="1">
+				<td>'.$row['From'].'</td>
+				<td>'.$row['To'].'</td>
+				<td>'.$row['Price'].'</td>
+				<td>'.$row['Sale'].'</td>
+				<td style="padding-left:40px ;">'.$row['SalePrice'].'</td>
+			    <td style="padding-left:60px ;">'.$row['TicketsBought'].'</td>
+			    <td>'.$row['boookedDate'].'</td>
 				<td><button class="btn btn-success form-control" style="width:85%;  margin-left:10px; padding-right:12px">Cancel</button></td>   
 			</tr>
-				
+				';
+} ?>
+                
 			</tbody>
 </table>
-
+<button type="button" id="bttnMore" class="btn btn-success form-control" style="width:160px; margin-left:48%; margin-bottom:20px; background-color:lightblue">Show More</button>
     <!-- Blog Area Start -->
     <div class="roberto-news-area section-padding-100-0">
         <div class="container">
@@ -88,3 +113,45 @@
 </body>
 
 </html>
+
+<script>
+        $(document).ready(function() {
+let offset = 10;
+var userId = "<?php echo $userId; ?>"; 
+
+        $('#bttnMore').click(() => {
+            $('#bttnMore').html("Loading...");
+            $.ajax({
+
+                url: 'moreBooked.php',
+                type: 'POST',
+                data: {
+                    offset: offset,
+                    userId: userId
+                },
+                success: function(data) {
+                    if(data != ""){
+                        offset += 10;
+                        $('#loadDataTable').append(data);
+                        $('#bttnMore').html("Show More");
+                    } else {
+                        $('#bttnMore').html("No more data");
+                        $('#bttnMore').attr('disabled', true)
+                    }
+                }
+            });
+        });
+
+        });
+
+
+
+</script>
+
+
+
+
+
+
+
+

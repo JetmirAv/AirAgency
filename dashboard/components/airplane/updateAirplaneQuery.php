@@ -1,28 +1,75 @@
 <?php
-
 include "../../../databaseConfig.php";
-//$servername = 'localhost';
-//$username = "root";
-//$password = "";
-//$database = 'airagency';
 
-try{
-      
-//    $conn = new PDO("mysql:host=localhost; dbname=airagency", $username, $password);
-//    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $errors = Array();
+session_start();
+$errors = array();
 
     if(isset($_POST['updateAirplane']))
         
     {
-        $name = $_POST['name'];
-        $yearOfProd = $_POST['yearOfProd'];
-        $seats = $_POST['seats'];
-        $fuelCapacity = $_POST['fuelCapacity'];
-        $maxspeed = $_POST['maxspeed'];
+        
+         $_SESSION['success'] = "";    
+         $_SESSION['errors'] = $error_message;
+         $allowed_image_extension = array(
+         "png",
+         "jpg",
+         "jpeg"
+    );
+
+        
+        $name = strip_tags($_POST['name']);
+        $name = str_replace(' ','',$name);    
+        $name = ucfirst(strtolower($name));
+        $name = trim(ucfirst(strtolower($name)));
+
+        $yearOfProd = int($_POST['yearOfProd']);
+        $seats = int($_POST['seats']);
+        $fuelCapacity = int($_POST['fuelCapacity']);
+        $maxspeed = int($_POST['maxspeed']);
         $additionalDesc = $_POST['additionalDesc'];
         $img = $_POST['img'];
-    //    $updatedAt = $_POST['updatedAt'];
+
+    $file_extension = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
+    echo "<br/>";
+    echo $email;
+    echo "<br/>";
+    print_r($_FILES['img']);
+    echo "<br/>";
+    echo !file_exists($_FILES["img"]["tmp_name"]) ? 'true' : 'false';
+    echo "<br/>";
+    // Validate file input to check if is not empty
+    if (!file_exists($_FILES["img"]["tmp_name"])) {
+        $errmsg = "Choose image file to upload.";
+        array_push($errors, $errmsg);
+    }    // Validate file input to check if is with valid extension
+    else if (!in_array($file_extension, $allowed_image_extension)) {
+        $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
+        array_push($errors, $errmsg);
+    }    // Validate image file size
+    else if (($_FILES["img"]["size"] > 2000000)) {
+        $errmsg = "Image size exceeds 2MB";
+        array_push($errors, $errmsg);
+    }    // Validate image file dimensi..on
+
+
+        
+        
+    if(count($errors)<=0){  
+        
+            $profilepic = $_FILES['img']['name'];
+            $expProfilepic = explode('.', $profilepic);
+            $profilepicExptype = $expProfilepic[1];
+            $date = date('m/d/Yh:i:sa', time());
+            $rand = rand(10000, 99999);
+            $encname = $date . $rand;
+            $profilepicName = md5($encname) . '.' . $profilepicExptype;
+            $profilepicPath = "../../uploads/airplane-img/" . $profilepicName;
+
+            if (move_uploaded_file($_FILES["img"]["tmp_name"], $profilepicPath)) { } else {
+                $errmsg = "Problem in uploading image files.";
+                array_push($error_message, $errmsg);
+            }
+  
         
         
         

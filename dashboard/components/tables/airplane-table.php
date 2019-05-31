@@ -66,6 +66,7 @@
 		</h4>
 		<h4 style="display: inline-block; width: 40%"class="title">Number of airplanes:<?php echo $rowCount['total'] ?></h4>
 
+<!--
 		<a href="airplaneInser.php" style=" font: bold 11px Arial;
 												text-decoration: none;
 												background-color: #EEEEEE;
@@ -76,6 +77,14 @@
 												border-bottom: 1px solid #333333;
 												border-left: 1px solid #CCCCCC;
 												height:30px">Create  Airplane</a>
+-->
+
+        <a href="airplaneInser.php" style=" background-color: #eee;
+                                            top: 30%;
+                                            left: 30%;
+                                            width: 40%;
+                                            height: 25%;
+                                            text-align: center" >Create Airplane</a>
 	</div>
 
 	<div class="content table-responsive table-full-width">

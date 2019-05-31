@@ -3,6 +3,9 @@
 include "../../databaseConfig.php";
 include '../validations.php'; 
 session_start();
+
+
+
 $error_message = array();
 
     if(isset($_POST['userUpdate'])){
@@ -20,10 +23,12 @@ $error_message = array();
     $firstname = strip_tags($_POST['firstname']);
     $firstname = str_replace(' ','',$firstname);    
     $firstname = ucfirst(strtolower($firstname));
-        
+    $firstname = trim(ucfirst(strtolower($firstname)));
+
     $lastname = strip_tags($_POST['lastname']);
     $lastname = str_replace(' ','',$lastname);
-    $lastname = ucfirst(strtolower($lastname));    
+    $lastname = ucfirst(strtolower($lastname));
+    $lastname = trim(ucfirst(strtolower($lastname)));    
 
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -117,7 +122,7 @@ $error_message = array();
     $updatePlane = "update users set firstname = :firstname, lastname = :lastname, email = :email, ";
         
     $updatePlane = $updatePlane . '' . ($password==="" ? "" : 'password =  :password,' ). " birthday = :birthday, gendre = :gendre, address=:address ,
-    city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 17;";
+    city=:city , state=:state , postal=:postal , phoneNumber=:phoneNumber, img = :img, updatedAt = NOW() where id = 7;";
     
         echo $updatePlane;
                 echo "<br>";
@@ -137,7 +142,7 @@ $error_message = array();
     $pdoExec = $updateStm->execute($params);
 //    
     $updateCard = "update card c inner join users u on c.userId=u.id set c.number=:number,
-    c.expMonth='$expireDatesArray[0]',c.expYear='$expireDatesArray[1]' where u.id=17" ;
+    c.expMonth='$expireDatesArray[0]',c.expYear='$expireDatesArray[1]' where u.id=7;";
     $updateCardStm = $conn->prepare($updateCard);
     $pdoExecCard = $updateCardStm->execute(array(":number"=>$number)); 
     $_SESSION['sucess'] = "User Updated sucessfuly";
@@ -155,5 +160,6 @@ $error_message = array();
         die();
     }
 }
+
     
 ?>         

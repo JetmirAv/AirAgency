@@ -2,7 +2,7 @@
 
 	<?php include "../databaseConfig.php" ?>
 	<?php
-	$sql = "select id,concat('../uploads/flight-img/',img)as image, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight limit 10 ";
+	$sql = "select id ,concat('../uploads/flight-img/',img)as image, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight limit 10 ";
 	$countRows = "select count(*) as count from flight";
 	$numberOfRows = $conn->query($countRows);
 	$count = $numberOfRows->fetch();
@@ -93,16 +93,17 @@
 			<tbody id="loadDataTable">
 				<?php
 				foreach ($rsResult as $row) {
-					echo '<tr id=' . $row['id'] . '>
-							<td style="padding:2px ; padding-left:10px"><img src=' . $row["image"] . ' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
-							<td>' . $row["fromCity"] . '</td>
-							<td>' . $row["toCity"] . '</td>
-							<td style="padding-left:25px;">' . $row["planeId"] . '</td>
-							<td>' . $row["price"] . '</td>
-							<td>' . $row["isSale"] . '</td>
-							<td>' . $row["checkIn"] . '</td>
-							<td>' . $row["createdAt"] . '</td>
-							<td>' . $row["updatedAt"] . '</td>
+					echo '<tr >
+							<td onclick="getFlightHandler(10)" style="padding:2px ; padding-left:10px"><img src=' . $row["image"] . ' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
+							
+							<td onclick="getFlightHandler(\'' . $row['id'] .  '\')">' . $row["fromCity"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')">' . $row["toCity"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')" style="padding-left:25px;">' . $row["planeId"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')">' . $row["price"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')">' . $row["isSale"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')">' . $row["checkIn"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')">' . $row["createdAt"] . '</td>
+							<td onclick="getFlightHandler(\'' . $row['id'] . ' \')">' . $row["updatedAt"] . '</td>
 							<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
 
 						  </tr>';
@@ -126,12 +127,9 @@
 	$(document).ready(function() {
 		var pickedup;
 
+	
+	
 
-//		$('tbody').on('click', 'tr', function(e) {
-//			var txt = $(this).attr('id');
-//			window.location.href = '../dashboard/flightsInfo.php';
-//			//alert (txt);
-//		});
 
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");
@@ -158,7 +156,10 @@
 	});
     
     
-    
+	function getFlightHandler(id){
+		window.location.href = '../dashboard/flightsInfo.php?id='+id;
+	}
+        
     
       let flightInfo = document.getElementById("flightInfo");
 		let backdrop = document.getElementById("backdrop");

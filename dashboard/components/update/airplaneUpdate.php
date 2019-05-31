@@ -4,24 +4,43 @@ include "../databaseConfig.php";
 
 
 // Query Airplane 
+if (isset($_GET['id'])){
+   $id = $_GET['id'];
 
-$sqlPlane="select * from airplane where id=1;";
+
+$sqlPlane="select * from airplane where id=". $id .";";
 
 
 $planeStatement = $conn->prepare($sqlPlane);
 $planeStatement -> execute();
 $planeDetail = $planeStatement->fetch();
 
-
-
 ?> 
-                <div class="col-md-8">
+                <div class="col-md-8" style="margin-left:150px;">
 					<div class="card">
                             <div class="header">
                                 <h4 class="title">Edit Airplane</h4>
                             </div>
                             <div class="content">
-                               <form action="../dashboard/components/airplane/updateAirplaneQuery.php" method="POST">
+                               <form action="../dashboard/components/airplane/updateAirplaneQuery.php"  method="POST" enctype="multipart/form-data">
+                                   <div class="row" style="margin-left:300px;">
+                            <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
+                        <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
+                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
+                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/airplane-img/<?php echo $planeDetail['img'];?>" onclick="clicked(this)" />
+                        </div>
+                           </div>
+                                    <?php 
+										if(isset($_SESSION['gabimet'])){
+											foreach($_SESSION['gabimet'] as $updError){
+												echo "<p style='color:red'>$updError</p>";
+											}
+										}
+                             if(isset($_SESSION['sukses'])){
+												echo "<p style='color:green'>" .$_SESSION['sukses']. "</p>";
+											
+										}		
+									?>
                                     <div class="row" style="margin-left:25%">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
@@ -71,10 +90,7 @@ $planeDetail = $planeStatement->fetch();
                                                 <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $planeDetail['updatedAt'];?>" >
                                             </div>
                                         </div>
-                                         <div class="form-group">
-                                                <label>Image</label>
-                                                <input type="file" name="img" placeholder="Image" value="img" style="width: 120px;">
-                                            </div>    
+                                           
                                      </div>
                                      <div class="row" style="padding-left:18px; padding-right:18px; padding-bottom:10px">
                                      <label>AdditionalDesc</label>
@@ -87,32 +103,32 @@ $planeDetail = $planeStatement->fetch();
                             </div>
                         </div>
 					</div>
+					<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#profileImg')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function clicked() {
+        $("#profileUpload").click()
+    }
+</script>                    
+
 					
-					<div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img  src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                     <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+				
+				<?php 		}
+						else{
+						echo "Click on one airplane first ";
+						}
 
-                                      <h4 class="title"><?php echo $planeDetail['name'];  ?><br />
-                                         <small>michael24</small>
-                                      </h4>
-                                    </a>
-                                </div>
-                                <p class="description text-center"> "Lamborghini Mercy <br>
-                                                    Your chick she so thirsty <br>
-                                                    I'm in that two seat Lambo"
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
 
-                            </div>
-                        </div>

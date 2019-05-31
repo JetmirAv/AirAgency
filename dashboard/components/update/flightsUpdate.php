@@ -2,6 +2,10 @@
 include "../databaseConfig.php";
 
 // Query Flights
+if (isset($_GET['id'])){
+   $id = $_GET['id'];
+
+
  
 $sqlFlight="SELECT c1.id as 'fromCityId',
 a.id as 'airplaneId',
@@ -26,7 +30,7 @@ INNER JOIN city c2
 ON f.toCity=c2.id
 INNER JOIN Airplane a 
 ON f.planeId=a.id
-WHERE f.id=101;";
+WHERE f.id=".$id.";";
 $flightStatement = $conn->prepare($sqlFlight);
 $flightStatement->execute();
 $flightDetail = $flightStatement->fetch(); 
@@ -279,5 +283,8 @@ $planeResults = $planeStm->fetchAll();
                         </div>
                     </div>
 
-
-					
+<?php }
+else {
+	echo "Click on one flight first";
+}
+					?>

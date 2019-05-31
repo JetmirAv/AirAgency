@@ -94,15 +94,15 @@
 
 				<?php
 				foreach ($rsResult as $row) {
-					echo ' <tr id=' . $row['id'] . '>
-				<td style="padding:2px ; padding-left:10px"><img src="' . $row["image"] . '" width=35; height=35; style="border-radius:50% ; padding:0px;"> </td></td>
-				<td>' . $row["name"] . '</td>
-				<td style="padding-left:25px;">' . $row["seats"] . '</td>
-				<td style="padding-left:40px">' . $row["yearOfProd"] . '</td>
-				<td>' . $row["fuelCapacity"] . '</td>
-				<td>' . $row["maxspeed"] . '</td>
-				<td>' . $row["createdAt"] . '</td>
-				<td>' . $row["updatedAt"] . '</td>
+					echo ' <tr >
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')" style="padding:2px ; padding-left:10px" ><img src="' . $row["image"] . '" width=35; height=35; style="border-radius:50% ; padding:0px;"> </td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["name"] . '</td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')" style="padding-left:25px;">' . $row["seats"] . '</td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')" style="padding-left:40px">' . $row["yearOfProd"] . '</td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["fuelCapacity"] . '</td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["maxspeed"] . '</td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["createdAt"] . '</td>
+				<td onclick="getAirplaneHandler(\'' . $row['id'] . ' \')">' . $row["updatedAt"] . '</td>
 				<td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\', \' ' . $row["name"] .  '\')" class="btn btn-success form-control" style="width:85%; background-color:dodgerblue; margin-left:10px;  padding-right:12px" on >Delete</button></td>
 
 			</tr>';
@@ -122,10 +122,11 @@
 
 
 <script>
-//	$('tbody').on('click', 'tr', function(e) {
+//	$('tr').on('click', 'span', function(e) {
 //		var txt = $(this).attr('id');
-//		window.location.href = '../dashboard/airplaneInfo.php';
+//		window.location.href = '../dashboard/airplaneInfo.php?id='+txt;
 //		//alert (txt);
+//        // header( "Location: temp.php? user = $user" );
 //	});
 	$(document).ready(function() {
 		$(document).on('click', '#btnMore', function() {
@@ -152,7 +153,11 @@
 		});
 	});
     
-    
+	
+	
+	function getAirplaneHandler(id){
+		window.location.href = '../dashboard/airplaneInfo.php?id='+id;
+	}
     
     
         let airplaneInfo = document.getElementById("airplaneInfo");

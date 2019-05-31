@@ -1,5 +1,8 @@
 <?php                            
  include "../databaseConfig.php";
+if (isset($_GET['id'])){
+   $id = $_GET['id'];
+
 
 $sqlBooked = "Select b.id, CONCAT(u.firstname, ' ' , u.lastname) as 'fullname',
 c1.name AS 'From',
@@ -20,7 +23,7 @@ INNER JOIN city c2
 ON f.toCity=c2.id
 INNER JOIN airplane a
 ON f.planeId=a.id
-where b.id=3;" ; 
+where b.id=".$id.";" ; 
 
 $bookedStatement = $conn->prepare($sqlBooked);
 $bookedStatement->execute();
@@ -105,3 +108,8 @@ $bookedDetails = $bookedStatement->fetch();
                                 </form>
                             </div>
                         </div>
+<?php }
+else {
+	echo "Click on one user first";
+}
+?>

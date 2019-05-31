@@ -27,9 +27,9 @@ if(isset($_POST['updateFlight']))
 //    $updatedAt = $_POST['updatedAt'];
  //   echo $toCity;
     
-    $updateFlight = " Update flight set  fromCity ='$fromCity' , toCity = '$toCity', planeId = '$planeId', avalible = '$avalible', price = '$price', isSale = '$isSale', checkIn = '$checkIn' , img = '$img', updatedAt=NOW() where id = '101'    and ('$fromCity' in(select id from city ) and '$toCity' in (select id from city)); ";
+    $updateFlight = " Update flight set  fromCity ='$fromCity' , toCity = '$toCity', planeId = '$planeId', avalible = '$avalible', price = '$price', isSale = '$isSale', checkIn = '$checkIn' , img = '$img', updatedAt=NOW() where id = '93'    and ('$fromCity' in(select id from city ) and '$toCity' in (select id from city)); ";
     $updateStm = $conn->prepare($updateFlight);
-    print_r($updateFlight);
+    //print_r($updateFlight);
     $pdoExec = $updateStm->execute(array(":fromCity"=>$fromCity, ":toCity"=>$toCity, ":planeId"=>$planeId, ":avalible"=>$avalible, ":price"=>$price, ":isSale"=>$isSale, ":checkIn"=>$checkIn, ":img"=>$img));
     
     
@@ -38,6 +38,22 @@ if(isset($_POST['updateFlight']))
     
     
         //echo "Updated successfully";
+    
+  $checkInString='$checkIn';
+  $checkInInt = (int)$checkInString;    
+    
+  echo $checkIn;
+    if($checkInInt>0){
+        if (!check_year($checkIn)) {
+            $errmsg = "Invalid CheckIn";
+        array_push($errors, $errmsg);
+     }
+        } else {
+            $errmsg = "Negative number of date are not allowed";
+            array_push($errors,$errmsg);
+        }
+    
+    
     
         
         if($errors)

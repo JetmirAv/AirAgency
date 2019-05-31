@@ -70,7 +70,17 @@ function check_date($database_date)
 	}
 }
 
-
+function check_checkIn($checkIn)
+{
+	if (strtotime($checkIn) > strtotime('now'))
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
 
 function check_year($yearOfProd)
 {

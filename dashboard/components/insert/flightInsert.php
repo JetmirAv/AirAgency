@@ -57,27 +57,11 @@ $planeResults = $planeStm->fetchAll(); ?>
         <div class="content">
             <form action="../dashboard/components/flights/insertFlightQuery.php" method="post">
                 <div class="row">
-<!--
-                    <div class="col-md-5">
-                        <div class="form-group" style="width: 250px;">
-                            <label>From City</label>
-                            <input type="Text" name="fromCity" class="form-control" placeholder="From...">
-                        </div>
-                    </div>
--->
 
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px;">
                             <label>From City</label>
-<!--
-                            <select name="fromCity">
-                                <option value="fromCity">Select</option>
-                                <?php //foreach ($results as $output){ ?>
-                                    <option value="<?php //$output["id"] ?>"><?php //echo $output["name"]; ?></option>
-                                <?php //} ?>
-                            </select>
-                            
--->
+
                             
                                       <select name="fromCity">
 
@@ -104,18 +88,7 @@ $planeResults = $planeStm->fetchAll(); ?>
                     <div class="col-md-3" style="width: 300px;">
                         <div class="form-group">
                             <label>To City</label>
-<!--                            <input type="text" name="toCity" class="form-control" placeholder="To...">-->
-<!--
-                       <select name="toCity">
-                                <option value="toCity">Select</option>
-                                <?php //foreach ($results as $output) { ?>
-                                    <option value="<?php// $output["id"] ?>" ><?php// echo $output["name"]; ?></option>
-                                <?php //} ?>
-                            </select>
-                            
-                            
-                            
-  -->                                          <select name="toCity">
+                                       <select name="toCity">
                                                       <?php foreach($results as $output) { ?>
                                                             <option value = "<?php echo $output['id']?> ">
                                                             <?php  echo $output['name']; ?></option>
@@ -141,15 +114,6 @@ $planeResults = $planeStm->fetchAll(); ?>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Airplane</label>
-<!--                            <input name="planeId" type="text" placeholder="Airplane" class="form-control">-->
-<!--
-                        <select name="planeId">
-                                <option value="planeId">Select</option>
-                                <?php //foreach ($planeResults as $planeOutput) { ?>
-                                    <option value="<?php// $planeOutput["id"] ?>"><?php //echo $planeOutput["name"]; ?></option>
-                                <?php//}?>
-                            </select>
--->
                        <select  name="planeId">
                            
                                          <?php foreach($planeResults as $planeOutput) { ?>
@@ -185,24 +149,6 @@ $planeResults = $planeStm->fetchAll(); ?>
 
                 </div>
                 <div class="row">
-
-<!--
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Created at</label>
-                            <input name="createdAt" type="datetime" class="form-control" placeholder="__/__/____">
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Updated at</label>
-                            <input name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____">
-                        </div>
-                    </div>
--->
-
                 </div>
 
                 <button name="insertFlight" type="submit" class="btn btn-info btn-fill pull-right">Insert Flight</button>

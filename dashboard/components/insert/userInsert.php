@@ -9,7 +9,6 @@
                     echo "<script>console.log('Ckemi  " . gettype($_SESSION['errors']) . "')</script>";
                 }
             }
-            echo "<script>console.log('Ckemi    " . gettype($_SESSION['errors']) . "')</script>";
 
             if (isset($_SESSION['sucess'])) {
                 echo "<p style='color:green'>" . $_SESSION['sucess'] . "</p>";
@@ -66,7 +65,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Birthday</label>l
+                            <label>Birthday</label>
                             <input name="form-date" type="date" class="form-control" placeholder="Birthday">
                         </div>
                     </div>

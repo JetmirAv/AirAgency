@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<?php include 'components/head.php' ?>
-  
+	<?php include 'components/head.php'?>
+
 <body>
 
 
     <?php
-    include "../databaseConfig.php";
+include "../databaseConfig.php";
+
+if (isset($_GET['id'])) {
+    $sql = "select c1.id as 'fromCityId',
+	c2.id as 'toCityId',
+	c1.name as 'From',
+	c2.name as 'To',
+	f.avalible as 'Available',
+	f.price as 'Price',
+	f.price * isSale/100 as 'Sale',
+	f.isSale as 'Sale',
+	cast(f.checkIn as date) as 'Date',
+	cast(f.checkIn as time) as 'Time',
+	f.img as 'image',
+	a.id as 'airplaneId',
+	a.name as 'airplaneName'
+	from flight as f
+	inner join city as c1 on f.fromCity = c1.id
+	inner join city as c2 on f.toCity = c2.id
+	inner join airplane as a on f.planeId = a.id
+	where f.checkIn >= curdate() and f.checkIn >= current_time() and f.id=" . $_GET['id'];
+
+} else if (isset($_GET['pct'])) {
     $sql = "select c1.id as 'fromCityId',
             c2.id as 'toCityId',
             c1.name as 'From',
@@ -21,17 +42,60 @@
             f.img as 'image',
             a.id as 'airplaneId',
             a.name as 'airplaneName'
-            from flight as f 
+            from flight as f
             inner join city as c1 on f.fromCity = c1.id
             inner join city as c2 on f.toCity = c2.id
-            inner join airplane as a on f.planeId = a.id 
-            where f.checkIn >= curdate() and f.checkIn >= current_time() order by f.checkIn desc limit 10 ;";
+            inner join airplane as a on f.planeId = a.id
+            where f.checkIn >= curdate() and f.checkIn >= current_time() and f.isSale = " . $_GET['pct'] . " order by f.checkIn desc limit 10 ;";
 
-    //$countAllRows = "select count(*) as count from flight ";
-    $rsResult = $conn->query($sql);
-    //$rowCount = $conn->query($countAllRows);
-    //$Count = $rowCount->fetch();
-    ?>	
+} else if (isset($_GET['city'])) {
+	echo $_GET['city'];
+
+    $sql = "select c1.id as 'fromCityId',
+            c2.id as 'toCityId',
+            c1.name as 'From',
+            c2.name as 'To',
+            f.avalible as 'Available',
+            f.price as 'Price',
+            f.price * isSale/100 as 'Sale',
+            f.isSale as 'Sale',
+            cast(f.checkIn as date) as 'Date',
+            cast(f.checkIn as time) as 'Time',
+            f.img as 'image',
+            a.id as 'airplaneId',
+            a.name as 'airplaneName'
+            from flight as f
+            inner join city as c1 on f.fromCity = c1.id
+            inner join city as c2 on f.toCity = c2.id
+            inner join airplane as a on f.planeId = a.id
+            where f.checkIn >= curdate() and f.checkIn >= current_time() and c2.name = '" . $_GET['city'] . "' order by f.checkIn desc limit 10 ;";
+
+} else {
+    $sql = "select c1.id as 'fromCityId',
+				c2.id as 'toCityId',
+				c1.name as 'From',
+				c2.name as 'To',
+				f.avalible as 'Available',
+				f.price as 'Price',
+				f.price * isSale/100 as 'Sale',
+				f.isSale as 'Sale',
+				cast(f.checkIn as date) as 'Date',
+				cast(f.checkIn as time) as 'Time',
+				f.img as 'image',
+				a.id as 'airplaneId',
+				a.name as 'airplaneName'
+				from flight as f
+				inner join city as c1 on f.fromCity = c1.id
+				inner join city as c2 on f.toCity = c2.id
+				inner join airplane as a on f.planeId = a.id
+				where f.checkIn >= curdate() and f.checkIn >= current_time() order by f.checkIn desc limit 10 ;";
+}
+
+//$countAllRows = "select count(*) as count from flight ";
+$rsResult = $conn->query($sql);
+//$rowCount = $conn->query($countAllRows);
+//$Count = $rowCount->fetch();
+?>
 
 
 	<!-- Preloader -->
@@ -40,7 +104,7 @@
 	</div>
 	<!-- /Preloader -->
 	<!-- Header Area Start -->
-	<?php include 'components/header.php' ?>
+	<?php include 'components/header.php'?>
 	<!-- Header Area End -->
 	<div id="backdrop" style="
 		position: fixed;
@@ -92,36 +156,37 @@
 		</div>
 	</div>
 	<!-- Breadcrumb Area End -->
-	<section class="roberto-about-area section-padding-100-0">
+	<section style="position:absolute; display:block; z-index:800; width:100%; " class= "roberto-about-area section-padding-100-0">
 		<!-- Flight Search Form Area -->
 		<div class="hotel-search-form-area">
 			<div class="container-fluid">
 				<div class="hotel-search-form">
-					<?php include "components/flightSearch.php" ?>
+					<?php include "components/flightSearch.php"?>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<!-- Rooms Area Start -->
-			<div id="flightId">
+			<div style="margin-top:7%;" id="flightId">
 			<?php
-    
-          foreach($rsResult as $row){
-echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
+
+foreach ($rsResult as $row) {
+    echo '		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
 				<!-- Room Thumbnail -->
 				<div class="room-thumbnail">
 					<img src="img/bg-img/44.jpg" alt="" style="margin-left:50px;">
 				</div>
 				<!-- Room Content -->
 						<div class="room-content">
-                            <h2>'.$row['airplaneName'].'</h2>
-                            <h4>'.$row['Price'].'&euro;<span> /'.$row['Sale'].' with Sale</span></h4>
+                            <h2>' . $row['airplaneName'] . '</h2>
+                            <h4>' . $row['Price'] . '&euro;<span> /' . $row['Sale'] . ' with Sale</span></h4>
                             <div class="room-feature">
-                                <h6>From: <span>'.$row['From'].'</span></h6>
-                                <h6>To: <span>'.$row['To'].'</span></h6>
-                                <h6>Date: <span>'.$row['Date'].'</span></h6>
-						<h6>Time: <span>'.$row['Time'].'</span></h6>
-						<h6>Avalible: <span id="ticketsAvalible">'.$row['Available'].'</span></h6>
+                                <h6>From: <span>' . $row['From'] . '</span></h6>
+                                <h6>To: <span>' . $row['To'] . '</span></h6>
+                                <h6>Date: <span>' . $row['Date'] . '</span></h6>
+						<h6>Time: <span>' . $row['Time'] . '</span></h6>
+						<h6>Avalible: <span id="ticketsAvalible">' . $row['Available'] . '</span></h6>
 						<span style="display:block; width: 20px; "><input min=0 max="100" type="number" id="quantityValue"/></span>
 					</div>
 					<a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
@@ -134,16 +199,15 @@ echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeIn
 	<!-- Rooms Area End -->
 
 
-	<?php include 'components/footer.php' ?>
+	<?php include 'components/footer.php'?>
 
 </body>
 
 </html>
- <?php $userConectedId = $dataArr->id; ?>
- 
- 
- 
- 
+
+
+
+
  <script>
 
     $(document).ready(function() {
@@ -162,35 +226,18 @@ echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeIn
                         $('#flightId').append(data);
                         $('#bttnMore').html("Show More");
                     } else {
-                        $('#bttnMore').html("No  data");
+                        $('#bttnMore').html("No data");
                     }
                 }
             });
         });
     });
 
-
-</script>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-<script>
     let userInfo = document.getElementById("userDelete");
 	let backdrop = document.getElementById("backdrop");
 	let  From, To , Price= '';
 
-	
+
 	function deleteHandler(From, To,Price) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
@@ -202,7 +249,7 @@ echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeIn
 			"<br>"+"Price:" + Price;
 
 		//alert(quantity);
-	
+
 	}
 
 	backdrop.onclick = () => {
@@ -218,7 +265,6 @@ echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeIn
 	}
 	document.getElementById("bttnConfirmBook").onclick = (e) => {
 		e.preventDefault();
-    	var userConectedId="<?php echo $userConectedId;?>";
 		var quantity = document.getElementById("quantityValue").value;
 		    var flightId=88;
 
@@ -227,7 +273,6 @@ echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeIn
 					method: "POST",
 					data: {
 						flightId: flightId,
-				        userConectedId: userConectedId,
      	                quantity:quantity
 					},
 					dataType: "text",
@@ -235,17 +280,17 @@ echo	'		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeIn
 						$('#insertMessage').html(data);
 									userInfo.style.display = "none";
 									backdrop.style.display = "none";
-						
-						
+
+
 							}
-						
-						 
-					
-						
+
+
+
+
 					});
-				
-		
-	
+
+
+
 
 
 	}

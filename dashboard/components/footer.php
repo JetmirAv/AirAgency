@@ -29,3 +29,14 @@
                 </p>
             </div>
         </footer>
+
+
+
+<?php
+
+$token = $_SESSION['token'];
+session_unset();
+$_SESSION['token'] = $token;
+
+
+?>

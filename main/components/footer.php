@@ -102,6 +102,15 @@
 </footer>
 <!-- Footer Area End -->
 
+<?php
+
+    $token = $_SESSION['token'];
+    session_unset();
+    $_SESSION['token'] = $token;
+
+
+?>
+
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
 <script src="js/jquery.min.js"></script>

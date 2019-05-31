@@ -58,7 +58,7 @@ $planeDetail = $planeStatement->fetch();
                                         </div>
                                         <div class="col-md-3">
                                         <label style="padding-right:5px ; padding-left:-10px;"> Seats </label>
-                                        <input type="Text" name="seats" class="form-control" placeholder="Seats" value="<?php echo $planeDetail['seats'];?>"> 
+                                        <input type="Text" name="seats" min="1" class="form-control" placeholder="Seats" value="<?php echo $planeDetail['seats'];?>"> 
                                         </div>
                                     
                                         <div class="col-md-3">

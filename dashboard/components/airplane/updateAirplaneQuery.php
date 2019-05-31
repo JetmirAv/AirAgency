@@ -29,19 +29,46 @@ $errors = array();
         $name = trim(ucfirst(strtolower($name)));
 
         $yearOfProd = (int)$_POST['yearOfProd'];
-        $seats = $_POST['seats'];
-        $fuelCapacity = $_POST['fuelCapacity'];
-        $maxspeed = $_POST['maxspeed'];
+        $seats = (int)$_POST['seats'];
+        $fuelCapacity = (int)$_POST['fuelCapacity'];
+        $maxspeed = (int)$_POST['maxspeed'];
         $additionalDesc = $_POST['additionalDesc'];
         $img = $_POST['img'];
 
         echo $img;
         
-        
-     if (!check_year($yearOfProd)) {
-        $errmsg = "Invalid year";
+        if($yearOfProd>0){
+        if (!check_year($yearOfProd)) {
+            $errmsg = "Invalid year";
         array_push($errors, $errmsg);
      }
+        } else {
+            $errmsg = "Negative number of year is not allowed";
+            array_push($errors,$errmsg);
+        }
+        
+        
+        
+        if($seats<0){
+             $errmsg = "Negative number of seats is not allowed";
+            array_push($errors,$errmsg);
+        }
+        
+        if($fuelCapacity<0){
+             $errmsg = "Negative number of seats is not allowed";
+            array_push($errors,$errmsg);
+        }
+        
+        if($fuelCapacity<0){
+             $errmsg = "Negative number of fuelCapacity is not allowed";
+            array_push($errors,$errmsg);
+        }
+        if($maxspeed<0){
+             $errmsg = "Negative number of maxspeed is not allowed";
+            array_push($errors,$errmsg);
+        }
+      
+        
     $file_extension = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
     echo "<br/>";
     echo $email;

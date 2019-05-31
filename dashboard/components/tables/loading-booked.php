@@ -23,13 +23,13 @@ if ($count > 0) {
 		$airplaneId = $row['id'];
 		$output .= '
                 <tr id=' . $row['id'] . '>
-                    <td style="padding-left:25px;">' . $row['id'] . '</td>
-                    <td style="padding-left:25px;">' . $row['flightId'] . '</td>
-                    <td>' . $row['userId'] . '</td>
-                    <td>' . $row['price'] . '</td>
-                    <td>' . $row['quantity'] . '</td>
-                    <td>' . $row['createdAt'] . '</td>
-                    <td>' . $row['updatedAt'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')" style="padding-left:25px;">' . $row['id'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')" style="padding-left:25px;">' . $row['flightId'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')">' . $row['userId'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')">' . $row['price'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')">' . $row['quantity'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')">' . $row['createdAt'] . '</td>
+                    <td onclick="getBookedHandler(' . $row['id'] . ')">' . $row['updatedAt'] . '</td>
                     <td><button type="button"   class="btn btn-success form-control" style="background-color:dodgerblue; padding-left:3px; padding-right:3px" >Delete</button></td>                    
                 </tr>';
 	}

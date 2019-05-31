@@ -8,7 +8,7 @@ if (isset($_GET['id'])){
    $id = $_GET['id'];
 
 
-$sqlPlane="select * from airplane where id=". $id .";";
+$sqlPlane="select * from airplane where id= 27;";
 
 
 $planeStatement = $conn->prepare($sqlPlane);
@@ -53,12 +53,12 @@ $planeDetail = $planeStatement->fetch();
                                         <div class="col-md-3">
                                             <div class="form-group" style="width:120px;">
                                                 <label>Year Of Produce</label>
-                                                <input type="Text" name="yearOfProd" class="form-control" placeholder="Year" min="1800" style="width: 120px; padding-right:20" value="<?php echo $planeDetail['yearOfProd'];?>">
+                                                <input maxlength="4" minlength="4" min="0" type="text" name="yearOfProd" class="form-control" placeholder="Year" min="1800" style="width: 120px; padding-right:20" value="<?php echo $planeDetail['yearOfProd'];?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                         <label style="padding-right:5px ; padding-left:-10px;"> Seats </label>
-                                        <input type="Text" name="seats" class="form-control" placeholder="Seats" value="<?php echo $planeDetail['seats'];?>"> 
+                                        <input type="Text" name="seats" min="1" class="form-control" placeholder="Seats" value="<?php echo $planeDetail['seats'];?>"> 
                                         </div>
                                     
                                         <div class="col-md-3">
@@ -81,13 +81,13 @@ $planeDetail = $planeStatement->fetch();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder=" __/__/____" value="<?php echo $planeDetail['createdAt'];?>">
+                                                <input disabled type="datetime" class="form-control" placeholder=" __/__/____" value="<?php echo $planeDetail['createdAt'];?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $planeDetail['updatedAt'];?>" >
+                                                <input disabled type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $planeDetail['updatedAt'];?>" >
                                             </div>
                                         </div>
                                            

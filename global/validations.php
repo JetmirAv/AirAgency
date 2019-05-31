@@ -57,3 +57,41 @@ function valid_phone($number)
 
     return in_array(trim(preg_replace('/[0-9]/', '#', $number)),$formats);
 }
+
+function check_date($database_date)
+{
+	if (strtotime($database_date) > strtotime('now'))
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+function check_checkIn($checkIn)
+{
+	if (strtotime($checkIn) > strtotime('now'))
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+function check_year($yearOfProd)
+{
+    $year = (new DateTime)->format("Y");
+	if ($yearOfProd<$year)
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+

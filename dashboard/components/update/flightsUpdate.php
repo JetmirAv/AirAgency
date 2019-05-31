@@ -1,3 +1,5 @@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <?php 
 include "../databaseConfig.php";
 
@@ -23,14 +25,14 @@ f.price as 'Price',
 f.isSale as 'isSale',
 f.createdAt as 'created At',
 f.updatedAt as 'update At',
-f.img as 'Image'
+f.img as 'img'
 FROM flight f INNER JOIN city c1 
 ON f.fromCity = c1.id
 INNER JOIN city c2 
 ON f.toCity=c2.id
 INNER JOIN Airplane a 
 ON f.planeId=a.id
-WHERE f.id=".$id.";";
+WHERE f.id=93;";
 $flightStatement = $conn->prepare($sqlFlight);
 $flightStatement->execute();
 $flightDetail = $flightStatement->fetch(); 
@@ -58,7 +60,7 @@ $planeResults = $planeStm->fetchAll();
               
 
     
-                <div class="col-md-8">
+                <div class="col-md-8" style="margin-left:15%;">
 					 <div class="card">
                             <div class="header">
                                 <h4 class="title">Edit Flights</h4>
@@ -66,22 +68,25 @@ $planeResults = $planeStm->fetchAll();
                             <div class="content">
 <!--                                <form action="components/dashboard/insertFlight.php" method="post">-->
                                    <form action="../dashboard/components/flights/updateFlightQuery.php" method="POST" >
-                                    <div class="row">
-<!--
-                                        <div class="col-md-5">
-                                            <div class="form-group" style="width: 250px;">
-                                                <label>From City</label>
-                                                <input type="Text" name="fromCity"  class="form-control"  placeholder="From..." value="<?php //echo $flightDetail['fromCity'];  ?> ">
-                                            </div>
-                                        </div>
--->
+                                   
+                          <div class="row" style="margin-left:300px;">
+                            <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
+                        <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
+                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
+                        <img style="height:150px; width:150px;" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/flight-img/<?php echo $flightDetail['img'];?>" onclick="clicked(this)" />
+                        </div>
+                           </div>
+                                   
+                                   
+                                   
+                                   
+                                    <div class="row" style="margin-left:15%">
 
-                                           <div class="col-md-5">
+                                           <div class="col-md-5" >
                                             <div class="form-group" style="width: 250px;">
                                                
-                                               <?php //echo $flightDetail['toCity']?>
                                                 <label>From City</label>      
-                                                  <select name="fromCity">
+                                                  <select name="fromCity"  class="btn btn-default dropdown-toggle">
 
                                                     <?php foreach($results as $output) 
                                                         {
@@ -101,20 +106,19 @@ $planeResults = $planeStm->fetchAll();
                                                             <?php  echo $output['name']; ?></option>
 
                                                            <?php 
-                                                        }
+                                                            }
                                                        
                                                       ?>
                                                    
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> 
                                         
-                                               <div class="col-md-5">
+                                              <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
                                                
-                                                <?php //echo $flightDetail['toCity'];?>
                                                 <label>To City</label>      
-                                                  <select name="toCity">
+                                                  <select name="toCity" class="btn btn-default dropdown-toggle">
                                                     <?php foreach($results as $output) 
                                                         {
                                                            if($output['id']==$flightDetail['toCity'])
@@ -137,36 +141,18 @@ $planeResults = $planeStm->fetchAll();
                                                 </select>
                                             </div>
                                         </div>
+                                            
                                         
-                                        
-                                      
-<!--
-                                        <div class="col-md-3" style="width: 300px;">
-                                            <div class="form-group">
-                                                <label>To City</label>
-                                                <input type="text" name="toCity" class="form-control" placeholder="To..." value="<?php echo $flightDetail['To City'];  ?>">
-                                            </div>
-                                        </div>
--->
-                                  
-
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-<!--
-                                                <label>Airplane</label>
-                                                <input name="planeId" type="text" placeholder="Airplane" class="form-control" value="<?php //echo $flightDetail['Airplane']; ?>">
--->
+                                    <div class="row" style="margin-left:35%">
+                                      
                                                 
-                                                
-                                                 <div class="col-md-5">
-                                            <div class="form-group" style="width: 250px;">
+                                                 <div class="col-md-5"  >
+                                            <div class="form-group" style="width: 250px;" >
                                                
-                                               <?php //echo $flightDetail['fromCity']?>
                                                 <label>Airplane</label>      
-                                                  <select name="planeId">
+                                                  <select name="planeId" class="btn btn-default dropdown-toggle">
                                                     <?php foreach($planeResults as $planeOutput) 
                                                         {
                                                            if($planeOutput['id']==$flightDetail['planeId'])
@@ -190,49 +176,49 @@ $planeResults = $planeStm->fetchAll();
                                             </div>
                                         </div>
                                                 
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                       
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="row" style="margin-left:10%">
+                                             <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>CheckIn</label>l
                                                 <input name="checkIn" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['CheckIn']; ?>">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                             <div class="col-md-3" style="width: 80px;">
+                                            
+                                            
+                                             <div class="col-md-4" style="width: 80px;">
                                         <label style="padding-right:5px"> Available </label>
                                         <br>
                                         <input type="text" name="avalible" class="form-control" value="<?php echo $flightDetail['Available']; ?>">
                                         </div>
+                                        
+                                         <div class="col-md-4" style="width: 90px;">
+                                       <label> isSale </label>
+                                        <br>
+                                        <input name="isSale" type="number" class="form-control" value="<?php echo $flightDetail['isSale']; ?>">
+                                        </div>
+                                        
+                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Price</label>
                                                 <input name="price" type="Text" class="form-control" placeholder="Price" value="<?php echo $flightDetail['Price']; ?>">
                                             </div>
                                         </div>
-                                       <div class="col-md-3" style="width: 90px;">
-                                       <label> isSale </label>
-                                        <br>
-                                        <input name="isSale" type="number" class="form-control" value="<?php echo $flightDetail['isSale']; ?>">
-                                        </div>
-                                          <div class="col-md-5">
-                                            <div class="form-group" style="width: 250px;">
-                                                <label>Image</label>
-                                                 <input type="file" value="img" name="img">
-                                                  
-                                            </div>
-                                        </div>
-                                       
+                                         
                                      </div>
-                                     <div class="row">
+                                     <div class="row" style="margin-left:20%;">
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input name="createdAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['created At'];?>">
+                                                <input disabled name="createdAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['created At'];?>">
                                             </div>
                                         </div>
 
@@ -240,7 +226,7 @@ $planeResults = $planeStm->fetchAll();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['update At'];?>">
+                                                <input disabled name="updatedAt" type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $flightDetail['update At'];?>">
                                             </div>
                                         </div>
 
@@ -253,38 +239,38 @@ $planeResults = $planeStm->fetchAll();
                             </div>
                         </div>
                     </div>
-					                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                     <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
-
-                                      <h4 class="title"><?php echo $flightDetail['From City'] . " To " .  $flightDetail['To City']; ?><br />
-                                         <small>michael24</small>
-                                      </h4>
-                                    </a>
-                                </div>
-                                <p class="description text-center"> "Lamborghini Mercy <br>
-                                                    Your chick she so thirsty <br>
-                                                    I'm in that two seat Lambo"
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
-                            </div>
-                        </div>
-                    </div>
-
+			        
 <?php }
 else {
 	echo "Click on one flight first";
 }
 					?>
+
+
+
+
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#profileImg')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function clicked() {
+        $("#profileUpload").click()
+    }
+</script>                    
+
+				
+

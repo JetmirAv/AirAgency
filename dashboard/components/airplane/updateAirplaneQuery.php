@@ -1,11 +1,11 @@
 <?php
 include "../../../databaseConfig.php";
+include "../../../global/validations.php";
 
 session_start();
 
 $errors = array();
-if (isset($_GET['id'])){
-   $id = $_GET['id'];
+
 
 
     if(isset($_POST['updateAirplane']))
@@ -21,19 +21,54 @@ if (isset($_GET['id'])){
     );
 
         
+        
+        
         $name = strip_tags($_POST['name']);
         $name = str_replace(' ','',$name);    
         $name = ucfirst(strtolower($name));
         $name = trim(ucfirst(strtolower($name)));
 
-        $yearOfProd = $_POST['yearOfProd'];
-        $seats = $_POST['seats'];
-        $fuelCapacity = $_POST['fuelCapacity'];
-        $maxspeed = $_POST['maxspeed'];
+        $yearOfProd = (int)$_POST['yearOfProd'];
+        $seats = (int)$_POST['seats'];
+        $fuelCapacity = (int)$_POST['fuelCapacity'];
+        $maxspeed = (int)$_POST['maxspeed'];
         $additionalDesc = $_POST['additionalDesc'];
         $img = $_POST['img'];
 
         echo $img;
+        
+        if($yearOfProd>0){
+        if (!check_year($yearOfProd)) {
+            $errmsg = "Invalid year";
+        array_push($errors, $errmsg);
+     }
+        } else {
+            $errmsg = "Negative number of year is not allowed";
+            array_push($errors,$errmsg);
+        }
+        
+        
+        
+        if($seats<0){
+             $errmsg = "Negative number of seats is not allowed";
+            array_push($errors,$errmsg);
+        }
+        
+        if($fuelCapacity<0){
+             $errmsg = "Negative number of seats is not allowed";
+            array_push($errors,$errmsg);
+        }
+        
+        if($fuelCapacity<0){
+             $errmsg = "Negative number of fuelCapacity is not allowed";
+            array_push($errors,$errmsg);
+        }
+        if($maxspeed<0){
+             $errmsg = "Negative number of maxspeed is not allowed";
+            array_push($errors,$errmsg);
+        }
+      
+        
     $file_extension = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
     echo "<br/>";
     echo $email;
@@ -46,17 +81,24 @@ if (isset($_GET['id'])){
     if (!file_exists($_FILES["img"]["tmp_name"])) {
         $errmsg = "Choose image file to upload.";
         array_push($errors, $errmsg);
-    }    // Validate file input to check if is with valid extension
-    else if (!in_array($file_extension, $allowed_image_extension)) {
-        $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
+    }// Validate file input to check if is with valid extension
+     else { if(!in_array($file_extension, $allowed_image_extension)) {
+        $errmsg = "Upload valiid images. Only PNG , JPEG and JPG are allowed.";
         array_push($errors, $errmsg);
     }    // Validate image file size
     else if (($_FILES["img"]["size"] > 2000000)) {
         $errmsg = "Image size exceeds 2MB";
         array_push($errors, $errmsg);
     }    // Validate image file dimensi..on
+          }
 
-
+     
+        
+    
+        
+     
+        
+        
         
         
     if(count($errors)<=0){  
@@ -78,7 +120,7 @@ if (isset($_GET['id'])){
         
         
         
-        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = ".$id.";";
+        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = 27;";
         
         
         //print_r($updatePlane);

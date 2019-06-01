@@ -27,7 +27,7 @@ $planeDetail = $planeStatement->fetch();
                             <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
                         <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
-                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/airplane-img/<?php echo $planeDetail['img'];?>" onclick="clicked(this)" />
+                        <img style="height:150px; width:150px" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/airplane-img/<?php echo $planeDetail['img'];?>" onclick="clicked(this)" />
                         </div>
                            </div>
                                     <?php 

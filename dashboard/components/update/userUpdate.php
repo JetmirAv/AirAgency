@@ -153,13 +153,13 @@ $userDetail = $statement->fetch();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Created at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["createdAt"] ?>">
+                                                <input disabled type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["createdAt"] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Updated at</label>
-                                                <input type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["updatedAt"] ?>">
+                                                <input disabled type="datetime" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["updatedAt"] ?>">
                                             </div>
                                         </div>
                                      </div>

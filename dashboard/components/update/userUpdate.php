@@ -43,7 +43,7 @@ $userDetail = $statement->fetch();
                             </div>
                             <div class="content">
                            
-                            <form action="../global/users/updateUsersQueryLavda.php" method="post" enctype="multipart/form-data">
+                            <form action="../global/users/updateUsersQueryFinal.php" method="post" enctype="multipart/form-data">
 <!--                            <form action="/../AirAgency/uploads/user-img/shpendi.jpg" method="post" enctype="multipart/form-data">-->
                             <div class="row" style="margin-left:200px;">
                             <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">

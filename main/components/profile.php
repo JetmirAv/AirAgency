@@ -24,7 +24,7 @@ $findUserQuery = $conn->prepare($findLoggedUserQuery);
 $findUserQuery->execute([$id]);
 if ($findUserQuery->rowCount() > 0) {
     $user = $findUserQuery->fetchAll()[0];
-
+    
 
 
 ?>
@@ -62,7 +62,7 @@ if ($findUserQuery->rowCount() > 0) {
         </div>
 
         <div style="padding: 3%; color:white" class="content" style="align-content: center;">
-            <form method="POST" action="../global/users/updateUsersQuery.php" enctype="multipart/form-data">
+            <form method="POST" action="../../AirAgency/global/users/updateUsersQueryFinal.php" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
@@ -165,20 +165,20 @@ if ($findUserQuery->rowCount() > 0) {
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Card Number</label>
-                            <input value="<?php echo $user[12] ?>" name="form-address" type="text" class="form-control" placeholder="Card Number" width="20">
+                            <input value="<?php echo $user[12] ?>" name="number" type="text" class="form-control" placeholder="Card Number" width="20">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Exp Date</label>
-                            <input value="<?php echo $user[13] ?>" name="form-city" type="text" class="form-control" placeholder="Exp Date">
+                            <input value="<?php echo $user[13] ?>" name="expireDate" type="text" class="form-control" placeholder="Exp Date">
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Code</label>
-                            <input value="<?php echo $user[14] ?>" name="form-state" type="text" class="form-control" placeholder="Code">
+                            <input value="<?php echo $user[14] ?>" name="code" type="text" class="form-control" placeholder="Code">
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@ if ($findUserQuery->rowCount() > 0) {
         justify-content: space-around;
         align-content: center;
         margin-bottom: 2%" class="row">
-                    <button name="userUpdate" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
+                    <button name="userUpdate"  value="<?php echo $id ?>" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                 </div>
                 <div class="clearfix"></div>
             </form>

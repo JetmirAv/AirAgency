@@ -1,30 +1,11 @@
 <?php
 
 include_once("../databaseConfig.php");
-$id = $dataArr->id;
-$findLoggedUserQuery = "
-select 
-	u.id, 
-    u.firstname, 
-    u.lastname, 
-    u.email, 
-    u.gendre, 
-    u.birthday, 
-    u.address, 
-    u.city, 
-    u.state, 
-    u.postal, 
-    u.phoneNumber, 
-    u.img,
-    c.number, 
-    concat(c.expMonth, '/', c.expYear) as 'c.exp', 
-    c.code
-		from users u left join card c on u.id = c.userID where u.id = ?";
-$findUserQuery = $conn->prepare($findLoggedUserQuery);
-$findUserQuery->execute([$id]);
-if ($findUserQuery->rowCount() > 0) {
-    $user = $findUserQuery->fetchAll()[0];
+include_once("../models/users.php");
 
+$id = $dataArr->id;
+
+$user = User::findById($conn, $id);
 
 
 ?>
@@ -194,38 +175,7 @@ if ($findUserQuery->rowCount() > 0) {
         </div>
     </div>
 </div>
-<!-- <div class="col-md-4">
-    <div class="card card-user">
-        <div class="image">
-            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
-        </div>
-        <div class="content">
-            <div class="author">
-                <a href="#">
-                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..." />
-
-                    <h4 class="title"><br />
-                        <small>michael24</small>
-                    </h4>
-                </a>
-            </div>
-            <p class="description text-center"> "Lamborghini Mercy <br>
-                Your chick she so thirsty <br>
-                I'm in that two seat Lambo"
-            </p>
-        </div>
-        <hr>
-        <div class="text-center">
-            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
-        </div>
-    </div>
- -->
-
 </div>
-<?php }?>
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {

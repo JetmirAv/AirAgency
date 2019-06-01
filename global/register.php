@@ -2,6 +2,7 @@
 include_once("../databaseConfig.php");
 include_once("generateJWT.php");
 include_once("validations.php");
+include_once("../models/users.php");
 
 session_start();
 
@@ -123,42 +124,39 @@ if (isset($_POST['register'])) {
 
             if (count($errors) <= 0) {
                 $password = password_hash($password, PASSWORD_DEFAULT);
-                $createUser = $conn->prepare("INSERT INTO users" .
-                    "(roleId, firstname, lastname, email, password, birthday," .
-                    " gendre, address, city, state, postal, phoneNumber, img) " .
-                    "VALUES " .
-                    "(2, :firstname, :lastname, :email, :password, :birthday," .
-                    " :gendre, :address, :city, :state, :postal, :phoneNumber, :img) ");
-                $createUser->execute([
-                    'firstname' => $firstname,
-                    'lastname' => $lastname,
-                    'email' => $email,
-                    'password' => $password,
-                    'birthday' => $birthdate,
-                    'gendre' => $gender,
-                    'address' => $address,
-                    'city' => $city,
-                    'state' => $state,
-                    'postal' => $postal,
-                    'phoneNumber' => $phone,
-                    'img' => $profilepicName
-                ]);
-                echo "<br>" . "<br>";
+        
+                $user = new User(
+                      2
+                    , $firstname
+                    , $lastname
+                    , $email
+                    , $password
+                    , $birthdate
+                    , $gender
+                    , $address
+                    , $city
+                    , $state
+                    , $postal
+                    , $phone
+                    , $profilepicName );
+                try {
 
-                echo $createUser->rowCount();
-                $arr = $createUser->errorInfo();
-                print_r($arr);
+                    $createUser = $user->createUser($conn);
+                } catch (Exception $e){
+                    $errmsg = "We have faced some problems. Please try again. <br>If this error happens again please contact us.";
+                    array_push($errors, $errmsg);
+                    $_SESSION['errors'] = $errors;
+                    header('location: ' . $_SERVER["HTTP_REFERER"]);
+                    die();
+                }
+
                 $insertedId = $conn->lastInsertId();
-
-                $getRole = $conn->prepare("Select roleId from users where id=?");
+                $getRole = $conn->prepare("Select id, roleId, email, firstname from users where id=?");
                 $getRole->execute([$insertedId]);
-
                 $roleId = $getRole->fetch();
-                print_r($roleId);
-                print($roleId['roleId']);
-                $_SESSION["token"] = generateJWT($insertedId, $roleId['roleId'], $email, $firstname);
 
-                //Redirecting ...
+                $_SESSION["token"] = generateJWT($roleId['id'], $roleId['roleId'], $roleId['email'], $roleId['firstname']);
+
                 $path = $_SERVER['PHP_SELF'];
                 $path = explode('/', $path);
 

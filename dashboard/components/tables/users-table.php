@@ -1,12 +1,10 @@
 	<?php include "../databaseConfig.php" ?>
+	<?php include "../models/users.php" ?>
 	<?php
-	$sql = "select id,concat('../uploads/user-img/',img) as img , concat(firstname ,'  ', lastname) as fullname,gendre,email,birthday,state,city,phoneNumber from users order by id asc  limit 10";
-	$rsResult = $conn->query($sql);
+	
+	$rsResult = User::findAll($conn, 10);
 	$userId = '';
-
-	$countRows = "select count(*) as count from users where roleId=2";
-	$numberOfRows = $conn->query($countRows);
-	$count = $numberOfRows->fetch();
+	$count = User::count($conn);
 
 	?>
 
@@ -154,7 +152,6 @@
 			userId = id;
 			userName = name;
 			userEmail = email;
-			console.log("ID: " + id + " Name: " + name + " Email: " + email);
 			document.getElementById('user').innerHTML = "ID: " + id + "<br/>" +
 				" Full Name: " + name + "<br/>" +
 				" Email: " + email;

@@ -25,8 +25,9 @@ u.phoneNumber as 'phoneNumber',
 u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
- FROM  users u
-LEFT JOIN Card c on u.id=c.userId where u.id=".$id."";
+ ,c.code as 'code'
+ FROM  users u 
+left JOIN Card c on u.id=c.userId where u.id=".$id."";
    
     
 $statement = $conn->prepare($sql);  
@@ -44,11 +45,11 @@ $userDetail = $statement->fetch();
                            
                             <form action="../global/users/updateUsersQueryLavda.php" method="post" enctype="multipart/form-data">
 <!--                            <form action="/../AirAgency/uploads/user-img/shpendi.jpg" method="post" enctype="multipart/form-data">-->
-                            <div class="row" style="margin-left:300px;">
+                            <div class="row" style="margin-left:200px;">
                             <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
                         <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img" value="<?php echo $userDetail['img']; ?>">
-                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  
+                        <img style="height:200px; width:200px;" id="profileImg" alt="profile" class="avatar"  
 							 src="../../AirAgency/uploads/user-img/<?php echo $userDetail['img']; ?>" onclick="clicked(this)" />
                         </div>
                            </div>
@@ -65,7 +66,7 @@ $userDetail = $statement->fetch();
 									?>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <div class="form-group" style="width: 250px;">
+                                            <div class="form-group" style="width: 250px; ">
                                                 <label>First Name</label>
                                                 <input type="text" name="firstname" class="form-control"  placeholder="First Name" value="<?php echo $userDetail["firstname"] ?>">
                                             </div>
@@ -162,7 +163,7 @@ $userDetail = $statement->fetch();
                                             </div>
                                         </div>
                                      </div>
-                                    <div class="row">
+								<div class="row">
                                       <div class="col-md-4">
                                         <div class="form-group">
                                                 <label>Card Number</label>
@@ -174,46 +175,26 @@ $userDetail = $statement->fetch();
                                                 <label>Expire Date</label>
                                                 <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["expDate"] ?>">
                                             </div>
-                                        </div>
                                     </div>    
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Code</label>
+                                                <input type="datetime" name="code" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["code"] ?>">
+                                            </div>
+                                        </div>
 
-                                    <button name="userUpdate" id="clickButton" value="<?php echo $id ?>" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
-                                    <div class="clearfix"></div>
-                                </form>
                             </div>
+								<div class="row" style="margin-right:290px;">
+                                    <button name="userUpdate" id="clickButton" value="<?php echo $id ?>" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
+                                    <div class="clearfix" ></div>
+                                </div>
+									</form>
+								
                         </div>
                       </div>
 
                     
 <script>
-//	$(document).ready(function() {
-//		$('#clickButton').click(function(){
-//			var id = "<?php //echo $id ; ?>";
-//			console.log(id);
-//			$.ajax({
-//				url: "../global/users/updateUsersQueryLavda.php",
-//				method: "POST",
-//				data: {
-//					id:id,
-//					firstname: 
-//				},
-//				success: function(data) {
-//					alert(data);
-//				},
-//				error: (data) => {
-//					alert("Error");
-//										alert(data);
-//
-//				}
-//				
-//			});
-//		});
-//	});
-//	
-//	
-	
-	
-	
 	
 	function readURL(input) {
         if (input.files && input.files[0]) {
@@ -222,8 +203,8 @@ $userDetail = $statement->fetch();
             reader.onload = function(e) {
                 $('#profileImg')
                     .attr('src', e.target.result)
-                    .width(150)
-                    .height(150);
+                    .width(200)
+                    .height(200);
             };
 
             reader.readAsDataURL(input.files[0]);

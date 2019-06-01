@@ -47,44 +47,53 @@ $errors = array();
         // Validate file input to check if is not empty
         if (!file_exists($_FILES["img"]["tmp_name"])) {
             $errmsg = "Choose image file to upload.";
-            array_push($error_message, $errmsg);
+            array_push($errors, $errmsg);
         }    // Validate file input to check if is with valid extension
         if (!in_array($file_extension, $allowed_image_extension)) {
             $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
-            array_push($error_message, $errmsg);
+            array_push($errors, $errmsg);
         }    // Validate image file size
         else if (($_FILES["img"]["size"] > 8000000)) {
             $errmsg = "Image size exceeds 8MB";
-            array_push($error_message, $errmsg);
+            array_push($errors, $errmsg);
         }    // Validate image file dimensi..on
 
 
     }
         
         if($yearOfProd>0){
+            
         if (!check_year($yearOfProd)) {
             $errmsg = "Invalid year";
-        array_push($errors, $errmsg);
+            array_push($errors, $errmsg);
      }
         } else {
             $errmsg = "Negative number of year is not allowed";
             array_push($errors,$errmsg);
         }
         
-        
-        
         if($seats<0){
              $errmsg = "Negative number of seats is not allowed";
             array_push($errors,$errmsg);
+        } else if($seats==''){
+            $errmsg = "Null value of seats is not allowed";
+            array_push($errors,$errmsg);
+
         }
         
         if($fuelCapacity<0){
-             $errmsg = "Negative number of fuelCapacity is not allowed";
+            $errmsg = "Negative number of fuelCapacity is not allowed";
+            array_push($errors,$errmsg);
+        }  else if ($fuelCapacity==''){
+            $errmsg = "Null value of fuelCapacity is not allowed";
             array_push($errors,$errmsg);
         }
         
         if($maxspeed<0){
              $errmsg = "Negative number of maxspeed is not allowed";
+            array_push($errors,$errmsg);
+        } else if($maxspeed==''){
+            $errmsg = "Null value of maxspeed is not allowed";
             array_push($errors,$errmsg);
         }
      
@@ -129,9 +138,9 @@ $errors = array();
         $_SESSION['sukses'] = "Airplane Updated sucessfuly";
         header('location: ' . $_SERVER["HTTP_REFERER"]);
         die();
-    } else {
+     }  else {
         $_SESSION['gabimet'] = $errors;
-       header('location: ' . $_SERVER["HTTP_REFERER"]);
+        header('location: ' . $_SERVER["HTTP_REFERER"]);
         die();
     
         

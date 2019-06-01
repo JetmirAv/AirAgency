@@ -24,7 +24,7 @@ if (isset($_POST['register'])) {
     // receive all input values from the form
     $firstname = trim($_POST['form-first-name']);
     $lastname = trim($_POST['form-last-name']);
-    $email = trim($_POST['form-email']);
+    $email = strtolower(trim($_POST['form-email']));
     $password = trim($_POST['form-password']);
     $birthdate = date("Y-m-d", strtotime(trim($_POST['form-date'])));
     $gender = (int)trim($_POST['form-gender']);

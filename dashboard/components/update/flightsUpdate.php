@@ -4,8 +4,11 @@
 include "../databaseConfig.php";
 
 // Query Flights
+//if (isset($_GET['id'])){
+//   $id = $_GET['id'];
 if (isset($_GET['id'])){
    $id = $_GET['id'];
+
 
 
  
@@ -32,7 +35,7 @@ INNER JOIN city c2
 ON f.toCity=c2.id
 INNER JOIN Airplane a 
 ON f.planeId=a.id
-WHERE f.id=93;";
+WHERE f.id=".$id."";
 $flightStatement = $conn->prepare($sqlFlight);
 $flightStatement->execute();
 $flightDetail = $flightStatement->fetch(); 
@@ -232,24 +235,27 @@ $planeResults = $planeStm->fetchAll();
 
                                      </div>
                                       
+                                      	<div class="row" style="margin-right:290px;">
+                                    <button name="updateFlight" id="clickButton" value="<?php echo $id ?>" type="submit" class="btn btn-info btn-fill pull-right">Update Flight</button>
+                                    <div class="clearfix" ></div>
+                                </div>
+                                      
 
+<!--
                                     <button name="updateFlight" type="submit" class="btn btn-info btn-fill pull-right">Update Flights</button>
                                     <div class="clearfix"></div>
+-->
                                 </form>
                             </div>
                         </div>
                     </div>
+			  <?php      }
+			        else{
+			        echo "choose one row"; 
 			        
-<?php }
-else {
-	echo "Click on one flight first";
-}
-					?>
+			        }
 
-
-
-
-
+?>
 
 <script>
     function readURL(input) {

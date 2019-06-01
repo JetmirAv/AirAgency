@@ -4,8 +4,34 @@ include_once("../databaseConfig.php");
 include_once("../models/users.php");
 
 $id = $dataArr->id;
+<<<<<<< HEAD
 
 $user = User::findById($conn, $id);
+=======
+$findLoggedUserQuery = "
+select 
+	u.id, 
+    u.firstname, 
+    u.lastname, 
+    u.email, 
+    u.gendre, 
+    u.birthday, 
+    u.address, 
+    u.city, 
+    u.state, 
+    u.postal, 
+    u.phoneNumber, 
+    u.img,
+    c.number, 
+    concat(c.expMonth, '/', c.expYear) as 'c.exp', 
+    c.code
+		from users u left join card c on u.id = c.userID where u.id = ?";
+$findUserQuery = $conn->prepare($findLoggedUserQuery);
+$findUserQuery->execute([$id]);
+if ($findUserQuery->rowCount() > 0) {
+    $user = $findUserQuery->fetchAll()[0];
+    
+>>>>>>> e2033e5d1c8ceb6e12aed231fb94b93dc76953a2
 
 
 ?>
@@ -43,7 +69,7 @@ $user = User::findById($conn, $id);
         </div>
 
         <div style="padding: 3%; color:white" class="content" style="align-content: center;">
-            <form method="POST" action="../global/users/updateUsersQuery.php" enctype="multipart/form-data">
+            <form method="POST" action="../../AirAgency/global/users/updateUsersQueryFinal.php" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
@@ -146,20 +172,20 @@ $user = User::findById($conn, $id);
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Card Number</label>
-                            <input value="<?php echo $user[12] ?>" name="form-address" type="text" class="form-control" placeholder="Card Number" width="20">
+                            <input value="<?php echo $user[12] ?>" name="number" type="text" class="form-control" placeholder="Card Number" width="20">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Exp Date</label>
-                            <input value="<?php echo $user[13] ?>" name="form-city" type="text" class="form-control" placeholder="Exp Date">
+                            <input value="<?php echo $user[13] ?>" name="expireDate" type="text" class="form-control" placeholder="Exp Date">
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Code</label>
-                            <input value="<?php echo $user[14] ?>" name="form-state" type="text" class="form-control" placeholder="Code">
+                            <input value="<?php echo $user[14] ?>" name="code" type="text" class="form-control" placeholder="Code">
                         </div>
                     </div>
                 </div>
@@ -168,7 +194,7 @@ $user = User::findById($conn, $id);
         justify-content: space-around;
         align-content: center;
         margin-bottom: 2%" class="row">
-                    <button name="userUpdate" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
+                    <button name="userUpdate"  value="<?php echo $id ?>" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                 </div>
                 <div class="clearfix"></div>
             </form>

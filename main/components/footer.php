@@ -1,4 +1,5 @@
-<?php include_once("constants.php") ?>
+<?php include_once("constants.php"); ?>
+<?php //  require("../global/isLogged.php"); ?>
 <!-- Footer Area Start -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <footer class="footer-area section-padding-80-0">
@@ -62,10 +63,10 @@
                         <span>Subscribe our newsletter gor get notification about new updates.</span>
 
                         <!-- Newsletter Form -->
-                        <form class="nl-form">
+                        <form class="form-search"  > 
                             <input id="email_data" type="email" class="form-control" placeholder="Enter your email...">
-                            <span class="email-message" id="email_msg"></span>
                             <button id="subscribeBtn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            <span class="email-message" id="email_msg"></span>
                         </form>
                     </div>
                 </div>
@@ -104,57 +105,35 @@
 </footer>
 
  <script>
+ $(document).ready(function() {
 
-//    $(document).ready(function() {
-//        let email = '';
-//        $('#subscribeBtn').click((e) => {
-//            e.preventDefault();
-//            $.ajax({
-//                url: 'components/subscribers.php',
-//                type: 'POST',
-//                data: {
-//                    email: e.target.value 
-//                },
-//                success: function(data) {
-//                    alert(data)
-//                }
-//            });
-//        });
-//    });
-     
-     $(document).ready(function()
-     {
-         
-         $("#subscribeBtn").click(function()
-         {
-             
-         var email_data_var =$("#email_msg").val();
-             alert(email_data_var);
-         if(email_data_var == '')
-         
+     $('#subscribeBtn').click((e)=>{
+          var email = $("#email_data").val();
+         e.preventDefault();
+         if(email =='')
              {
-                 $("#email_msg").html("Enter a email address");
+                 $("#email_msg").html("Enter an email address!");
              }
-             
-         else{
-             $.ajax({
-                 url: 'components/subscribers.php',
-                 type: 'POST',
-                 data:{email_data_values : email_data_var},
-                 success:function(data)
-                 {
-                     if(data !=''){
-                     alert(data)}
-                     else
-                         alert("lavda osht bal");
-                 }
-             
-            });
-            }
-          });    
-         });
+         
+          //console.log(email);
 
-
+          else{
+               $.ajax({
+                 url: "components/subscribers.php",
+                 method: "POST",
+                  data: {
+                      email: email
+                  },
+                  dataType: "text",
+                  success: function(data) {
+                     alert(data);
+                     $('#email_data').append(data);
+                      }
+               });
+          }
+      } );
+});
+//     
 </script>
 <!-- Footer Area End -->
 

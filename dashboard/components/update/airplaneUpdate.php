@@ -8,7 +8,7 @@ if (isset($_GET['id'])){
    $id = $_GET['id'];
 
 
-$sqlPlane="select * from airplane where id= 27;";
+$sqlPlane="select * from airplane where id=".$id.";";
 
 
 $planeStatement = $conn->prepare($sqlPlane);
@@ -27,7 +27,7 @@ $planeDetail = $planeStatement->fetch();
                             <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
                         <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
-                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/airplane-img/<?php echo $planeDetail['img'];?>" onclick="clicked(this)" />
+                        <img style="height:150px; width:150px" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/airplane-img/<?php echo $planeDetail['img'];?>" onclick="clicked(this)" />
                         </div>
                            </div>
                                     <?php 
@@ -97,7 +97,7 @@ $planeDetail = $planeStatement->fetch();
                                      <textarea rows="5" name="additionalDesc" class="form-control" placeholder="Here can be your description"><?php echo $planeDetail['additionalDesc']; ?></textarea>   
                                      </div>
 
-                                    <button name="updateAirplane" type="submit" value="submit" class="btn btn-info btn-fill pull-right">Update Airplane</button>
+                                    <button name="updateAirplane" type="submit" value="<?php echo $id; ?>" class="btn btn-info btn-fill pull-right">Update Airplane</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>

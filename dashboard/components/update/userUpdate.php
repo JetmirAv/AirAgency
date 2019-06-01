@@ -1,9 +1,10 @@
 <?php 
 include "../databaseConfig.php";
-
+		
 
 if (isset($_GET['id'])){
    $id = $_GET['id'];
+
 }
 else {
 	$id=$dataArr->id;
@@ -20,7 +21,7 @@ u.city as 'city' ,
  u.state as 'state' ,
  u.postal as 'postal' , 
 u.phoneNumber as 'phoneNumber',
- concat('../../AirAgency/uploads/user-img/',img) as img , 
+ u.img as 'img', 
 u.createdAt as 'createdAt',
 u.updatedAt as 'updatedAt' ,
  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
@@ -31,7 +32,6 @@ LEFT JOIN Card c on u.id=c.userId where u.id=".$id."";
 $statement = $conn->prepare($sql);  
 $statement->execute();
 $userDetail = $statement->fetch(); 
-
 ?>
                    
                 
@@ -42,13 +42,14 @@ $userDetail = $statement->fetch();
                             </div>
                             <div class="content">
                            
-                            <form action="/../AirAgency/global/users/updateUsersQueryLavda.php" method="post" enctype="multipart/form-data">
+                            <form action="../global/users/updateUsersQueryLavda.php" method="post" enctype="multipart/form-data">
 <!--                            <form action="/../AirAgency/uploads/user-img/shpendi.jpg" method="post" enctype="multipart/form-data">-->
                             <div class="row" style="margin-left:300px;">
                             <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
-                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
-                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  src="<?php echo $userDetail['img']; ?>" onclick="clicked(this)" />
+                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img" value="<?php echo $userDetail['img']; ?>">
+                        <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  
+							 src="../../AirAgency/uploads/user-img/<?php echo $userDetail['img']; ?>" onclick="clicked(this)" />
                         </div>
                            </div>
                                       <?php 
@@ -176,46 +177,45 @@ $userDetail = $statement->fetch();
                                         </div>
                                     </div>    
 
-                                    <button name="userUpdate" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
+                                    <button name="userUpdate" id="clickButton" value="<?php echo $id ?>" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
                         </div>
                       </div>
-			<!--	<div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                     <a href="#">
-                                    <img class="avatar" src='<?php echo $userDetail['img'];?>' style="width=150px; height=150px;" alt="..."/>
 
-                                      <h4 class="title"><?php echo $userDetail["firstname"] . " " . $userDetail["lastname"];?> <br />
-                                         <small>michael24</small>
-                                      </h4>
-                                    </a>
-                                </div>
-                                <p class="description text-center"> "Lamborghini Mercy <br>
-                                                    Your chick she so thirsty <br>
-                                                    I'm in that two seat Lambo"
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
-                            </div>
-                        </div>
-                    </div>-->
-
-                    
                     
 <script>
-    function readURL(input) {
+//	$(document).ready(function() {
+//		$('#clickButton').click(function(){
+//			var id = "<?php //echo $id ; ?>";
+//			console.log(id);
+//			$.ajax({
+//				url: "../global/users/updateUsersQueryLavda.php",
+//				method: "POST",
+//				data: {
+//					id:id,
+//					firstname: 
+//				},
+//				success: function(data) {
+//					alert(data);
+//				},
+//				error: (data) => {
+//					alert("Error");
+//										alert(data);
+//
+//				}
+//				
+//			});
+//		});
+//	});
+//	
+//	
+	
+	
+	
+	
+	function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 

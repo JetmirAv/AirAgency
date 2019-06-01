@@ -6,7 +6,7 @@
 	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
 
 	<!--  Charts Plugin -->
-	<script src="assets/js/chartist.min.js"></script>
+<!--	<script src="assets/js/chartist.min.js"></script>-->
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
@@ -20,7 +20,7 @@
 	<script src="assets/js/canvasjs.min.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>
+<!--	<script src="assets/js/demo.js"></script>-->
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -28,7 +28,6 @@
 	<script type="text/javascript">
     	$(document).ready(function(){
 
-        	demo.initChartist();
 
         	$.notify({
             	icon: 'pe-7s-gift',

@@ -75,6 +75,19 @@
 
  					</div>
  				</div>
+ 				
+ 				 <?php 
+                
+										if(isset($_SESSION['errors'])){
+											foreach($_SESSION['errors'] as $updError){
+												echo "<p style='color:red'>$updError</p>";
+											}
+										}
+                             if(isset($_SESSION['success'])){
+												echo "<p style='color:green'>" .$_SESSION['success']. "</p>";
+											
+										}	
+									?>
 
  				<div class="row" style="margin-left:15%">
 

@@ -1,8 +1,12 @@
    <?php
+session_start();
+
 
 include "../../../databaseConfig.php";
-//include '../validations.php'; 
-//session_start();
+include '../validations.php'; 
+
+$_SESSION['success'] = "";
+$_SESSION['errors'] = $error_message;
 
 if(isset($_POST['updateFlight'])){
 			$error_message = array();  
@@ -19,19 +23,16 @@ if(isset($_POST['updateFlight'])){
 //            $img = $_POST['img'];
 	
 	
-			$_SESSION['sucess'] = "";
-			$_SESSION['errors'] = $error_message;
+			
 			$allowed_image_extension = array(
 			"png",
 			"jpg",
 			"jpeg"
 			);
 
-	$doesExistFile = $_FILES["img"]["error"];
+$doesExistFile = $_FILES["img"]["error"];
 
-print_r($doesExistFile);
-	
-    
+
 if($doesExistFile === 0){
 $file_extension = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
 // Validate file input to check if is not empty
@@ -51,11 +52,33 @@ else if (($_FILES["img"]["size"] > 8000000)) {
 
 
 }
-// if($avalible<=0){ // $errmsg="Number of seats avalible can't be negative." ; // array_push($error_message, $errmsg); //} //if($price <=0){ // $errmsg="Number of price can't be negative." ; // array_push($error_message, $errmsg); //} //if($isSale <=0){ // $errmsg="Number of sale can't be negative." ; // array_push($error_message, $errmsg); //}
-
-	if(count($error_message)<=0){  
-
-if($doesExistFile === 0){
+    
+    if($avalible<0){
+        $errmsg = "Number of available must be positive.";
+	    array_push($error_message, $errmsg);
+    } else if ($avalible==''){
+        $errmsg = "Available can not be null.";
+	    array_push($error_message, $errmsg);
+    }
+    
+    if($isSale<0){
+        $errmsg = "Number of sale must be positive.";
+	    array_push($error_message, $errmsg);
+    } else if($isSale==''){
+         $errmsg = "Sale can not be null.";
+	    array_push($error_message, $errmsg);
+    }
+    
+    if($price<0){
+         $errmsg = "Price must be positive.";
+	    array_push($error_message, $errmsg);
+    } else if($price==''){
+        $errmsg = "Price can not be null.";
+	    array_push($error_message, $errmsg);
+    }
+    
+   
+    if(count($error_message)<=0){  
 
 	$flightPic = $_FILES['img']['name'];
 	$expflightPic = explode('.', $flightPic);
@@ -71,10 +94,7 @@ if($doesExistFile === 0){
 		array_push($error_message, $errmsg);
 	}
 
-}
 
-
-	if(count($error_message)<=0){  
 
 		$image = "select img  from flight where id = ? ";
 		$imgPrepare = $conn->prepare($image);
@@ -82,6 +102,8 @@ if($doesExistFile === 0){
 		$image = $imgPrepare->fetch();
 		$imageFetch=$image['img'];
 
+        
+        
 
 
 		$doesExistFile === 0 ? $params[":img"] = $flightPicName : $flightPicName=$imageFetch;
@@ -90,29 +112,19 @@ if($doesExistFile === 0){
 		$updateStm = $conn->prepare($updateFlight);
 		print_r($updateStm);
 
-
-
-
-
 		$pdoExec = $updateStm->execute(array(":fromCity"=>$fromCity, ":toCity"=>$toCity, ":planeId"=>$planeId, ":avalible"=>$avalible, ":price"=>$price, ":isSale"=>$isSale, ":checkIn"=>$checkIn));
+        $_SESSION['success']="Updatet Successfully!";
 		header('location: ' . $_SERVER["HTTP_REFERER"]);
-     	$errmsg = "Update sucessfully.";
-		array_push($error_message, $errmsg);
-
-	}
-		else {
+        die();
+    } else {
 		$_SESSION['errors'] = $error_message;
 		header('location: ' . $_SERVER["HTTP_REFERER"]);
 		die();
 		}
 
 		}
+
 		
-		else {
-		$_SESSION['errors'] = $error_message;
-		header('location: ' . $_SERVER["HTTP_REFERER"]);	
-		die();
-	}
-}
+
 		
 		?>

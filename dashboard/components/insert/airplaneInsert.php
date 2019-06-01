@@ -1,49 +1,65 @@
-<div class="col-md-8">
+<div class="col-md-8"  style="margin-left:15%;">
     <div class="card">
         <div class="header">
-            <h4 class="title">Edit Airplane</h4>
+            <h4 class="title">Insert Airplane</h4>
         </div>
         <div class="content">
             <form action="../dashboard/components/airplane/insertAirplaneQuery.php" method="POST">
-                <div class="row" style="margin-left:25%">
-                    <div class="col-md-5">
-                        <div class="form-group" style="width: 250px;">
+               
+            <div class="row" style="margin-left:300px;">
+<!--
+                <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
+                 <label  id="inputlabel" for="form-img">Profile picture</label> 
+                <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
+                <img style="height:150px; width:auto" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/airplane-img/<?php //echo $planeDetail['img'];?>" onclick="clicked(this)" />
+                </div>
+-->
+           <div class="form-group">
+                            <label>Image</label>l
+                            <input type="file" name="img" class="form-control" placeholder="Image" value="img" style="width: 150px;">
+           </div>
+            </div>
+               
+               
+                <div class="row" style="margin-left:21%">
+                    <div class="col-md-5" style="width:40%;">
+                        <div class="form-group" >
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Name" value="">
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group" style="width:120px;">
+                    
+                        <div class="col-md-5" style="width:40%;">
+                        <div class="form-group">
                             <label>Year Of Produce</label>
-                            <input type="Text" name="yearOfProd" class="form-control" placeholder="Year" min="1800" style="width: 120px; padding-right:20" value="">
+                            <input type="Text" name="yearOfProd" class="form-control" placeholder="Year" min="1800" style=" padding-right:20" value="">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="row">
+            
+                    <div class="col-md-4">
                         <label style="padding-right:5px ; padding-left:-10px;"> Seats </label>
                         <input type="Text" name="seats" class="form-control" placeholder="Seats" value="">
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Fuel Capacity</label>
-                            <input type="Text" name="fuelCapacity" placeholder="Fuel Capacity" class="form-control" value="" style="width: 150px;">
+                            <input type="Text" name="fuelCapacity" placeholder="Fuel Capacity" class="form-control" value="">
                         </div>
                     </div>
-                    <div class="col-md-6" style="width:150px;">
+                    <div class="col-md-4" >
                         <div class="form-group">
                             <label>Max Speed</label>l
-                            <input type="Text" name="maxspeed" class="form-control" placeholder="Max speed" value="" style="width: 150px;">
+                            <input type="Text" name="maxspeed" class="form-control" placeholder="Max speed" value="">
                         </div>
-                        <div class="form-group">
-                            <label>Image</label>l
-                            <input type="file" name="img" class="form-control" placeholder="Image" value="img" style="width: 150px;">
-                        </div>
+                        
                     </div>
                 </div>
 
 
+<!--
                 <div class="row" style="margin-left:23.5%">
 
                     <div class="col-md-4">
@@ -59,6 +75,7 @@
                         </div>
                     </div>
                 </div>
+-->
 
                 <div class="row" style="padding-left:18px; padding-right:18px; padding-bottom:10px">
                     <label>AdditionalDesc</label>
@@ -72,6 +89,7 @@
     </div>
 </div>
 
+<!--
 <div class="col-md-4">
     <div class="card card-user">
         <div class="image">
@@ -100,3 +118,4 @@
 
         </div>
     </div>
+</div>-->

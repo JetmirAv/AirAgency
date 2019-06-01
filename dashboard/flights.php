@@ -20,7 +20,7 @@
 						</div>
 
 						<?php include "components/tables/flights-table.php"; ?>
-<?php include "script.php">
+						
 
 					</div>
 				</div>

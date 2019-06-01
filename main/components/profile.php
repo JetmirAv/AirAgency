@@ -4,34 +4,8 @@ include_once("../databaseConfig.php");
 include_once("../models/users.php");
 
 $id = $dataArr->id;
-<<<<<<< HEAD
 
 $user = User::findById($conn, $id);
-=======
-$findLoggedUserQuery = "
-select 
-	u.id, 
-    u.firstname, 
-    u.lastname, 
-    u.email, 
-    u.gendre, 
-    u.birthday, 
-    u.address, 
-    u.city, 
-    u.state, 
-    u.postal, 
-    u.phoneNumber, 
-    u.img,
-    c.number, 
-    concat(c.expMonth, '/', c.expYear) as 'c.exp', 
-    c.code
-		from users u left join card c on u.id = c.userID where u.id = ?";
-$findUserQuery = $conn->prepare($findLoggedUserQuery);
-$findUserQuery->execute([$id]);
-if ($findUserQuery->rowCount() > 0) {
-    $user = $findUserQuery->fetchAll()[0];
-    
->>>>>>> e2033e5d1c8ceb6e12aed231fb94b93dc76953a2
 
 
 ?>

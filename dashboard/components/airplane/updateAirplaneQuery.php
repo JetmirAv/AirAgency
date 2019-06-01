@@ -12,6 +12,9 @@ $errors = array();
         
     {
         
+        $userId=$_POST['updateAirplane'];
+        
+        echo $userId;
          $_SESSION['sukses'] = "";    
          $_SESSION['gabimet'] = $errors;
          $allowed_image_extension = array(
@@ -120,7 +123,7 @@ $errors = array();
         
         
         
-        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id = 27;";
+        $updatePlane = "update airplane set name = :name, yearOfProd = :yearOfProd, seats = :seats, fuelCapacity = :fuelCapacity, maxspeed = :maxspeed, additionalDesc = :additionalDesc, img = :img, updatedAt = NOW() where id =".$userId.";";
         
         
         //print_r($updatePlane);

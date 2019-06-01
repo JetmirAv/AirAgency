@@ -8,7 +8,7 @@ if (isset($_GET['id'])){
    $id = $_GET['id'];
 
 
-$sqlPlane="select * from airplane where id= 27;";
+$sqlPlane="select * from airplane where id=".$id.";";
 
 
 $planeStatement = $conn->prepare($sqlPlane);
@@ -97,7 +97,7 @@ $planeDetail = $planeStatement->fetch();
                                      <textarea rows="5" name="additionalDesc" class="form-control" placeholder="Here can be your description"><?php echo $planeDetail['additionalDesc']; ?></textarea>   
                                      </div>
 
-                                    <button name="updateAirplane" type="submit" value="submit" class="btn btn-info btn-fill pull-right">Update Airplane</button>
+                                    <button name="updateAirplane" type="submit" value="<?php echo $id; ?>" class="btn btn-info btn-fill pull-right">Update Airplane</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>

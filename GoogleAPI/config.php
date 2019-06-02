@@ -5,6 +5,6 @@
 	$gClient->setClientId("144002503190-ett5fmvlnfl7ggvv1ltejkbn9qn1tk27.apps.googleusercontent.com");
 	$gClient->setClientSecret("U-p4vW1B6Z6gpt4n-bCvJ4LH");
 	$gClient->setApplicationName("AirAgency");
-	$gClient->setRedirectUri("http://localhost:1234/github/AirAgency/global/logIn.php");
+	$gClient->setRedirectUri("http://localhost/AirAgency/global/logIn.php");
 	$gClient->addScope("email");
 ?>

@@ -40,25 +40,33 @@ if (isset($_POST['login'])) {
         die();
     }
 }
-if(isset($_GET['code'])){	
-	$logInErrors = array();
+if (isset($_GET['code'])) {
+    $logInErrors = array();
     $_SESSION['error'] = $logInErrors;
-	
 
-	if (isset($_SESSION['access_token']))
-		$gClient->setAccessToken($_SESSION['access_token']);
-	else if (isset($_GET['code'])) {
-		$token = $gClient->fetchAccessTokenWithAuthCode($_GET['code']);
-	} else {
-		header('Location: login.php');
-		exit();
-	} 
+    if (isset($_GET['code'])) {
+        echo "code";
+        $token = $gClient->fetchAccessTokenWithAuthCode($_GET['code']);
+    }
 
-	$oAuth = new Google_Service_Oauth2($gClient);
-	$userData = $oAuth->userinfo_v2_me->get();
+    if (isset($_SESSION['access_token'])) {
+        echo "access-toke";
+        $gClient->setAccessToken($_SESSION['access_token']);
+    }
 
-	
-	$email = $userData['email'];
+
+
+    echo "Jasht";
+    echo "<br><br>";
+    // print_r($gClient);
+    echo "<br><br>";
+    $oAuth = new Google_Service_Oauth2($gClient);
+    echo "Ketu";
+    $userData = $oAuth->userinfo_v2_me->get();
+    echo "Ketu";
+
+
+    $email = $userData['email'];
 
 
     if (!valid_email($email)) {
@@ -74,12 +82,12 @@ if(isset($_GET['code'])){
         } catch (Exception $ex) {
             array_push($logInErrors, $ex->getMessage());
             $_SESSION['error'] = $logInErrors;
-            header('location: ' . $_SERVER["HTTP_REFERER"]);
+            header('location: ../main/login.php');
             die();
         }
     } else {
         $_SESSION['error'] = $logInErrors;
-        header('location: ' . $_SERVER["HTTP_REFERER"]);
+        header('location: ../main/login.php');
         die();
     }
 }

@@ -37,9 +37,7 @@ $bookedDetails = $bookedStatement->fetch();
                                 <h4 class="title">Booked Details</h4>
                             </div>
                             <div class="content">
-<!--
-                                <form action="components/dashboard/deleteBooked.php" method="POST">
--->
+                                <form action="components/dashboard/delete/bookedDelete.php" method="POST">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group" style="width: 250px;">
@@ -103,7 +101,6 @@ $bookedDetails = $bookedStatement->fetch();
                                         </div>
                                      </div>
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Booked</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>

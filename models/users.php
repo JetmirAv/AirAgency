@@ -299,7 +299,7 @@ class User
         $stm->execute();
         return $stm->fetch();
     }
-    static function findByEmailAndPassword($conn, $email, $password)
+    static function findByEmailAndPassword($conn, $email, $password = null)
     {
         $findByEmailQuery = "select * from users where email = ?";
         $findByEmail = $conn->prepare($findByEmailQuery);
@@ -307,11 +307,17 @@ class User
 
         if ($findByEmail->rowCount() > 0) {
             $user = $findByEmail->fetchAll()[0];
-            if (password_verify($password, $user['password'])) {
-                return $user;
-            } else {
-                throw new Exception("Incorrect password");
-            }
+			
+			if($password !== null){
+				 if (password_verify($password, $user['password'])) {
+                	return $user;
+            	} else {
+                	throw new Exception("Incorrect password");
+            	}
+			} else {
+				return $user;
+			}
+           
         } else {
             throw new Exception("No user with this email is registered in our site");
         }

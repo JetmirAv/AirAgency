@@ -13,7 +13,11 @@ $flightsOnLastYear = Flight::getFlightsForYear($conn, 1);
 
 $thisMonthRecords = User::count($conn, "thisMonth")[0];
 $totalRecords = User::count($conn)[0];
+
+
 $thisMonthPct = ($thisMonthRecords / $totalRecords) * 100;
+
+
 $totalPct = 100 - $thisMonthPct;
 
 ?>

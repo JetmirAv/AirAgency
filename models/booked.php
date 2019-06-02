@@ -112,7 +112,7 @@ class Booked
     public static function getProfitThroughYear($conn)
     {
         $query = "SELECT MONTH(createdAt) as 'month', SUM(price) as 'total' FROM booked" .
-            " WHERE YEAR(createdAt) = YEAR(CURRENT_DATE)" .
+            " WHERE YEAR(createdAt) = YEAR(CURRENT_DATE) -3" .
             " GROUP BY MONTH(createdAt);";
         $stm = $conn->prepare($query);
         $stm->execute();

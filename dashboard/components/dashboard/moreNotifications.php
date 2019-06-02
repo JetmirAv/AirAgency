@@ -7,7 +7,7 @@ if (isset($_POST['offset'])) {
     $output = "";
     $offset = (int)trim($_REQUEST['offset']);
     $lastBooked = Booked::notifications($conn, 10, $offset);
-    if ($lastBooked->rowCount() > 0) {
+    
 
         foreach ($lastBooked as $info) :
             $output .=  "<tr>" .
@@ -21,6 +21,5 @@ if (isset($_POST['offset'])) {
 
         endforeach;
         echo $output;
-    }
-    echo $output;
+    
 }

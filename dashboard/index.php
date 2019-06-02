@@ -28,8 +28,8 @@
                                 <div class="footer">
                                     <div class="legend" style="display: flex; justify-content: space-between;">
                                         <span><b>This Month:</b> <?php echo $thisMonthRecords; ?></span>
-                                        <span><b>Other:</b> <?php echo $totalRecords; ?></span>
-                                        <span><b>Total:</b> <?php echo $totalRecords + $thisMonthRecords; ?></span>
+                                        <span><b>Other:</b> <?php echo $totalRecords - $thisMonthRecords; ?></span>
+                                        <span><b>Total:</b> <?php echo $totalRecords; ?></span>
                                     </div>
                                 </div>
                             </div>

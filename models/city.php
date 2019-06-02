@@ -11,7 +11,8 @@ class City
 
     function __construct(
         $name,
-        $img ) 
+        $img 
+    ) 
     {
 
         $this->name = $name;

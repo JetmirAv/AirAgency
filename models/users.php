@@ -26,7 +26,6 @@ class User
         $firstname,
         $lastname,
         $email,
-        $password,
         $birthday,
         $gender,
         $address,
@@ -34,7 +33,8 @@ class User
         $state,
         $postal,
         $phoneNumber,
-        $img
+        $password = null,
+        $img = null
     ) {
         $this->roleId = $roleId;
         $this->firstname = $firstname;
@@ -281,7 +281,7 @@ class User
         ];
         $stm = $conn->prepare($query);
         try {
-            $stm->execute($paramArray);
+            return $stm->execute($paramArray);
         } catch (PDOException $ex) {
             throw new Exception($ex);
         }
@@ -331,6 +331,56 @@ class User
             }
         } else {
             throw new Exception("Can't delete an Admin");
+        }
+    }
+    public function update($conn, $userId)
+    {
+        $query = "update users set 
+        firstname = :firstname, 
+        lastname = :lastname, 
+        email = :email, " . ($this->password === null ? "" : 'password =  :password,') .
+            " birthday = :birthday, 
+        gendre = :gendre, 
+        address=:address ,
+        city=:city , 
+        state=:state , 
+        postal=:postal , 
+        phoneNumber=:phoneNumber, " . ($this->img === null ? '' : 'img=:img, ') .
+            "updatedAt = NOW() where id = :userId";
+
+        $paramArray = [
+            ':firstname' => $this->firstname,
+            ':lastname' => $this->lastname,
+            ':email' => $this->email,
+            ':birthday' => $this->birthday,
+            ':gendre' => $this->gender,
+            ':address' => $this->address,
+            ':city' => $this->city,
+            ':state' => $this->state,
+            ':postal' => $this->postal,
+            ':phoneNumber' => $this->phoneNumber,
+            ':userId' => $userId
+        ];
+        echo "<br>";
+        echo "<br>";
+        echo $query;
+        ($this->password === null ? null : $paramArray[":password"] =  $this->password);
+        echo "<br>";
+        echo "<br>";
+        ($this->img === null ? null : $paramArray[":img"] = $this->img);
+
+        print_r($paramArray);
+        echo "<br>";
+        echo "<br>";
+
+        echo gettype($this->password);
+        echo "<br>";
+        echo gettype($this->img);
+        $stm = $conn->prepare($query);
+        try {
+            return $stm->execute($paramArray);
+        } catch (PDOException $ex) {
+            throw new Exception($ex);
         }
     }
 }

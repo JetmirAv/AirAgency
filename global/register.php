@@ -103,7 +103,6 @@ if (isset($_POST['register'])) {
                     $firstname,
                     $lastname,
                     $email,
-                    $password,
                     $birthdate,
                     $gender,
                     $address,
@@ -111,6 +110,7 @@ if (isset($_POST['register'])) {
                     $state,
                     $postal,
                     $phone,
+                    $password,
                     $profilepicName
                 );
                 try {

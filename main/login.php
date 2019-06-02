@@ -6,58 +6,17 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- CSS -->
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/css/form-elements.css">
 	<link rel="stylesheet" href="assets/css/style.css">
-	<!-- Favicon and touch icons -->
 	<link rel="shortcut icon" href="assets/ico/favicon.png">
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
-
-	<!-- <style>
-		.inputfile {
-			width: 0.1px;
-			height: 0.1px;
-			opacity: 0;
-			overflow: hidden;
-			position: absolute;
-			z-index: -1;
-		}
-
-		.inputfile+label {
-			font-size: 1.25em;
-			font-weight: 700;
-			color: white;
-			background-color: transparent;
-			display: inline-block;
-		}
-
-		.inputfile:focus+label,
-		.inputfile+label:hover {
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-
-		.inputfile+label {
-			cursor: pointer;
-			/* "hand" cursor */
-		}
-
-		.inputfile:focus+label {
-			outline: 1px dotted #000;
-			outline: -webkit-focus-ring-color auto 5px;
-		}
-
-		.inputfile+label * {
-			pointer-events: none;
-		}
-	</style>
-	 -->
 </head>
 <?php include "components/head.php"; ?>
 

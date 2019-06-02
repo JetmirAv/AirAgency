@@ -20,12 +20,6 @@ $userDetail = User::findById($conn, $id, "admin");
         <div class="content">
 
             <form action="../global/users/updateUsersQueryFinal.php" method="post" enctype="multipart/form-data">
-                <div class="row" style="margin-left:200px;">
-                    <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
-                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img" value="<?php echo $userDetail['img']; ?>">
-                        <img style="height:200px; width:200px;" id="profileImg" alt="profile" class="avatar" src="../../AirAgency/uploads/user-img/<?php echo $userDetail['img']; ?>" onclick="clicked(this)" />
-                    </div>
-                </div>
                 <?php
                 if (isset($_SESSION['errors'])) {
                     foreach ($_SESSION['errors'] as $updateError) {
@@ -36,6 +30,12 @@ $userDetail = User::findById($conn, $id, "admin");
                     echo "<p style='color:green'>" . $_SESSION['sucess'] . "</p>";
                 }
                 ?>
+                <div class="row" style="margin-left:200px;">
+                    <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
+                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img" >
+                        <img name='test' value="2" style="height:200px; width:200px;" id="profileImg" alt="profile" class="avatar" src="../../AirAgency/uploads/user-img/<?php echo $userDetail['img']; ?>" onclick="clicked(this)" />
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px; ">

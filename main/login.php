@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    require_once "../GoogleAPI/config.php";
+require_once "../GoogleAPI/config.php";
 
-	if (isset($_SESSION['access_token'])) {
-		header('Location: index.php');
-		exit();
-	}
+if (isset($_SESSION['access_token'])) {
+	header('Location: index.php');
+	exit();
+}
 
-	$loginURL = $gClient->createAuthUrl();
+$loginURL = $gClient->createAuthUrl();
 ?>
 <!doc <head>
 
@@ -45,14 +45,14 @@
 									<div class="form-top-left">
 										<h3>Login to our site</h3>
 										<p>Enter username and password to log on:</p>
-										<?php 
-										if(isset($_SESSION['error'])){
-											foreach($_SESSION['error'] as $logInError){
+										<?php
+										if (isset($_SESSION['error'])) {
+											foreach ($_SESSION['error'] as $logInError) {
 												echo "<p style='color:red'>$logInError</p>";
 											}
-										}									
-									
-									?>
+										}
+
+										?>
 									</div>
 									<div class="form-top-right">
 										<i class="fa fa-lock"></i>
@@ -87,14 +87,14 @@
 									<div class="form-top-left">
 										<h3>Sign up now</h3>
 										<p>Fill in the form below to get instant access:</p>
-										<?php 
-										if(isset($_SESSION['errors'])){
-											foreach($_SESSION['errors'] as $error){
+										<?php
+										if (isset($_SESSION['errors'])) {
+											foreach ($_SESSION['errors'] as $error) {
 												echo "<p style='color:red'>$error</p>";
 											}
-										}									
-									
-									?>
+										}
+
+										?>
 									</div>
 									<div class="form-top-right">
 										<i class="fa fa-pencil"></i>
@@ -170,6 +170,11 @@
 			</div>
 
 		</div>
+
+		<?php
+
+		session_unset();
+		?>
 
 		<!-- Footer -->
 

@@ -9,7 +9,7 @@ session_start();
 
 echo "Fillimi";
 
-if (isset($_POST['register'])) {
+if (isset($_POST['register']) || isset($_POST['createUser'])) {
 
     $_SESSION['sucess'] = "";
 
@@ -132,20 +132,15 @@ if (isset($_POST['register'])) {
                 $getRole->execute([$insertedId]);
                 $roleId = $getRole->fetch();
 
-                $_SESSION["token"] = generateJWT($roleId['id'], $roleId['roleId'], $roleId['email'], $roleId['firstname']);
-
-                $path = $_SERVER['PHP_SELF'];
-                $path = explode('/', $path);
-
-                if (in_array('main', $path)) {
+                if (isset($_POST['register'])) {
+                    $_SESSION["token"] = generateJWT($roleId['id'], $roleId['roleId'], $roleId['email'], $roleId['firstname']);
                     header("location: ../main/index.php");
                     die();
-                } else {
-                    $_SESSION['errors'] = null;
-                    $_SESSION['sucess'] = "User created successfuly.";
-                    header('location: ' . $_SERVER["HTTP_REFERER"]);
-                    die();
                 }
+                $_SESSION['errors'] = null;
+                $_SESSION['sucess'] = "User created successfuly.";
+                header('location: ' . $_SERVER["HTTP_REFERER"]);
+                die();
             } else {
                 $_SESSION['errors'] = $errors;
                 header('location: ' . $_SERVER["HTTP_REFERER"]);

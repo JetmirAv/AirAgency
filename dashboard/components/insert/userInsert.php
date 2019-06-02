@@ -108,7 +108,7 @@
                             <input name="form-phone" type="text" class="form-control" placeholder=" +000-00-000-000">
                         </div>
                     </div>
-                    <button name="register" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
+                    <button name="createUser" type="submit" class="btn btn-info btn-fill pull-right">Update User</button>
                     <div class="clearfix"></div>
             </form>
         </div>

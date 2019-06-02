@@ -182,7 +182,6 @@
 				}
 			})
 			.done((data) => {
-				alert(data);
 				location.reload();
 			});
 		}

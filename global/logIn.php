@@ -26,8 +26,13 @@ if (isset($_POST['login'])) {
         try {
             $data = User::findByEmailAndPassword($conn, $email, $password);
             $_SESSION["token"] = generateJWT($data['id'], $data['roleId'], $data['email'], $data['firstname']);
-            header("location: ../main/index.php");
-            die();
+            if($data['roleId'] != 1){
+                header("location: ../main/index.php");
+                die();
+            } else {
+                header("location: ../dashboard/index.php");
+                die();
+            }
         } catch (Exception $ex) {
             array_push($logInErrors, $ex->getMessage());
             $_SESSION['error'] = $logInErrors;

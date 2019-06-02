@@ -22,7 +22,7 @@
 						<p>Dashboard</p>
 					</a>
 				</li>
-				<li id="userInfo" >
+				<li id="userInfo">
 					<a href="userInfo.php">
 						<i class="pe-7s-user"></i>
 						<p>User Profile</p>
@@ -50,14 +50,6 @@
 					<a href="booked-table.php">
 						<i class="pe-7s-note2"></i>
 						<p>Booked</p>
-					</a>
-				</li>
-
-
-				<li id="maps">
-					<a href="maps.php">
-						<i class="pe-7s-map-marker"></i>
-						<p>Maps</p>
 					</a>
 				</li>
 			</ul>
@@ -89,9 +81,6 @@
 			break;
 		case 'booked-table.php':
 			document.getElementById("booked").setAttribute('class', 'active')
-			break;
-		case 'maps.php':
-			document.getElementById("maps").setAttribute('class', 'active')
 			break;
 
 

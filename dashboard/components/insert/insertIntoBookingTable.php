@@ -70,6 +70,3 @@ if( check_date($bookDateFromDatabase)){
 else{
 	echo "Can't buy a ticket of flight done";
 }
-			   
-
-?>

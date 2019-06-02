@@ -126,8 +126,8 @@ var userId = "<?php echo $userId; ?>";
                 url: 'moreBooked.php',
                 type: 'POST',
                 data: {
-                    offset: offset,
-                    userId: userId
+                    offset,
+                    userId
                 },
                 success: function(data) {
                     if(data != ""){

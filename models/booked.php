@@ -151,4 +151,10 @@ class Booked
             throw $ex;
         }
     }
+    public static function count($conn){
+        $query = "select count(*) from booked";
+        $stm = $conn->prepare($query);
+        $stm->execute();
+        return $stm->fetch();
+    }
 }

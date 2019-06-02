@@ -1,7 +1,7 @@
 <div class="col-md-8">
     <div class="card">
         <div class="header">
-            <h4 class="title">Edit User</h4>
+            <h4 class="title">Insert User</h4>
             <?php
             if (isset($_SESSION['errors'])) {
                 foreach ($_SESSION['errors'] as $error) {
@@ -13,7 +13,6 @@
             if (isset($_SESSION['sucess'])) {
                 echo "<p style='color:green'>" . $_SESSION['sucess'] . "</p>";
                 echo "<script>console.log('" . $_SESSION['sucess'] . "')</script>";
-                
             }
 
             ?>
@@ -24,7 +23,7 @@
                 <div class="row">
                     <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
                         <label style="color:rgba(0.1, 0.1, 0.1, 0.5);" id="inputlabel" for="form-img">Profile picture</label>
-                        <input type="file" name="form-img" >
+                        <input type="file" name="form-img">
                     </div>
                     <br />
                     <div class="col-md-5">
@@ -114,35 +113,4 @@
             </form>
         </div>
     </div>
-</div>
-<!-- <div class="col-md-4">
-    <div class="card card-user">
-        <div class="image">
-            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
-        </div>
-        <div class="content">
-            <div class="author">
-                <a href="#">
-                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..." />
-
-                    <h4 class="title"><br />
-                        <small>michael24</small>
-                    </h4>
-                </a>
-            </div>
-            <p class="description text-center"> "Lamborghini Mercy <br>
-                Your chick she so thirsty <br>
-                I'm in that two seat Lambo"
-            </p>
-        </div>
-        <hr>
-        <div class="text-center">
-            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
-        </div>
-    </div>
- -->
-
 </div>

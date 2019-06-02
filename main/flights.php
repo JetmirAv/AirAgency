@@ -250,7 +250,7 @@ foreach ($rsResult as $row) {
                 url: 'moreFlights.php',
                 type: 'POST',
                 data: {
-                    offset: offset
+                    offset
                 },
                 success: function(data) {
                     if(data != ""){

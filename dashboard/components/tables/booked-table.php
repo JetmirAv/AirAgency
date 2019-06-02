@@ -2,14 +2,8 @@
 <?php include "../models/booked.php" ?>
 <?php
 
-// $sql = "select id,flightId,userId,price,quantity,createdAt,updatedAt from booked  limit 10 offset 0";
-// $countAllRows = "select count(*) as count from booked ";
 $rsResult = Booked::findAll($conn, 10, 0);
-// print_r($rsResult);
-// $rowCount = $conn->query($countAllRows);
-$flight_id = '';
-// $Count = $rowCount->fetch();
-// $airplaneId = '';
+$count = Booked::count($conn);
 ?>
 
 <div class="card">
@@ -45,7 +39,7 @@ $flight_id = '';
         </div>
     </div>
     <div class="header">
-        <h4 class="title">Number of bookings:<?php     ?></h4>
+        <h4 class="title">Number of bookings:<?php echo $count[0] ?></h4>
     </div>
     <div class="content table-responsive table-full-width">
         <table class="table table-hover table-striped">
@@ -88,17 +82,19 @@ $flight_id = '';
 </div>
 <script>
     $(document).on('click', '#btnMore', function() {
+        let offset = 10;
         var lastFlightId = $(this).data("vid");
         $('#btnMore').html("Loading...");
         $.ajax({
             url: "components/tables/loading-booked.php",
             method: "POST",
             data: {
-                lastFlightId: lastFlightId
+                offset
             },
             dataType: "html",
             success: function(data) {
                 if (data != '') {
+                    offset += 10;
                     $('#btnMore').remove();
                     $('#removeRow').remove();
                     $('#loadDataTable').append(data);

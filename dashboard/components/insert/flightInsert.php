@@ -1,11 +1,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<?php 
+<?php
 include "../databaseConfig.php";
 
 // Query Flights
- 
-$sqlFlight="SELECT c1.id as 'fromCityId',
+
+$sqlFlight = "SELECT c1.id as 'fromCityId',
 a.id as 'airplaneId',
 a.name as 'AirplaneName',
 f.planeId as 'planeId',
@@ -31,7 +31,7 @@ ON f.planeId=a.id
 WHERE f.id=92;";
 $flightStatement = $conn->prepare($sqlFlight);
 $flightStatement->execute();
-$flightDetail = $flightStatement->fetch(); 
+$flightDetail = $flightStatement->fetch();
 ?>
 
 <?php
@@ -44,7 +44,7 @@ $results = $cityStm->fetchAll();
 
 ?>
 
-<?php 
+<?php
 $allPlanes = "select id,name from airplane order by name ; ";
 $planeStm = $conn->prepare($allPlanes);
 $planeStm->execute();
@@ -58,58 +58,57 @@ $planeResults = $planeStm->fetchAll(); ?>
         </div>
         <div class="content" style=" margin-top:10%;">
             <form action="../dashboard/components/flights/insertFlightQuery.php" method="post" enctype="multipart/form-data">
-                        <?php 
-                        if(isset($_SESSION['errors'])){
-                           foreach($_SESSION['errors'] as $updateError){
-                           echo "<p style='color:red'>$updateError</p>";
-                        }
-                        }
-                        if(isset($_SESSION['success'])){
-                        echo "<p style='color:green'>" .$_SESSION['success']. "</p>";
+                <?php
+                if (isset($_SESSION['errors'])) {
+                    foreach ($_SESSION['errors'] as $updateError) {
+                        echo "<p style='color:red'>$updateError</p>";
+                    }
+                }
+                if (isset($_SESSION['success'])) {
+                    echo "<p style='color:green'>" . $_SESSION['success'] . "</p>";
+                }
+                ?>
 
-                        }		
-                        ?>
 
+                <div class="row" style="margin-left:40%;">
 
-                      <div class="row" style="margin-left:40%;">
-                           
-                           <div class="form-group">
-                            <label>Image</label>l
-                            <input type="file" name="img" class="form-control" placeholder="Image" value="img" style="width: 150px;">
-                            </div>
-                            </div>
-                            
-                <div class="row" style="margin-left:12%;">    
+                    <div class="form-group">
+                        <label>Image</label>l
+                        <input type="file" name="img" class="form-control" placeholder="Image" value="img" style="width: 150px;">
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left:12%;">
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px;">
                             <label>From City</label>
 
 
-                    <select name="fromCity" class="btn btn-default dropdown-toggle">
+                            <select name="fromCity" class="btn btn-default dropdown-toggle">
 
-                            <?php foreach($results as $output) { ?>
+                                <?php foreach ($results as $output) { ?>
 
-                                    <option value = "<?php echo $output['id']?> ">
-                                    <?php  echo $output['name']; ?></option>
+                                    <option value="<?php echo $output['id'] ?> ">
+                                        <?php echo $output['name']; ?></option>
 
-                                   <?php } ?>
+                                <?php } ?>
 
-                    </select>
-                </div>
-                </div>
-                <div class="col-md-3" style="width: 300px;">
-                <div class="form-group">
-                <label>To City</label>
-                           <select name="toCity" class="btn btn-default dropdown-toggle">
-                                          <?php foreach($results as $output) { ?>
-                                                <option value = "<?php echo $output['id']?> ">
-                                                <?php  echo $output['name']; ?></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="width: 300px;">
+                        <div class="form-group">
+                            <label>To City</label>
+                            <select name="toCity" class="btn btn-default dropdown-toggle">
+                                <?php foreach ($results as $output) { ?>
+                                    <option value="<?php echo $output['id'] ?> ">
+                                        <?php echo $output['name']; ?></option>
 
-                                               <?php } ?>
+                                <?php } ?>
 
-                                    </select>
-                </div>
-                </div>
+                            </select>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -118,22 +117,22 @@ $planeResults = $planeStm->fetchAll(); ?>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Airplane</label>
-                       <select  name="planeId" class="btn btn-default dropdown-toggle">
-{
-                     <?php foreach($planeResults as $planeOutput) { ?>
+                            <select name="planeId" class="btn btn-default dropdown-toggle">
+                                {
+                                <?php foreach ($planeResults as $planeOutput) { ?>
 
-                            <option value = "<?php echo $planeOutput['id']?> ">
-                            <?php  echo $planeOutput['name']; ?></option>
+                                    <option value="<?php echo $planeOutput['id'] ?> ">
+                                        <?php echo $planeOutput['name']; ?></option>
 
-                          <?php } ?>
+                                <?php } ?>
 
-                           }
-                       </select>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="row" style="margin-left:8%;">
-                       <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>CheckIn</label>l
                             <input name="checkIn" type="datetime-local" class="form-control" placeholder="">
@@ -145,7 +144,7 @@ $planeResults = $planeStm->fetchAll(); ?>
                         <br>
                         <input name="isSale" type="text" class="form-control" placeholder="Sale">
                     </div>
-                         <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Price</label>
                             <input name="price" type="text" class="form-control" placeholder="Price">
@@ -159,13 +158,3 @@ $planeResults = $planeStm->fetchAll(); ?>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-

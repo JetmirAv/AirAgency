@@ -15,8 +15,3 @@ include_once("base64EncDec.php");
      
         return hash_equals($rawSignature, $signature);
     }
-     
-
-
-
-?>

@@ -135,6 +135,7 @@
 				dataType: "html",
 				success: (data) => {
 					if (data != '') {
+						offset +=10;
 						$('#btnMore').remove();
 						$('#removeRow').remove();
 						$('#loadDataTable').append(data);

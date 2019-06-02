@@ -22,7 +22,7 @@ function valide_date($date)
 {
     $dateArr  = explode('-', $date);
     if (count($dateArr) == 3) {
-        
+
         if (checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
             return true;
         } else {
@@ -41,58 +41,47 @@ function validate_name($str)
 function valid_phone($number)
 {
     $formats = [
-        '###-###-####', 
+        '###-###-####',
         '####-###-###',
         '(###) ###-###',
         '####-####-####',
         '##-###-####-####',
         '####-####',
         '###-###-###',
-        '#####-###-###', 
-        '##########', 
+        '#####-###-###',
+        '##########',
         '#########',
-        '# ### #####', 
+        '# ### #####',
         '#-### #####'
     ];
 
-    return in_array(trim(preg_replace('/[0-9]/', '#', $number)),$formats);
+    return in_array(trim(preg_replace('/[0-9]/', '#', $number)), $formats);
 }
 
 function check_date($database_date)
 {
-	if (strtotime($database_date) > strtotime('now'))
-	{
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
+    if (strtotime($database_date) > strtotime('now')) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function check_checkIn($checkIn)
 {
-	if (strtotime($checkIn) > strtotime('now'))
-	{
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
+    if (strtotime($checkIn) > strtotime('now')) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function check_year($yearOfProd)
 {
     $year = (new DateTime)->format("Y");
-	if ($yearOfProd<$year)
-	{
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
+    if ($yearOfProd < $year) {
+        return true;
+    } else {
+        return false;
+    }
 }
-
-

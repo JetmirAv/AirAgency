@@ -9,7 +9,6 @@ session_start();
 
 echo "Fillimi";
 
-// REGISTER USER
 if (isset($_POST['register'])) {
 
     $_SESSION['sucess'] = "";
@@ -22,7 +21,6 @@ if (isset($_POST['register'])) {
         "jpeg"
     );
 
-    // receive all input values from the form
     $firstname = trim($_POST['form-first-name']);
     $lastname = trim($_POST['form-last-name']);
     $email = strtolower(trim($_POST['form-email']));
@@ -53,28 +51,19 @@ if (isset($_POST['register'])) {
         array_push($errors, $errmsg);
     }
 
-    // Get image file extension
     $file_extension = pathinfo($_FILES["form-img"]["name"], PATHINFO_EXTENSION);
-    echo "<br/>";
-    echo $email;
-    echo "<br/>";
-    print_r($_FILES['form-img']);
-    echo "<br/>";
-    echo !file_exists($_FILES["form-img"]["tmp_name"]) ? 'true' : 'false';
-    echo "<br/>";
-    // Validate file input to check if is not empty
     if (!file_exists($_FILES["form-img"]["tmp_name"])) {
         $errmsg = "Choose image file to upload.";
         array_push($errors, $errmsg);
-    }    // Validate file input to check if is with valid extension
+    }  
     else if (!in_array($file_extension, $allowed_image_extension)) {
         $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
         array_push($errors, $errmsg);
-    }    // Validate image file size
+    }   
     else if (($_FILES["form-img"]["size"] > 2000000)) {
-        $errmsg = "Image size exceeds 2MB";
+        $errmsg = "Image size exceeds 20MB";
         array_push($errors, $errmsg);
-    }    // Validate image file dimensi..on
+    }   
 
 
     if ($gender == 1) {
@@ -82,22 +71,6 @@ if (isset($_POST['register'])) {
     } else {
         $gender = "F";
     }
-
-    // echo $firstname . " " .  $lastname . " " .  
-    // $email . " " .  $password . " " . 
-    // $birthdate . " Gender: " . 		$gender . " Address: " . 
-    // $address . " " . 
-    // $city . " " . 
-    // $state . " " . 
-    // $postal . " " . 
-    // $phone ;
-
-    //Email check 
-
-    // echo $emailCheck->rowCount();
-    // echo "<br>";
-    // echo gettype($emailCheck);
-    // echo "<br>";		
     if (count($errors) <= 0) {
         $emailCheck = $conn->prepare("Select * from users where email=?");
         $emailCheck->execute([$email]);
@@ -124,26 +97,28 @@ if (isset($_POST['register'])) {
 
             if (count($errors) <= 0) {
                 $password = password_hash($password, PASSWORD_DEFAULT);
-        
+
                 $user = new User(
-                      2
-                    , $firstname
-                    , $lastname
-                    , $email
-                    , $password
-                    , $birthdate
-                    , $gender
-                    , $address
-                    , $city
-                    , $state
-                    , $postal
-                    , $phone
-                    , $profilepicName );
+                    2,
+                    $firstname,
+                    $lastname,
+                    $email,
+                    $password,
+                    $birthdate,
+                    $gender,
+                    $address,
+                    $city,
+                    $state,
+                    $postal,
+                    $phone,
+                    $profilepicName
+                );
                 try {
 
                     $createUser = $user->createUser($conn);
-                } catch (Exception $e){
-                    $errmsg = "We have faced some problems. Please try again. <br>If this error happens again please contact us.";
+                } catch (Exception $e) {
+                    $errmsg = "We have faced some problems. Please try again.".
+                        " <br>If this error happens again please contact us.";
                     array_push($errors, $errmsg);
                     $_SESSION['errors'] = $errors;
                     header('location: ' . $_SERVER["HTTP_REFERER"]);

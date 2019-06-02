@@ -1,6 +1,6 @@
 <div class="card">
     <div class="header">
-        <h4 class="title">Booked Details</h4>
+        <h4 class="title">Book a flight</h4>
     </div>
     <div class="content">
         <form action="components/dashboard/deleteBooked.php" method="POST">
@@ -63,13 +63,13 @@
                 <div class="col-md-4">
                     <div class="form-group" style="width:250px;">
                         <label>Updated at</label>
-                        <input type="text" class="form-control" placeholder="__/__/____" >
+                        <input type="text" class="form-control" placeholder="__/__/____">
                     </div>
                 </div>
-                </div>
+            </div>
 
             <button type=" submit" class="btn btn-info btn-fill pull-right">Update Booked</button>
-                        <div class="clearfix"></div>
+            <div class="clearfix"></div>
         </form>
     </div>
 </div>

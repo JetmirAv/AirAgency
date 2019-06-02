@@ -124,10 +124,6 @@ if (isset($_POST['userUpdate'])) {
 
 			$objUser->update($conn, $userId);
 
-
-
-
-
 			$countCards = "select  count(*) as count  from card where userId = " . $userId . " ";
 			$getStmForCards = $conn->prepare($countCards);
 			$getStmForCards->execute();

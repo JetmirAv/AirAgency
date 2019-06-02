@@ -21,7 +21,7 @@ class Airplane
         $fuelCapacity,
         $maxSpeed,
         $additionaDesc,
-        $img
+        $img = null
     ) {
 
         $this->name = $name;
@@ -125,6 +125,23 @@ class Airplane
         return $this->updatedAt;
     }
 
+    public function create($conn)
+    {
+        $query = "insert into airplane ".
+            " (name, yearOfProd, seats, fuelCapacity, maxspeed, additionalDesc,img) ".
+            " values (:name, :yearOfProd, :seats, :fuelCapacity, :maxspeed, :additionalDesc, :img)";
+        
+        $paramArray = [
+            ":name" => $this->name,
+            ":yearOdProd" => $this->yearOfProd,
+            ":seats" => $this->seats,
+            ":fuelCapacity" => $this->fuelCapacity,
+            ":maxspeed" => $this->maxSpeed,
+            ":additionalDesc" => $this->additionaDesc,
+            ":img" => $this->img
+        ];    
 
-
+        $stm = $conn->prepare($query);
+        return $stm->execute($paramArray);      
+     }
 }

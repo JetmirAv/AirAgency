@@ -36,7 +36,10 @@
         </div>
         <div id="test" class="col-6 col-md-2 col-lg-3">
             <label for="checkIn">To</label>
-            <select name="to" id="toCity" class="form-control">
+            <select 
+                name="toCity" 
+                id="toCity" 
+                class="form-control">
             
             </select>
         </div>
@@ -76,9 +79,8 @@
             },
             success: function (data) {
                 if (data != "") {
-                    alert(data);
-                    $("#toCity").empty();
-                    // document.getElementById("toCity").innerHTML = data;
+                    alert(data); 
+                    document.getElementById("toCity").innerHTML = data;
                 } else {
                     alert("Jo")
                     $("#to").append("<option >No Flight found</option>");

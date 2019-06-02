@@ -21,18 +21,18 @@
            </div>
             </div>
               
-               <?php 
-										if(isset($_SESSION['errors'])){
-											foreach($_SESSION['errors'] as $updateError){
-												echo "<p style='color:red'>$updateError</p>";
-											}
-										}
-                             if(isset($_SESSION['success'])){
-												echo "<p style='color:green'>" .$_SESSION['success']. "</p>";
-											
-										}		
-									?>
-              
+                            <?php 
+                            if(isset($_SESSION['errors'])){
+                                foreach($_SESSION['errors'] as $updateError){
+                                echo "<p style='color:red'>$updateError</p>";
+                            }
+                            }
+                            if(isset($_SESSION['success'])){
+                                echo "<p style='color:green'>" .$_SESSION['success']. "</p>";
+
+                            }		
+                            ?>
+
               
                
                

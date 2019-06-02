@@ -13,10 +13,10 @@ session_start();
     
     if(isset($_POST['insertAirplane'])) { 
     $name = $_POST['name'];
-    $yearOfProd = $_POST['yearOfProd'];
-    $seats = $_POST['seats'];
-    $fuelCapacity = $_POST['fuelCapacity'];
-    $maxspeed = $_POST['maxspeed'];
+    $yearOfProd = (int)$_POST['yearOfProd'];
+    $seats = (int)$_POST['seats'];
+    $fuelCapacity = (int)$_POST['fuelCapacity'];
+    $maxspeed = (int)$_POST['maxspeed'];
     $additionalDesc = $_POST['additionalDesc'];
         
     $doesExistFile = $_FILES["img"]["error"];

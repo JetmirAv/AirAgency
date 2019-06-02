@@ -1,27 +1,19 @@
 <?php
-$servername = 'localhost';
-$username = "root";
-$password = "";
-$database = 'airagency';
-//include "../databaseConfig.php";
+include "../../../dbConnection.php";
+include "../../../models/booked.php";
 
-try{
-   
-    $conn = new PDO("mysql:host=localhost;dbname=airagency", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $id = $_POST['id'];
-    $deleteBooked = "delete from booked where id = 95";
-    $deleteStm = $conn->prepare($deleteBooked);
-    $pdoExec = $deleteStm->execute(array(":id"=>$id));
+
+
+if(isset($_POST['id'])){
     
-        echo "Connection successfully";
-    
-}
-catch(PDOException $ex) {
-    echo "Datebase Connection failed: " . $ex->getMessage();
-}
+    try {
+        if (Booked::delete($conn, (int)$_POST['id'])) {
+            $_SESSION['deleteSucess'] = "Sukses";
+        } else {
+            $_SESSION['deleteError'] = "Error";
+        }
+    } catch (Exception $ex) {
+        $_SESSION['deleteError'] = $ex->getMessage();
+    }        
 
-$conn = null;
-        
-
-?>   
+}

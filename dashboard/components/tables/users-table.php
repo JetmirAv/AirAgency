@@ -180,7 +180,9 @@
 				data: {
 					"id": userId
 				}
-			}).done(function(data) {
+			})
+			.done((data) => {
+				alert(data);
 				location.reload();
 			});
 		}

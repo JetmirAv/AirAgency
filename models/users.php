@@ -208,13 +208,17 @@ class User
         return $this->updatedAt;
     }
 
-    static function findAll($conn, $limit, $offset)
+    public static function findAll($conn, $limit, $offset)
     {
         $getAllUsers = "select id, concat('../uploads/user-img/',img) as img ," .
             " concat(firstname ,'  ', lastname) as fullname, " .
-            "gendre, email, birthday, state, city, phoneNumber from users order by id asc  limit " . $limit . " offset " . $offset;
+            "gendre, email, birthday, state, city, phoneNumber from users order by id asc limit ? offset ?";
         $stm = $conn->prepare($getAllUsers);
+        $stm->bindParam(1, $limit, PDO::PARAM_INT);
+        $stm->bindParam(2, $offset, PDO::PARAM_INT);
         $stm->execute();
+        
+
         return $stm->fetchAll();
     }
 
@@ -242,9 +246,11 @@ class User
             $extra .
             "c.number, 
             concat(c.expMonth, '/', c.expYear) as 'c.exp', 
-            c.code
-                from users u left join card c on u.id = c.userID where u.id = " . $id;
+            c.code,
+            u.roleId
+                from users u left join card c on u.id = c.userID where u.id = ?";
         $stm = $conn->prepare($getUserById);
+        $stm->bindParam(1, $id, PDO::PARAM_INT);
         $stm->execute();
         return $stm->fetch();
     }
@@ -308,6 +314,24 @@ class User
             }
         } else {
             throw new Exception("No user with this email is registered in our site");
+        }
+    }
+    public static function delete($conn, $id){
+        $user = self::findById($conn, $id);
+        print_r($user);
+        if($user['roleId'] != 1){
+            $query="delete from users where id = ?";
+            $stm = $conn->prepare($query);
+            $stm->bindParam(1, $id, PDO::PARAM_INT);
+            try {
+                return $stm->execute();
+                
+            } catch (Exception $ex){
+                throw new Exception("We faced some problems with this process");
+            }
+
+        } else {
+            throw new Exception("Can't delete an Admin");
         }
     }
 }

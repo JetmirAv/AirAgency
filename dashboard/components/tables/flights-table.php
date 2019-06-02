@@ -1,18 +1,15 @@
 <div class="card">
 
 	<?php include "../databaseConfig.php" ?>
+	<?php include "../models/flights.php" ?>
 	<?php
-	$sql = "select id ,concat('../uploads/flight-img/',img)as image, fromCity,toCity,planeId,price,isSale,checkIn,createdAt,updatedAt from flight limit 10 ";
-	$countRows = "select count(*) as count from flight";
-	$numberOfRows = $conn->query($countRows);
-	$count = $numberOfRows->fetch();
-	$rsResult = $conn->query($sql);
-	$flightId = '';
+	$countFlights = Flight::count($conn);
+	$allFlights = Flight::findAll($conn);
 	?>
 
 	<div class="header">
-	
-	<div id="backdrop" style="
+
+		<div id="backdrop" style="
 		position: fixed;
 		display: none;
 		background-color: rgba(0, 0, 0, 0.5);
@@ -33,16 +30,16 @@
 		text-align: center">
 			<h3>Delete Flight</h3>
 			<h4 style="font-weight: 300" id="flight">
-				</h4>
-				<div style="display:flex;
+			</h4>
+			<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
-					<button id="bttnConfirmCancel">Cancel</button>
-					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
-				</div>
+				<button id="bttnConfirmCancel">Cancel</button>
+				<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
+			</div>
 		</div>
-	
-		
+
+
 		<h4 style="color:orange">
 			<?php
 			if (isset($_SESSION['result'])) {
@@ -59,7 +56,7 @@
 			}
 			?>
 		</h4>
-    	<h4 style="display: inline-block; width: 40%" class="title">Number of flights:<?php echo $count['count'] ?></h4>
+		<h4 style="display: inline-block; width: 40%" class="title">Number of flights:<?php echo $countFlights['count'] ?></h4>
 		<a href="flightsInsert.php" style=" font: bold 11px Arial;
 												text-decoration: none;
 												background-color: #EEEEEE;
@@ -70,10 +67,10 @@
 												border-bottom: 1px solid #333333;
 												border-left: 1px solid #CCCCCC;
 												height:30px">Create Flight</a>
-	
-		
-		
-		
+
+
+
+
 	</div>
 	<div class="content table-responsive table-full-width">
 
@@ -92,7 +89,7 @@
 			</thead>
 			<tbody id="loadDataTable">
 				<?php
-				foreach ($rsResult as $row) {
+				foreach ($allFlights as $row) {
 					echo '<tr >
 							<td onclick="getFlightHandler(10)" style="padding:2px ; padding-left:10px"><img src=' . $row["image"] . ' width=35 ; height=35; style="border-radius:50% ; padding:0px;"> </td>
 							
@@ -108,14 +105,13 @@
 
 						  </tr>';
 				}
-				$flightId = $row["id"];
 				?>
 			</tbody>
 
 		</table>
 		<table id="firstRow">
 			<tr id="removeRow">
-				<button type="button" name="btnMore" data-vid="<?php echo $flightId; ?>" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
+				<button type="button" name="btnMore" id="btnMore" class="btn btn-success form-control" style="background-color:dodgerblue;">more</button>
 			</tr>
 		</table>
 
@@ -126,11 +122,7 @@
 <script>
 	$(document).ready(function() {
 		var pickedup;
-
-	
-	
-
-
+		let offset = 10;
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");
 			$('#btnMore').html("Loading...");
@@ -138,10 +130,10 @@
 				url: "components/tables/loading-flights.php",
 				method: "POST",
 				data: {
-					lastFlightId: lastFlightId
+					offset
 				},
 				dataType: "html",
-				success: function(data) {
+				success: (data) => {
 					if (data != '') {
 						$('#btnMore').remove();
 						$('#removeRow').remove();
@@ -154,52 +146,48 @@
 			});
 		});
 	});
-    
-    
-	function getFlightHandler(id){
-		window.location.href = '../dashboard/flightsInfo.php?id='+id;
+
+
+	function getFlightHandler(id) {
+		window.location.href = '../dashboard/flightsInfo.php?id=' + id;
 	}
-        
-    
-      let flightInfo = document.getElementById("flightInfo");
-		let backdrop = document.getElementById("backdrop");
-		let flightId = '';
-
-		function deleteHandler(id) {
-         //console.log("Bravo")
-			flightInfo.style.display = "block";
-			backdrop.style.display = "block";
-			flightId = id;
-			console.log("ID: " + id);
-			document.getElementById('flight').innerHTML = "Are you sure you want to delete flight with ID: " + id;
-				
-		}
-
-		backdrop.onclick = () => {
-			flightInfo.style.display = "none";
-			backdrop.style.display = "none";
-		}
 
 
-		document.getElementById("bttnConfirmCancel").onclick = (e) => {
-			e.preventDefault();
-			flightInfo.style.display = "none";
-			backdrop.style.display = "none";
-		}
+	let flightInfo = document.getElementById("flightInfo");
+	let backdrop = document.getElementById("backdrop");
+	let flightId = '';
 
-		document.getElementById("bttnConfirmDelete").onclick = (e) => {
-			$.ajax({
+	function deleteHandler(id) {
+		//console.log("Bravo")
+		flightInfo.style.display = "block";
+		backdrop.style.display = "block";
+		flightId = id;
+		console.log("ID: " + id);
+		document.getElementById('flight').innerHTML = "Are you sure you want to delete flight with ID: " + id;
+
+	}
+
+	backdrop.onclick = () => {
+		flightInfo.style.display = "none";
+		backdrop.style.display = "none";
+	}
+
+
+	document.getElementById("bttnConfirmCancel").onclick = (e) => {
+		e.preventDefault();
+		flightInfo.style.display = "none";
+		backdrop.style.display = "none";
+	}
+
+	document.getElementById("bttnConfirmDelete").onclick = (e) => {
+		$.ajax({
 			url: "components/flights/deleteFlightQuery.php",
 			type: "POST",
-			data:{"id":flightId}
-			}).done(function(data) {
-				location.reload();
-			});
-		}
-    
-    
-    
-    
-    
-    
+			data: {
+				"id": flightId
+			}
+		}).done(function(data) {
+			location.reload();
+		});
+	}
 </script>

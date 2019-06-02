@@ -367,21 +367,10 @@ class User
             ':phoneNumber' => $this->phoneNumber,
             ':userId' => $userId
         ];
-        echo "<br>";
-        echo "<br>";
-        echo $query;
+
         ($this->password === null ? null : $paramArray[":password"] =  $this->password);
-        echo "<br>";
-        echo "<br>";
         ($this->img === null ? null : $paramArray[":img"] = $this->img);
 
-        print_r($paramArray);
-        echo "<br>";
-        echo "<br>";
-
-        echo gettype($this->password);
-        echo "<br>";
-        echo gettype($this->img);
         $stm = $conn->prepare($query);
         try {
             return $stm->execute($paramArray);

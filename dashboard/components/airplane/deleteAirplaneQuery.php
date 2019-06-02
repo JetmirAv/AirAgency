@@ -1,26 +1,16 @@
 <?php
 include '../../../databaseConfig.php';
+include '../../../models/airplanes.php';
 session_start();
+
 $_SESSION['deleteSucess'] = null;
 $_SESSION['deleteError'] = null;
 
-if (isset($_REQUEST['id'])) {
+if (isset($_POST['id'])) {
 
-    $findUserQuery = "select * from airplane where id = ?";
-    $findUser = $conn->prepare($findUserQuery);
-    $findUser->execute([$_REQUEST['id']]);
-
-    $row = $findUser->fetchAll()[0];;
-    
-        $deleteQuery = "delete from airplane where id = ?";
-        $deleteUser = $conn->prepare($deleteQuery);
-        $deleteUser->execute([$_REQUEST['id']]);
-        if ($deleteUser->rowCount() > 0) {
-            $_SESSION['deleteSucess'] = "Sukses";
-        } else {
-            $_SESSION['deleteError'] = "Error";
-        }
-    
-} else {
-    $_SESSION['deleteError'] = "Error";
+    if (Airplane::delete($conn, (int)$_POST['id'])) {
+        $_SESSION['deleteSucess'] = "Sukses";
+    } else {
+        $_SESSION['deleteError'] = "Error";
+    }
 }

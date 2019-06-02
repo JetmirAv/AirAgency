@@ -14,10 +14,10 @@
 	$rowCount = $result->fetch();
 	$airplaneId = '';
 	?>
-    
-    	<div class="header">
-    
-    <div id="backdrop" style="
+
+	<div class="header">
+
+		<div id="backdrop" style="
 		position: fixed;
 		display: none;
 		background-color: rgba(0, 0, 0, 0.5);
@@ -38,16 +38,16 @@
 		text-align: center">
 			<h3>Delete Airplane</h3>
 			<h4 style="font-weight: 300" id="airplane">
-				</h4>
-				<div style="display:flex;
+			</h4>
+			<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
-					<button id="bttnConfirmCancel">Cancel</button>
-					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
-				</div>
+				<button id="bttnConfirmCancel">Cancel</button>
+				<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
+			</div>
 		</div>
-	
-    
+
+
 		<h4 style="color:orange">
 			<?php
 			if (isset($_SESSION['result'])) {
@@ -64,9 +64,9 @@
 			}
 			?>
 		</h4>
-		<h4 style="display: inline-block; width: 40%"class="title">Number of airplanes:<?php echo $rowCount['total'] ?></h4>
+		<h4 style="display: inline-block; width: 40%" class="title">Number of airplanes:<?php echo $rowCount['total'] ?></h4>
 
-<!--
+		<!--
 		<a href="airplaneInser.php" style=" font: bold 11px Arial;
 												text-decoration: none;
 												background-color: #EEEEEE;
@@ -79,12 +79,12 @@
 												height:30px">Create  Airplane</a>
 -->
 
-        <a href="airplaneInser.php" style=" background-color: #eee;
+		<a href="airplaneInser.php" style=" background-color: #eee;
                                             top: 30%;
                                             left: 30%;
                                             width: 40%;
                                             height: 25%;
-                                            text-align: center" >Create Airplane</a>
+                                            text-align: center">Create Airplane</a>
 	</div>
 
 	<div class="content table-responsive table-full-width">
@@ -131,12 +131,6 @@
 
 
 <script>
-//	$('tr').on('click', 'span', function(e) {
-//		var txt = $(this).attr('id');
-//		window.location.href = '../dashboard/airplaneInfo.php?id='+txt;
-//		//alert (txt);
-//        // header( "Location: temp.php? user = $user" );
-//	});
 	$(document).ready(function() {
 		$(document).on('click', '#btnMore', function() {
 			var lastFlightId = $(this).data("vid");
@@ -161,51 +155,51 @@
 			});
 		});
 	});
-    
-	
-	
-	function getAirplaneHandler(id){
-		window.location.href = '../dashboard/airplaneInfo.php?id='+id;
+
+
+
+	function getAirplaneHandler(id) {
+		window.location.href = '../dashboard/airplaneInfo.php?id=' + id;
 	}
-    
-    
-        let airplaneInfo = document.getElementById("airplaneInfo");
-		let backdrop = document.getElementById("backdrop");
-		let airplaneId, airplaneName = '';
-
-		function deleteHandler(id, name, email) {
-			airplaneInfo.style.display = "block";
-			backdrop.style.display = "block";
-			airplaneId = id;
-			airplaneName = name;
-			console.log("ID: " + id + " Name: " + name);
-			document.getElementById('airplane').innerHTML = "ID: " + id + "<br/>" +
-				" Name: " + name;
-
-		}
-
-		backdrop.onclick = () => {
-			airplaneInfo.style.display = "none";
-			backdrop.style.display = "none";
-		}
 
 
-		document.getElementById("bttnConfirmCancel").onclick = (e) => {
-			e.preventDefault();
-			airplaneInfo.style.display = "none";
-			backdrop.style.display = "none";
-		}
+	let airplaneInfo = document.getElementById("airplaneInfo");
+	let backdrop = document.getElementById("backdrop");
+	let airplaneId, airplaneName = '';
 
-		document.getElementById("bttnConfirmDelete").onclick = (e) => {
-			
-			$.ajax({
-				url: "components/airplane/deleteAirplaneQuery.php",
-				type: "POST",
-				data: {
-					"id": airplaneId
-				}
-			}).done(function(data) {
-				location.reload();
-			});
-		}
+	function deleteHandler(id, name, email) {
+		airplaneInfo.style.display = "block";
+		backdrop.style.display = "block";
+		airplaneId = id;
+		airplaneName = name;
+		console.log("ID: " + id + " Name: " + name);
+		document.getElementById('airplane').innerHTML = "ID: " + id + "<br/>" +
+			" Name: " + name;
+
+	}
+
+	backdrop.onclick = () => {
+		airplaneInfo.style.display = "none";
+		backdrop.style.display = "none";
+	}
+
+
+	document.getElementById("bttnConfirmCancel").onclick = (e) => {
+		e.preventDefault();
+		airplaneInfo.style.display = "none";
+		backdrop.style.display = "none";
+	}
+
+	document.getElementById("bttnConfirmDelete").onclick = (e) => {
+
+		$.ajax({
+			url: "components/airplane/deleteAirplaneQuery.php",
+			type: "POST",
+			data: {
+				"id": airplaneId
+			}
+		}).done(function(data) {
+			location.reload();
+		});
+	}
 </script>

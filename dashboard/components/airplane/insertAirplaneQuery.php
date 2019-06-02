@@ -95,8 +95,9 @@ if (isset($_POST['insertAirplane'])) {
         $encname = $date . $rand;
         $profilepicName = md5($encname) . '.' . $profilepicExptype;
         $profilepicPath = "../../../uploads/airplane-img/" . $profilepicName;
+        print_r($_FILES["img"]["tmp_name"]. "  " . $profilepicPath);
 
-        if (move_uploaded_file($_FILES["img"]["tmp_name"], $profilepicPath)) { } else {
+        if (move_uploaded_file($_FILES["img"]["name"], $profilepicPath)) { } else {
             $errmsg = "Problem in uploading image files.";
             array_push($errors, $errmsg);
         }
@@ -108,17 +109,13 @@ if (isset($_POST['insertAirplane'])) {
             $fuelCapacity,
             $maxspeed,
             $additionalDesc,
-            $img
+            $profilepicName
         );
 
-        $objAirplane->
+        $lastInsertedId = $objAirplane->create($conn);
 
-        $insertPlane = "insert into airplane (name, yearOfProd, seats, fuelCapacity, maxspeed, additionalDesc,img) values (:name, :yearOfProd, :seats, :fuelCapacity, :maxspeed, :additionalDesc,:img) ;";
-        $insertStm = $conn->prepare($insertPlane);
-        $pdoExec = $insertStm->execute(array(":name" => $name, ":yearOfProd" => $yearOfProd, ":seats" => $seats, ":fuelCapacity" => $fuelCapacity, ":maxspeed" => $maxspeed, ":additionalDesc" => $additionalDesc, ":img" => $profilepicName));
-
-        $_SESSION['success'] = "User Inserted sucessfuly";
-        header('location: ' . $_SERVER["HTTP_REFERER"]);
+        $_SESSION['success'] = "Airplane Inserted sucessfuly";
+        header('location: ../../airplaneInfo.php?id=' . $lastInsertedId);
     } else {
         $_SESSION['errors'] = $errors;
         header('location: ' . $_SERVER["HTTP_REFERER"]);

@@ -25,7 +25,7 @@ class Airplane
     ) {
 
         $this->name = $name;
-        $this->yearOfProd = $$yearOfProd;
+        $this->yearOfProd = $yearOfProd;
         $this->seats = $seats;
         $this->fuelCapacity = $fuelCapacity;
         $this->maxSpeed = $maxSpeed;
@@ -127,21 +127,65 @@ class Airplane
 
     public function create($conn)
     {
-        $query = "insert into airplane ".
-            " (name, yearOfProd, seats, fuelCapacity, maxspeed, additionalDesc,img) ".
+        $query = "insert into airplane " .
+            " (name, yearOfProd, seats, fuelCapacity, maxspeed, additionalDesc,img) " .
             " values (:name, :yearOfProd, :seats, :fuelCapacity, :maxspeed, :additionalDesc, :img)";
-        
+
         $paramArray = [
             ":name" => $this->name,
-            ":yearOdProd" => $this->yearOfProd,
+            ":yearOfProd" => $this->yearOfProd,
             ":seats" => $this->seats,
             ":fuelCapacity" => $this->fuelCapacity,
             ":maxspeed" => $this->maxSpeed,
             ":additionalDesc" => $this->additionaDesc,
             ":img" => $this->img
-        ];    
+        ];
 
         $stm = $conn->prepare($query);
-        return $stm->execute($paramArray);      
-     }
+        $stm->execute($paramArray);
+
+        return $conn->lastInsertId();
+    }
+    public static function delete($conn, $id)
+    {
+        $query = "delete from airplane where id = ?";
+        $stm = $conn->prepare($query);
+        try {
+            return $stm->execute([$id]);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+    public function update($conn, $id)
+    {
+        $query = "update airplane set 
+            name = :name,
+            yearOfProd = :yearOfProd, 
+            seats = :seats, 
+            fuelCapacity = :fuelCapacity, 
+            maxspeed = :maxspeed, "
+            . ($this->img === null ? "" : "img = :img, ") . "
+            additionalDesc = :additionalDesc, 
+            updatedAt = NOW() where id = :planeId";
+        $stm = $conn->prepare($query);
+        $paramArray = [
+            ":name" => $this->name,
+            ":yearOfProd" => $this->yearOfProd,
+            ":seats" => $this->seats,
+            ":maxspeed" => $this->maxSpeed,
+            ":fuelCapacity" => $this->fuelCapacity,
+            ":additionalDesc" => $this->additionaDesc,
+            ":planeId" => $id
+        ];
+        ($this->img === null ? null : $paramArray[":img"] = $this->img);
+        echo $query;
+        echo "<br><br>";
+        print_r($paramArray);
+        echo "<br><br>";
+        try {
+            return $stm->execute($paramArray);
+        } catch (Exception $e){
+            throw $e;
+        }
+    }
 }

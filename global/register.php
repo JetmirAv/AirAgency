@@ -51,19 +51,21 @@ if (isset($_POST['register'])) {
         array_push($errors, $errmsg);
     }
 
-    $file_extension = pathinfo($_FILES["form-img"]["name"], PATHINFO_EXTENSION);
     if (!file_exists($_FILES["form-img"]["tmp_name"])) {
         $errmsg = "Choose image file to upload.";
         array_push($errors, $errmsg);
-    }  
-    else if (!in_array($file_extension, $allowed_image_extension)) {
+    } else if (
+        !in_array(
+            pathinfo($_FILES["form-img"]["name"], PATHINFO_EXTENSION),
+            $allowed_image_extension
+        )
+    ) {
         $errmsg = "Upload valiid images. Only PNG and JPEG are allowed.";
         array_push($errors, $errmsg);
-    }   
-    else if (($_FILES["form-img"]["size"] > 2000000)) {
+    } else if (($_FILES["form-img"]["size"] > 2000000)) {
         $errmsg = "Image size exceeds 20MB";
         array_push($errors, $errmsg);
-    }   
+    }
 
 
     if ($gender == 1) {
@@ -117,7 +119,7 @@ if (isset($_POST['register'])) {
 
                     $createUser = $user->createUser($conn);
                 } catch (Exception $e) {
-                    $errmsg = "We have faced some problems. Please try again.".
+                    $errmsg = "We have faced some problems. Please try again." .
                         " <br>If this error happens again please contact us.";
                     array_push($errors, $errmsg);
                     $_SESSION['errors'] = $errors;

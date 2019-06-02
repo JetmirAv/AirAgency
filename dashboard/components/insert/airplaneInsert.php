@@ -4,8 +4,9 @@
             <h4 class="title">Insert Airplane</h4>
         </div>
         <div class="content">
-            <form action="../dashboard/components/airplane/insertAirplaneQuery.php" method="POST">
+            
                
+            <form method="POST" action="../dashboard/components/airplane/insertAirplaneQuery.php" enctype="multipart/form-data">   
             <div class="row" style="margin-left:300px;">
 <!--
                 <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
@@ -19,6 +20,20 @@
                             <input type="file" name="img" class="form-control" placeholder="Image" value="img" style="width: 150px;">
            </div>
             </div>
+              
+                            <?php 
+                            if(isset($_SESSION['errors'])){
+                                foreach($_SESSION['errors'] as $updateError){
+                                echo "<p style='color:red'>$updateError</p>";
+                            }
+                            }
+                            if(isset($_SESSION['success'])){
+                                echo "<p style='color:green'>" .$_SESSION['success']. "</p>";
+
+                            }		
+                            ?>
+
+              
                
                
                 <div class="row" style="margin-left:21%">

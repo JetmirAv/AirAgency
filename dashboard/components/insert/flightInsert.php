@@ -57,19 +57,28 @@ $planeResults = $planeStm->fetchAll(); ?>
             <h4 class="title">Insert Flight</h4>
         </div>
         <div class="content" style=" margin-top:10%;">
-            <form action="../dashboard/components/flights/insertFlightQuery.php" method="post">
-               
+            <form action="../dashboard/components/flights/insertFlightQuery.php" method="post" enctype="multipart/form-data">
+                        <?php 
+                        if(isset($_SESSION['errors'])){
+                           foreach($_SESSION['errors'] as $updateError){
+                           echo "<p style='color:red'>$updateError</p>";
+                        }
+                        }
+                        if(isset($_SESSION['success'])){
+                        echo "<p style='color:green'>" .$_SESSION['success']. "</p>";
+
+                        }		
+                        ?>
+
+
                       <div class="row" style="margin-left:40%;">
-                            <div class="form-group" style="display: inline-block; margin-left: auto; margin-right:auto">
-                        <!-- <label  id="inputlabel" for="form-img">Profile picture</label> -->
-                        <input style="position: fixed; top:-100%; left: -100%" id="profileUpload" onchange="readURL(this)" type="file" name="img">
-                        <img style="height:150px; width:150px;" id="profileImg" alt="profile" class="avatar"  src="../../AirAgency/uploads/flight-img/<?php echo $flightDetail['img'];?>" onclick="clicked(this)" />
-                        </div>
-                           </div>
-                                   
-               
-               
-               
+                           
+                           <div class="form-group">
+                            <label>Image</label>l
+                            <input type="file" name="img" class="form-control" placeholder="Image" value="img" style="width: 150px;">
+                            </div>
+                            </div>
+                            
                 <div class="row" style="margin-left:12%;">
                     
                     <div class="col-md-5">
@@ -140,24 +149,24 @@ $planeResults = $planeStm->fetchAll(); ?>
                        <div class="col-md-4">
                         <div class="form-group">
                             <label>CheckIn</label>l
-                            <input name="checkIn" type="datetime" class="form-control" placeholder="__/__/____">
+                            <input name="checkIn" type="datetime-local" class="form-control" placeholder="">
                         </div>
                     </div>
-                     <div class="col-md-4" style="width: 80px;">
+                     <!--<div class="col-md-4" style="width: 80px;">
                         <label style="padding-right:5px"> Available </label>
                         <br>
                         <input type="text" name="avalible" class="form-control">
                     </div>
-               
+               -->
                     <div class="col-md-4" style="width: 90px;">
                         <label> isSale </label>
                         <br>
-                        <input name="isSale" type="number" class="form-control">
+                        <input name="isSale" type="text" class="form-control" placeholder="Sale">
                     </div>
                          <div class="col-md-4">
                         <div class="form-group">
                             <label>Price</label>
-                            <input name="price" type="number" class="form-control" placeholder="Price">
+                            <input name="price" type="text" class="form-control" placeholder="Price">
                         </div>
                     </div>
 
@@ -205,26 +214,6 @@ $planeResults = $planeStm->fetchAll(); ?>
 
 
 
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('#profileImg')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(150);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    function clicked() {
-        $("#profileUpload").click()
-    }
-</script>    
 
 
 

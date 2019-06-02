@@ -206,7 +206,7 @@ foreach ($rsResult as $row) {
 				<!-- Room Content -->
 						<div class="room-content">
                             <h2>' . $row['airplaneName'] . '</h2>
-                            <h4>' . $row['Price'] . '&euro;<span> /' . $row['Sale'] . ' with Sale</span></h4>
+                            <h4>' . $row['Price'] . '&euro;<span> /' . $row['Sale Price'] . ' with Sale</span></h4>
                             <div class="room-feature">
                                 <h6>From: <span>' . $row['From'] . '</span></h6>
                                 <h6>To: <span>' . $row['To'] . '</span></h6>

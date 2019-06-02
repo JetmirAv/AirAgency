@@ -11,8 +11,9 @@
 	<div class="search-form d-flex align-items-center">
 		<div class="container">
 			<form action="../main/components/getSearchData.php" method="get">
-				<input type="search" name="search-form-input" id="searchFormInput" placeholder="Type your keyword ...">
+				<input type="search" name="search-form-input" id="searchFormInput" placeholder="Type your keyword ..." onchange="">
 				<button type="submit"><i class="icon_search"></i></button>
+
 		</div>
 		</form>
 	</div>
@@ -46,6 +47,7 @@
 	</div>
 	<!-- Top Header Area End -->
 
+	<div id="searchData"></div>
 	<!-- Main Header Start -->
 	<div class="main-header-area">
 		<div class="classy-nav-container breakpoint-off">
@@ -96,36 +98,44 @@
 			</div>
 		</div>
 	</div>
-	<div id="searchData"></div>
 </header>
 <script>
-	$(document).ready(function() {
-		load_data();
-		//	let query = ''
+	//	let query = '';
+	//	load_data();
+	function send_me_to_book(id) {
+		window.location.href = '../main/flights.php?id=' + id;
 
-		function load_data(query) {
-			$.ajax({
-				url: "../main/components/getSearchData.php",
-				method: "post",
-				data: {
-					query: query
-				},
-				success: function(data) {
-					$('#searchData').html(data);
-					//console.log(data);
-				}
-			});
-		}
+	}
 
-		$('#searchFormInput').keyup(function() {
-			var search = $(this).val();
-			//console.log(search);
-			if (search != '') {
-				load_data(search);
-			} else {
-				load_data();
+
+	function load_data(query) {
+		$.ajax({
+			url: "../main/components/getSearchData.php",
+			method: "post",
+			data: {
+				query: query
+			},
+			success: function(data) {
+				// alert(data)
+				//$('#searchData').remove();
+				//document.getElementById("searchData").innerHTML = data;
+
+				$('#searchData').html(data);
+				console.log(data);
 			}
+
 		});
+	}
+
+	$('#searchFormInput').keyup(function() {
+		var search = $(this).val();
+		//console.log(search);
+		if (search != '') {
+			load_data(search);
+		} else {
+			//$('#searchData').remove();
+
+		}
 	});
 
 </script>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-	<?php include 'components/head.php'?>
+<?php include 'components/head.php'?>
+
 <body>
 
 
-    <?php
+	<?php
 include "../databaseConfig.php";
 
 if (isset($_GET['id'])) {
@@ -20,12 +21,13 @@ if (isset($_GET['id'])) {
 	cast(f.checkIn as time) as 'Time',
 	f.img as 'image',
 	a.id as 'airplaneId',
-	a.name as 'airplaneName'
+	a.name as 'airplaneName',
+	f.id as 'flightId'
 	from flight as f
 	inner join city as c1 on f.fromCity = c1.id
 	inner join city as c2 on f.toCity = c2.id
 	inner join airplane as a on f.planeId = a.id
-	where f.checkIn >= curdate() and f.checkIn >= current_time() and f.id=" . $_GET['id'];
+	where f.checkIn >= current_timestamp()  and f.id=" . $_GET['id'];
 
 } else if (isset($_GET['pct'])) {
     $sql = "select c1.id as 'fromCityId',
@@ -40,7 +42,8 @@ if (isset($_GET['id'])) {
             cast(f.checkIn as time) as 'Time',
             f.img as 'image',
             a.id as 'airplaneId',
-            a.name as 'airplaneName'
+            a.name as 'airplaneName',
+			f.id as 'flightId'
             from flight as f
             inner join city as c1 on f.fromCity = c1.id
             inner join city as c2 on f.toCity = c2.id
@@ -62,7 +65,8 @@ if (isset($_GET['id'])) {
             cast(f.checkIn as time) as 'Time',
             f.img as 'image',
             a.id as 'airplaneId',
-            a.name as 'airplaneName'
+            a.name as 'airplaneName',
+			f.id as 'flightId'
             from flight as f
             inner join city as c1 on f.fromCity = c1.id
             inner join city as c2 on f.toCity = c2.id
@@ -84,7 +88,8 @@ if (isset($_GET['id'])) {
 				cast(f.checkIn as time) as 'Time',
 				f.img as 'image',
 				a.id as 'airplaneId',
-				a.name as 'airplaneName'
+				a.name as 'airplaneName',
+				f.id as 'flightId'
 				from flight as f
 				inner join city as c1 on f.fromCity = c1.id
 				inner join city as c2 on f.toCity = c2.id
@@ -94,8 +99,6 @@ if (isset($_GET['id'])) {
 
 //$countAllRows = "select count(*) as count from flight ";
 $rsResult = $conn->query($sql);
-//$rowCount = $conn->query($countAllRows);
-$getFlightId = $rsResult->fetch();
 ?>
 
 
@@ -129,19 +132,19 @@ $getFlightId = $rsResult->fetch();
 		text-align: center">
 			<h3>Book -></h3>
 			<h4 style="font-weight: 300" id="user">
-				</h4>
-				<div style="display:flex;
+			</h4>
+			<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
-					
-					<button id="bttnConfirmCancel">Cancel</button>
-					<button id="bttnConfirmBook" type="submit" name="deleteUser">Book</button>
-				</div>
-			
+
+				<button id="bttnConfirmCancel">Cancel</button>
+				<button id="bttnConfirmBook" type="submit" name="deleteUser">Book</button>
+			</div>
+
 
 		</div>
-	<form action="#" method="POST">
-		<div id="userInfo" style="
+		<form action="#" method="POST">
+			<div id="userInfo" style="
 		position: fixed;
 		background-color: #eee;
 		display: none;
@@ -151,50 +154,50 @@ $getFlightId = $rsResult->fetch();
 		height: 30%;
 		z-index: 500;
 		text-align: center">
-			<h3>Result</h3>
-			<h4 style="font-weight: 300" id="userBook">
+				<h3>Result</h3>
+				<h4 style="font-weight: 300" id="userBook">
 				</h4>
 				<div style="display:flex;
 					flex-direction: row;
 					justify-content: space-evenly ">
 					<button id="btnConfirmCancel">Cancel</button>
 				</div>
-			
 
-		</div>
-	</form>
-	<!-- Breadcrumb Area Start -->
-	<div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/16.jpg);">
-		<div class="container h-100">
-			<div class="row h-100 align-items-center">
-				<div class="col-12">
-					<div class="breadcrumb-content text-center">
-						<h2 class="page-title">Flights</h2>
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb justify-content-center">
-								<li class="breadcrumb-item"><a href="index.php">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Flights</li>
-							</ol>
-						</nav>
+
+			</div>
+		</form>
+		<!-- Breadcrumb Area Start -->
+		<div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/16.jpg);">
+			<div class="container h-100">
+				<div class="row h-100 align-items-center">
+					<div class="col-12">
+						<div class="breadcrumb-content text-center">
+							<h2 class="page-title">Flights</h2>
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb justify-content-center">
+									<li class="breadcrumb-item"><a href="index.php">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Flights</li>
+								</ol>
+							</nav>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Breadcrumb Area End -->
-	<section style="position:absolute; display:block; z-index:800; width:100%; " class= "roberto-about-area section-padding-100-0">
-		<!-- Flight Search Form Area -->
-		<div class="hotel-search-form-area">
-			<div class="container-fluid">
-				<div class="hotel-search-form">
-					<?php include "components/flightSearch.php"?>
+		<!-- Breadcrumb Area End -->
+		<section style="position:absolute; display:block; z-index:800; width:100%; " class="roberto-about-area section-padding-100-0">
+			<!-- Flight Search Form Area -->
+			<div class="hotel-search-form-area">
+				<div class="container-fluid">
+					<div class="hotel-search-form">
+						<?php include "components/flightSearch.php"?>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<!-- Rooms Area Start -->
-			<div style="margin-top:7%;" id="flightId">
+		<!-- Rooms Area Start -->
+		<div style="margin-top:7%;" id="flightId">
 			<?php
 
 foreach ($rsResult as $row) {
@@ -214,7 +217,7 @@ foreach ($rsResult as $row) {
 						<h6>Time: <span>' . $row['Time'] . '</span></h6>
 						<h6>Avalible: <span id="ticketsAvalible">' . $row['Available'] . '</span></h6>
 						<span style="display:block; width: 20px; ">
-						<input min=0 max=' . $row['Available'] . ' onchange="test(this, \' ' . $row["flightId"] . '\')" type="number" class="'  . $row['flightId'] . '" />
+						<input min=0 max=' . $row['Available'] . ' onchange="test(this, \' ' . $row["flightId"] . '\')" type="number"  />
 						</span>
 						
 					</div>
@@ -225,13 +228,13 @@ foreach ($rsResult as $row) {
 
 			</div>
                            ';}?>
-                            </div>
-         <button type="button" id="bttnMore" class="btn btn-success form-control" style="width:160px; margin-left:48%; margin-bottom:20px; background-color:lightblue">Show More</button>
+		</div>
+		<button type="button" id="bttnMore" class="btn btn-success form-control" style="width:160px; margin-left:48%; margin-bottom:20px; background-color:lightblue">Show More</button>
 
-	<!-- Rooms Area End -->
+		<!-- Rooms Area End -->
 
 
-	<?php include 'components/footer.php'?>
+		<?php include 'components/footer.php'?>
 
 </body>
 
@@ -240,67 +243,78 @@ foreach ($rsResult as $row) {
 
 
 
- <script>
+<script>
+	$(document).ready(function() {
+		let offset = 10;
+		$('#bttnMore').click(() => {
+			$('#bttnMore').html("Loading...");
+			$.ajax({
+				url: 'moreFlights.php',
+				type: 'POST',
+				data: {
+					offset
+				},
+				success: function(data) {
+					if (data != "") {
+						offset += 10;
+						$('#flightId').append(data);
+						$('#bttnMore').html("Show More");
+					} else {
+						$('#bttnMore').html("No data");
+					}
+				}
+			});
+		});
+	});
+	let userInfo = document.getElementById("userDelete");
+	let backdrop = document.getElementById("backdrop");
+	let after = document.getElementById("userInfo");
+	let From, To, Price, flightId, quantity, isSale = '';
+	let text = []
 
-    $(document).ready(function() {
-        let offset = 10;
-        $('#bttnMore').click(() => {
-            $('#bttnMore').html("Loading...");
-            $.ajax({
-                url: 'moreFlights.php',
-                type: 'POST',
-                data: {
-                    offset
-                },
-                success: function(data) {
-                    if(data != ""){
-                        offset += 10;
-                        $('#flightId').append(data);
-                        $('#bttnMore').html("Show More");
-                    } else {
-                        $('#bttnMore').html("No data");
-                    }
-                }
-            });
-        });
-    });
-
-    let userInfo = document.getElementById("userDelete");
-	let backdrop = document.getElementById("backdrop"); 
-	let after = document.getElementById("userInfo"); 
-	let  From, To , Price , flightId, quantity, isSale= '';
-     let text=[]    
-	 
-	 function insertHandler(From, To,Price, flightId , isSale ) {
+	function insertHandler(From, To, Price, flightId, isSale) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
-         if(Price!=isSale){
-             Price = isSale;
-         }
-         else{
-		Price = Price;
-             
-         }
+		if (Price != isSale) {
+			Price = isSale;
+		} else {
+			Price = Price;
+
+		}
 		From = From;
 		To = To;
-		flightId:flightId;
-		window.value=flightId;
-	
-		 document.getElementById('user').innerHTML = " From: " + From + "   <br>   " + " To: " + To +
-			"<br>"+"Price:" + Price;
-	
-	}
-	 
-	 
+		flightId: flightId;
+		window.value = flightId;
 
-	 
-	 
+		document.getElementById('user').innerHTML = " From: " + From + "   <br>   " + " To: " + To +
+			"<br>" + "Price:" + Price;
+
+	}
+
+	//	function insertHandler(From, To, Price, flightId) {
+	//		userInfo.style.display = "block";
+	//		backdrop.style.display = "block";
+	//		Price = Price;
+	//		From = From;
+	//		To = To;
+	//		flightId: flightId;
+	//		window.value = flightId;
+	//
+	//		document.getElementById('user').innerHTML = " From: " + From + "   <br>   " + " To: " + To +
+	//			"<br>" + "Price:" + Price;
+	//
+	//	}
+
+
+
+
+
 	backdrop.onclick = () => {
 		userInfo.style.display = "none";
 		backdrop.style.display = "none";
 	}
- 
-	function test(e, id){
+
+	function test(e, id) {
 		console.log(e.value + " " + id);
 		text[id] = e.value;
 		console.log(text);
@@ -308,39 +322,38 @@ foreach ($rsResult as $row) {
 
 	document.getElementById("bttnConfirmBook").onclick = (e) => {
 		e.preventDefault();
-		
-		if (window.value in text){
-			var quantity= text[window.value];
+
+		if (window.value in text) {
+			var quantity = text[window.value];
+		} else {
+			quantity = 0;
 		}
-		else{
-			quantity=0;
-		}
-		
-				$.ajax({
-					url: "../dashboard/components/insert/insertIntoBookingTable.php",
-					method: "POST",
-					data: {
-						flightId: window.value,
-     	                quantity:quantity
-					},
-					dataType: "text",
-					success: function(data) {
-						console.log(data);
-						//$("#" + window.value ).html(data);
-						userInfo.style.display = "none";
-						//backdrop.style.display = "none";
-						after.style.display="block"
-				        document.getElementById('userBook').innerHTML =  data ;  	
-				   //document.getElementById('bttnConfirmBook').style.display = "none";  	
 
-               
+		$.ajax({
+			url: "../dashboard/components/insert/insertIntoBookingTable.php",
+			method: "POST",
+			data: {
+				flightId: window.value,
+				quantity: quantity
+			},
+			dataType: "text",
+			success: function(data) {
+				console.log(data);
+				//$("#" + window.value ).html(data);
+				userInfo.style.display = "none";
+				//backdrop.style.display = "none";
+				after.style.display = "block"
+				document.getElementById('userBook').innerHTML = data;
+				//document.getElementById('bttnConfirmBook').style.display = "none";  	
 
-    		}
+
+
+			}
 
 
 
 
-					});
+		});
 
 
 
@@ -360,4 +373,3 @@ foreach ($rsResult as $row) {
 	}
 
 </script>
-

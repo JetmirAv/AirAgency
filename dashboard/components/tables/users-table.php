@@ -2,7 +2,7 @@
 	<?php include "../models/users.php" ?>
 	<?php
 	
-	$rsResult = User::findAll($conn, 10);
+	$rsResult = User::findAll($conn, 10, 0);
 	$userId = '';
 	$count = User::count($conn);
 
@@ -114,6 +114,7 @@
 	<script>
 		
 		$(document).ready(function() {
+			let offset = 10;
 			$(document).on('click', '#btnMore', function() {
 				var lastUserId = $(this).data("vid");
 				$('#btnMore').html("Loading...");
@@ -121,11 +122,12 @@
 					url: "components/tables/loading-users.php",
 					method: "POST",
 					data: {
-						lastUserId: lastUserId
+						offset
 					},
 					dataType: "html",
-					success: function(data) {
+					success: (data) => {
 						if (data != '') {
+							offset += 10;
 							$('#btnMore').remove();
 							$('#removeRow').remove();
 							$('#loadDataTable').append(data);

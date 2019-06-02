@@ -20,7 +20,6 @@ class User
     private $img;
     private $createdAt;
     private $updatedAt;
-    private $conn;
 
     function __construct(
         $roleId,
@@ -59,145 +58,173 @@ class User
         echo "Object destroyed";
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
-    function getRoleId()
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getRoleId()
     {
         return $this->roleId;
     }
-    function getFirestName()
+
+    public function setRoleId($roleId)
+    {
+        $this->roleId = $roleId;
+    }
+
+    public function getFirstname()
     {
         return $this->firstname;
     }
-    function getLastName()
+
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    }
+
+    public function getLastname()
     {
         return $this->lastname;
     }
-    function getEmail()
+
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
+
+    public function getEmail()
     {
         return $this->email;
     }
-    function getPassword()
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword()
     {
         return $this->password;
     }
-    function getBirthday()
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getBirthday()
     {
         return $this->birthday;
     }
-    function getGender()
+
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+    public function getGender()
     {
         return $this->gender;
     }
-    function getAddress()
+
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
+
+    public function getAddress()
     {
         return $this->address;
     }
-    function getCity()
+
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    public function getCity()
     {
         return $this->city;
     }
-    function getState()
+
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    public function getState()
     {
         return $this->state;
     }
-    function getPostal()
+
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    public function getPostal()
     {
         return $this->postal;
     }
-    function getPhoneNumber()
+
+    public function setPostal($postal)
+    {
+        $this->postal = $postal;
+    }
+
+    public function getPhoneNumber()
     {
         return $this->phoneNumber;
     }
-    function getImg()
+
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getImg()
     {
         return $this->img;
     }
-    function getCreatedAt()
+
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
+
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
-    function getUpdatedAt()
+
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-
-    function setRoleId($roleId)
+    static function findAll($conn, $limit, $offset)
     {
-        $this->roleId = $roleId;
-    }
-    function setFirstName($firstname)
-    {
-        $this->firstname = $firstname;
-    }
-    function setLastName($lastname)
-    {
-        $this->lastname = $lastname;
-    }
-    function setEmail($email)
-    {
-        $this->email = $email;
-    }
-    function setPassword($password)
-    {
-        $this->password = $password;
-    }
-    function setBirthday($birthday)
-    {
-        $this->birthday = $birthday;
-    }
-    function setGender($gender)
-    {
-        $this->gender = $gender;
-    }
-    function setAddress($address)
-    {
-        $this->address = $address;
-    }
-    function setCity($city)
-    {
-        $this->city = $city;
-    }
-    function setState($state)
-    {
-        $this->state = $state;
-    }
-    function setPostal($postal)
-    {
-        $this->postal = $postal;
-    }
-    function setPhoneNumber($phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
-    }
-    function setImg($img)
-    {
-        $this->img = $img;
-    }
-    function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-    function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    static function findAll($conn, $limit)
-    {
-        $getAllUsers = "select id, concat('../uploads/user-img/',img) as img ,".
-        " concat(firstname ,'  ', lastname) as fullname, " .
-        "gendre, email, birthday, state, city, phoneNumber from users order by id asc  limit " . $limit;
+        $getAllUsers = "select id, concat('../uploads/user-img/',img) as img ," .
+            " concat(firstname ,'  ', lastname) as fullname, " .
+            "gendre, email, birthday, state, city, phoneNumber from users order by id asc  limit " . $limit . " offset " . $offset;
         $stm = $conn->prepare($getAllUsers);
         $stm->execute();
         return $stm->fetchAll();
     }
 
-    static function findById($conn, $id)
+    static function findById($conn, $id, $admin = null)
     {
+        $extra = "";
+        if ($admin !== null) {
+            $extra = "u.createdAt as 'createdAt', u.updatedAt as 'updatedAt', ";
+        }
+
         $getUserById = "
         select 
             u.id, 
@@ -211,8 +238,9 @@ class User
             u.state, 
             u.postal, 
             u.phoneNumber, 
-            u.img,
-            c.number, 
+            u.img," .
+            $extra .
+            "c.number, 
             concat(c.expMonth, '/', c.expYear) as 'c.exp', 
             c.code
                 from users u left join card c on u.id = c.userID where u.id = " . $id;
@@ -252,10 +280,34 @@ class User
             throw new Exception($ex);
         }
     }
-    static function count($conn){
-        $count = "select count(*) as count from users where roleId=2";
+    static function count($conn, $filter = null)
+    {
+        if ($filter === null) {
+            $count = "select count(*) as count from users where roleId=2";
+        } else {
+            $count = "select count(*) as count from users where roleId=2 " .
+                "AND MONTH(createdAt) = MONTH(CURRENT_DATE) " .
+                " AND YEAR(createdAt) = YEAR(CURRENT_DATE);";
+        }
         $stm = $conn->prepare($count);
         $stm->execute();
         return $stm->fetch();
+    }
+    static function findByEmailAndPassword($conn, $email, $password)
+    {
+        $findByEmailQuery = "select * from users where email = ?";
+        $findByEmail = $conn->prepare($findByEmailQuery);
+        $findByEmail->execute([$email]);
+
+        if ($findByEmail->rowCount() > 0) {
+            $user = $findByEmail->fetchAll()[0];
+            if (password_verify($password, $user['password'])) {
+                return $user;
+            } else {
+                throw new Exception("Incorrect password");
+            }
+        } else {
+            throw new Exception("No user with this email is registered in our site");
+        }
     }
 }

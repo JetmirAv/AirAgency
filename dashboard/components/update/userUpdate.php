@@ -1,5 +1,6 @@
 <?php 
 include "../databaseConfig.php";
+include "../models/users.php";
 		
 
 if (isset($_GET['id'])){
@@ -10,29 +11,29 @@ else {
 	$id=$dataArr->id;
 }
 
-// Query for user
-$sql = "SELECT u.firstname as 'firstname',
- u.lastname as 'lastname',
- u.email as 'email',
- u.birthday as 'birthday', 
- u.gendre as 'gendre',
- u.address as 'address' , 
-u.city as 'city' ,
- u.state as 'state' ,
- u.postal as 'postal' , 
-u.phoneNumber as 'phoneNumber',
- u.img as 'img', 
-u.createdAt as 'createdAt',
-u.updatedAt as 'updatedAt' ,
- c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
- ,c.code as 'code'
- FROM  users u 
-left JOIN Card c on u.id=c.userId where u.id=".$id."";
+// // Query for user
+// $sql = "SELECT u.firstname as 'firstname',
+//  u.lastname as 'lastname',
+//  u.email as 'email',
+//  u.birthday as 'birthday', 
+//  u.gendre as 'gendre',
+//  u.address as 'address' , 
+// u.city as 'city' ,
+//  u.state as 'state' ,
+//  u.postal as 'postal' , 
+// u.phoneNumber as 'phoneNumber',
+//  u.img as 'img', 
+// u.createdAt as 'createdAt',
+// u.updatedAt as 'updatedAt' ,
+//  c.number as 'number' , concat(c.expMonth , '/' , c.expYear) as expDate 
+//  ,c.code as 'code'
+//  FROM  users u 
+// left JOIN Card c on u.id=c.userId where u.id=".$id."";
    
     
-$statement = $conn->prepare($sql);  
-$statement->execute();
-$userDetail = $statement->fetch(); 
+// $statement = $conn->prepare($sql);  
+// $statement->execute();
+$userDetail = User::findById($conn, $id, "admin"); 
 ?>
                    
                 
@@ -173,7 +174,7 @@ $userDetail = $statement->fetch();
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Expire Date</label>
-                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["expDate"] ?>">
+                                                <input type="datetime" name="expireDate" class="form-control" placeholder="__/__/____" value="<?php echo $userDetail["c.exp"] ?>">
                                             </div>
                                     </div>    
                                         <div class="col-md-4">

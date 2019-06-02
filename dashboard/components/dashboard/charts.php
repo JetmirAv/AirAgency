@@ -1,13 +1,8 @@
 <?php 
 
     require_once("../databaseConfig.php");
+    require_once("../models/users.php");
 
-    $thisMonthQuery = "select COUNT(*) as 'num' from users ".
-        " where MONTH(createdAt) = MONTH(CURRENT_DATE) ".
-        " AND YEAR(createdAt) = YEAR(CURRENT_DATE);";     
-    $totalQuery = "select COUNT(*) as 'num' from users ".
-        " where MONTH(createdAt) != MONTH(CURRENT_DATE) ".
-        " OR YEAR(createdAt) != YEAR(CURRENT_DATE);";     
     $thisYearProfit = "SELECT MONTH(createdAt) as 'month',SUM(price) as 'total' FROM booked".
         " WHERE YEAR(createdAt) = YEAR(CURRENT_DATE)".
         " GROUP BY MONTH(createdAt);";
@@ -19,11 +14,6 @@
         " WHERE YEAR(createdAt) = YEAR(CURRENT_DATE) - 1".
         " GROUP BY MONTH(checkIn);";
         
-
-
-    
-    $thisMonth = $conn->query($thisMonthQuery);
-    $total = $conn->query($totalQuery);
     $profitThisYear = $conn->query($thisYearProfit);
     $flightsOnThisYear = $conn->query($thisYearFlights);
     $flightsOnLastYear = $conn->query($lastYearFlights);
@@ -31,8 +21,9 @@
     $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 
-    $thisMonthRecords = $thisMonth->fetch(PDO::FETCH_COLUMN);
-    $totalRecords = $total->fetch(PDO::FETCH_COLUMN);
+    $thisMonthRecords = User::count($conn, "thisMonth")[0];
+    $totalRecords = User::count($conn)[0];
+    // print_r($totalRecords);
     // $profit = $profitThisYear->fetch(PDO::FETCH_ASSOC);
 
     $thisMonthPct = ($thisMonthRecords/$totalRecords) * 100;

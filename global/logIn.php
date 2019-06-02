@@ -1,5 +1,6 @@
 <?php
 include_once("../databaseConfig.php");
+include_once("../models/users.php");
 include_once("generateJWT.php");
 include_once("validations.php");
 
@@ -16,52 +17,14 @@ if (isset($_POST['login'])) {
         array_push($logInErrors, "Invalid email");
     }
 
-
     if (count($logInErrors) <= 0) {
-        $user = "select * from users where email='$email'  ";
-        
-
-        $result = $conn->query($user);
-        $data = $result->fetch();
-        $getUser = $result->rowCount();
-
-        $dbPassword=$data["password"];
-        
-        if(password_verify($password, $dbPassword)){
-            echo "true";
-        }
-        else{
-            echo "false";
-        }
-        
-
-        if ($getUser == 1) {
-            if(password_verify($password, $dbPassword)){
-            $_SESSION["loggedin"] = true;
-            $_SESSION["name"] = $data['firstname'];
+        try {
+            $data = User::findByEmailAndPassword($conn, $email, $password);
             $_SESSION["token"] = generateJWT($data['id'], $data['roleId'], $data['email'], $data['firstname']);
             header("location: ../main/index.php");
-            $path = $_SERVER['PHP_SELF'];
-            $path = explode('/', $path);
-
-            if (in_array('main', $path)) {
-                header("location: ../main/index.php");
-                die();
-            } else {
-                $_SESSION['error'] = null;
-                $_SESSION['sucess'] = "User logedin successfuly.";
-                header('location: ' . $_SERVER["HTTP_REFERER"]);
-                die();
-            }
-        }
-        else{
-            array_push($logInErrors, "<br> Password incorrect");
-            $_SESSION['error'] = $logInErrors;
-            header('location: ' . $_SERVER["HTTP_REFERER"]);
             die();
-        }
-        } else {
-            array_push($logInErrors, "Email  incorrect");
+        } catch (Exception $ex) {
+            array_push($logInErrors, $ex->getMessage());
             $_SESSION['error'] = $logInErrors;
             header('location: ' . $_SERVER["HTTP_REFERER"]);
             die();
@@ -70,5 +33,5 @@ if (isset($_POST['login'])) {
         $_SESSION['error'] = $logInErrors;
         header('location: ' . $_SERVER["HTTP_REFERER"]);
         die();
-     }
+    }
 }

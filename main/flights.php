@@ -220,7 +220,7 @@ foreach ($rsResult as $row) {
 					</div>
 					<div style="display:flex">
                     
-					<button class="btn btn-success form-control" style="width:20%; margin-left:100px" onclick="insertHandler(\' ' . $row["From"] . '\', \' ' . $row["To"] . '\', \' ' . $row["Price"] . '\', \' ' . $row["flightId"] . '\')" >Book now</button></div>
+					<button class="btn btn-success form-control" style="width:20%; margin-left:100px" onclick="insertHandler(\' ' . $row["From"] . '\', \' ' . $row["To"] . '\', \' ' . $row["Price"] . '\', \' ' . $row["flightId"] . '\', \' ' . $row["Sale Price"] . '\')" >Book now</button></div>
 				</div>
 
 			</div>
@@ -268,13 +268,19 @@ foreach ($rsResult as $row) {
     let userInfo = document.getElementById("userDelete");
 	let backdrop = document.getElementById("backdrop"); 
 	let after = document.getElementById("userInfo"); 
-	let  From, To , Price , flightId, quantity= '';
+	let  From, To , Price , flightId, quantity, isSale= '';
      let text=[]    
 	 
-	 function insertHandler(From, To,Price, flightId ) {
+	 function insertHandler(From, To,Price, flightId , isSale ) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
+         if(Price!=isSale){
+             Price = isSale;
+         }
+         else{
 		Price = Price;
+             
+         }
 		From = From;
 		To = To;
 		flightId:flightId;

@@ -29,7 +29,10 @@ if($count > 0){
 				<td style="padding-left:40px ;">'.$row['SalePrice'].'</td>
 			    <td style="padding-left:60px ;">'.$row['TicketsBought'].'</td>
 			    <td>'.$row['boookedDate'].'</td>
-				<td><button class="btn btn-success form-control" style="width:85%;  margin-left:10px; padding-right:12px">Cancel</button></td>   
+	            <td><button type="button" id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%;  margin-left:10px; padding-right:12px" on >Cancel</button></td>   
+                
+               
+                
 			</tr>';
 
 

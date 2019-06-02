@@ -108,18 +108,18 @@ $count = Booked::count($conn);
 
 
     function getBookedHandler(id) {
-        window.location.href = '../dashboard/bookedInfo.php?id=' + id;
+        window.location.href = 'bookedInfo.php?id=' + id;
     }
 
     let flightInfo = document.getElementById("bookInfo");
     let backdrop = document.getElementById("backdrop");
-    let flightId = '';
+    let bookId = '';
 
     function deleteHandler(id) {
         //console.log("Bravo")
         flightInfo.style.display = "block";
         backdrop.style.display = "block";
-        flightId = id;
+        bookId = id;
         console.log("ID: " + id);
         document.getElementById('booking').innerHTML = "Are you sure you want to delete this booking with ID: " + id;
 
@@ -139,10 +139,10 @@ $count = Booked::count($conn);
 
     document.getElementById("bttnConfirmDelete").onclick = (e) => {
         $.ajax({
-            url: "components/flights/deleteBookQuery.php",
+            url: "components/delete/bookedDelete.php",
             type: "POST",
             data: {
-                "id": flightId
+                bookId
             }
         }).done(function(data) {
             location.reload();

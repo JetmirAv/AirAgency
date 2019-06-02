@@ -22,7 +22,7 @@
     }
     getCities();
 </script>
-<form action="#" method="post">
+<form action="../main/flights.php" method="get">
     <div class="row justify-content-between align-items-end">
         <div class="col-6 col-md-2 col-lg-3">
             <label for="Search">From</label>
@@ -68,25 +68,25 @@
 </form>
 
 <script>
-    function getAssocCities(e) {
-        console.log(e.value);
-        $.ajax({
-            url: 'components/getCities.php',
-            type: 'POST',
-            data: {
-                refreshCity: true,
-                fromCityId: e.value
-            },
-            success: function (data) {
-                if (data != "") {
-                    alert(data); 
-                    document.getElementById("toCity").innerHTML = data;
-                } else {
-                    alert("Jo")
-                    $("#to").append("<option >No Flight found</option>");
-                    $("#bttnFindFlight").attr('disabled', true);
-                }
-            }
-        });
-    }
+    // function getAssocCities(e) {
+    //     console.log(e.value);
+    //     $.ajax({
+    //         url: 'components/getCities.php',
+    //         type: 'POST',
+    //         data: {
+    //             refreshCity: true,
+    //             fromCityId: e.value
+    //         },
+    //         success: function (data) {
+    //             if (data != "") {
+    //                 alert(data); 
+    //                 document.getElementById("toCity").innerHTML = data;
+    //             } else {
+    //                 alert("Jo")
+    //                 $("#to").append("<option >No Flight found</option>");
+    //                 $("#bttnFindFlight").attr('disabled', true);
+    //             }
+    //         }
+    //     });
+    // }
 </script>

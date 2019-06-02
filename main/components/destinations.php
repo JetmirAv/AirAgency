@@ -3,7 +3,7 @@
 <?php
 
 $getMostSaleFilghtQuery = "select f.id, a.name as 'Plane', c1.name as 'From' , c2.name as 'To', f.price,
-f.isSale, (f.price*f.isSale/100) as 'Sale Price', f.avalible, f.checkIn  from flight f
+f.isSale, (f.price*f.isSale/100) as 'Sale Price', f.avalible, f.checkIn, c2.img as 'img'  from flight f
 inner join city c1 on f.fromCity = c1.id
 inner join city c2 on f.toCity = c2.id
 inner join airplane a on f.planeId = a.id
@@ -25,7 +25,7 @@ foreach ($getMostSaleFilght->fetchAll() as $MostSaleFlight):
     	    <!-- Single Room Slide -->
 	    <div class="single-room-slide d-flex align-items-center">
 	        <!-- Thumbnail -->
-	        <div class="room-thumbnail h-100 bg-img" style="background-image: url(img/bg-img/16.jpg);"></div>
+	        <div class="room-thumbnail h-100 bg-img" style="background-image: url(../uploads/city-img/<?php echo $MostSaleFlight[8] ?>);"></div>
 
 	        <!-- Content -->
 	        <div class="room-content">

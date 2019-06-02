@@ -155,9 +155,8 @@ if (isset($_POST['userUpdate'])) {
 
 
 			}
-
-
-
+			header('location: ' . $_SERVER["HTTP_REFERER"]);
+			die();
 		} else {
 			$errormsg = "Fill all gaps please ! ";
 			array_push($error_message, $errmsgr);

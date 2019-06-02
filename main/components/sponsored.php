@@ -1,7 +1,7 @@
 <?php 
 
 $mostBookedDestinationsQuery = "
-select c.id, c.name from flight f 
+select c.id, c.name, c.img as img from flight f 
 inner join city c
 on f.toCity=c.id
 where toCity in (
@@ -24,7 +24,7 @@ foreach($mostBookedDestinations->fetchAll() as $destinations):
 
 
 <!-- Single Project Slide -->
-<div class="single-project-slide active bg-img" style="background-image: url(img/bg-img/5.jpg);">
+<div class="single-project-slide active bg-img" style="background-image: url(../uploads/city-img/<?php echo $destinations[2]; ?>);">
     <!-- Project Text -->
     <div class="project-content">
         <div class="text">

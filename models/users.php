@@ -1,6 +1,5 @@
 <?php
 
-require('dbConnection.php');
 
 class User
 {
@@ -20,6 +19,7 @@ class User
     private $img;
     private $createdAt;
     private $updatedAt;
+    private $conn;
 
     function __construct(
         $roleId,
@@ -35,7 +35,7 @@ class User
         $phoneNumber,
         $password = null,
         $img = null
-    ) {
+    ) { 
         $this->roleId = $roleId;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -257,6 +257,7 @@ class User
 
     function createUser($conn)
     {
+
         $query = 'insert into users (roleId, firstname,' .
             ' lastname, email, password, birthday, gendre, ' .
             'address, city, state, postal, phoneNumber, img, ' .
@@ -370,7 +371,6 @@ class User
 
         ($this->password === null ? null : $paramArray[":password"] =  $this->password);
         ($this->img === null ? null : $paramArray[":img"] = $this->img);
-
         $stm = $conn->prepare($query);
         try {
             return $stm->execute($paramArray);

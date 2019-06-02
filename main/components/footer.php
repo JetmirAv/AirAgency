@@ -1,5 +1,6 @@
 <?php include_once("constants.php"); ?>
-<?php //  require("../global/isLogged.php"); ?>
+<?php 
+?>
 <!-- Footer Area Start -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <footer class="footer-area section-padding-80-0">
@@ -15,7 +16,7 @@
 
                         <h4><?php echo PHONE ?></h4>
                         <span><?php echo EMAIL ?></span>
-                        <span><?php echo ADDRESS . ". " . POSTAL . ". " . CITY . ", " . STATE?></span>
+                        <span><?php echo ADDRESS . ". " . POSTAL . ". " . CITY . ", " . STATE ?></span>
                     </div>
                 </div>
 
@@ -56,14 +57,14 @@
                 </div>
 
                 <!-- Single Footer Widget Area -->
-                <div  class="col-12 col-sm-8 col-lg-4">
+                <div class="col-12 col-sm-8 col-lg-4">
                     <div class="single-footer-widget mb-80">
                         <!-- Widget Title -->
                         <h5 class="widget-title">Subscribe Newsletter</h5>
                         <span>Subscribe our newsletter gor get notification about new updates.</span>
 
                         <!-- Newsletter Form -->
-                        <form class="form-search"  > 
+                        <form class="form-search">
                             <input id="email_data" type="email" class="form-control" placeholder="Enter your email...">
                             <button id="subscribeBtn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                             <span class="email-message" id="email_msg"></span>
@@ -85,7 +86,7 @@
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved 
+                            </script> All rights reserved
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
@@ -104,44 +105,45 @@
     </div>
 </footer>
 
- <script>
- $(document).ready(function() {
+<script>
+    $(document).ready(function() {
 
-     $('#subscribeBtn').click((e)=>{
-          var email = $("#email_data").val();
-         e.preventDefault();
-         if(email =='')
-             {
-                 $("#email_msg").html("Enter an email address!");
-             }
-         
-          //console.log(email);
+        $('#subscribeBtn').click((e) => {
+            var email = $("#email_data").val();
+            e.preventDefault();
+            if (email == '') {
+                $("#email_msg").html("Enter an email address!");
+            }
 
-          else{
-               $.ajax({
-                 url: "components/subscribers.php",
-                 method: "POST",
-                  data: {
-                      email: email
-                  },
-                  dataType: "text",
-                  success: function(data) {
-                     alert(data);
-                     $('#email_data').append(data);
-                      }
-               });
-          }
-      } );
-});
-//     
+            //console.log(email);
+            else {
+                $.ajax({
+                    url: "components/subscribers.php",
+                    method: "POST",
+                    data: {
+                        email: email
+                    },
+                    dataType: "text",
+                    success: function(data) {
+                        alert(data);
+                        $('#email_data').append(data);
+                    }
+                });
+            }
+        });
+    });
+    //     
 </script>
 <!-- Footer Area End -->
 
 <?php
-
+if (isset($_SESSION['token'])) {
     $token = $_SESSION['token'];
-    session_unset();
+}
+session_unset();
+if (isset($token)) {
     $_SESSION['token'] = $token;
+}
 
 
 ?>

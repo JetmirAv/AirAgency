@@ -71,7 +71,8 @@ $loginURL = $gClient->createAuthUrl();
 										<button type="submit" name="login" class="btn">Sign in!</button>
 										<br><br>
 										<button type="submit" onclick="window.location = '<?php echo $loginURL ?>';" name="login" value="Log In With Google" class="btn btn-danger">Sign in with google</button>
-
+										<br><br>
+										<button type="submit" onclick="window.location = 'forgot.php';" name="login" value="forgot password" class="btn btn-danger">forgot password</button>
 									</form>
 								</div>
 							</div>

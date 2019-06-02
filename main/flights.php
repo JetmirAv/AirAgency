@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'components/head.php'?>
+<?php include 'components/head.php' ?>
 
 <body>
 
 
 	<?php
-include "../databaseConfig.php";
+	include "../databaseConfig.php";
 
-if (isset($_GET['id'])) {
-    $sql = "select c1.id as 'fromCityId',
+	if (isset($_GET['id'])) {
+		$sql = "select c1.id as 'fromCityId',
 	c2.id as 'toCityId',
 	c1.name as 'From',
 	c2.name as 'To',
@@ -28,9 +28,8 @@ if (isset($_GET['id'])) {
 	inner join city as c2 on f.toCity = c2.id
 	inner join airplane as a on f.planeId = a.id
 	where f.checkIn >= current_timestamp()  and f.id=" . $_GET['id'];
-
-} else if (isset($_GET['pct'])) {
-    $sql = "select c1.id as 'fromCityId',
+	} else if (isset($_GET['pct'])) {
+		$sql = "select c1.id as 'fromCityId',
             c2.id as 'toCityId',
             c1.name as 'From',
             c2.name as 'To',
@@ -49,11 +48,10 @@ if (isset($_GET['id'])) {
             inner join city as c2 on f.toCity = c2.id
             inner join airplane as a on f.planeId = a.id
             where f.checkIn >= curdate() and f.checkIn >= current_time() and f.isSale = " . $_GET['pct'] . " order by f.checkIn desc limit 10 ;";
+	} else if (isset($_GET['city'])) {
+		echo $_GET['city'];
 
-} else if (isset($_GET['city'])) {
-	echo $_GET['city'];
-
-    $sql = "select c1.id as 'fromCityId',
+		$sql = "select c1.id as 'fromCityId',
             c2.id as 'toCityId',
             c1.name as 'From',
             c2.name as 'To',
@@ -72,9 +70,29 @@ if (isset($_GET['id'])) {
             inner join city as c2 on f.toCity = c2.id
             inner join airplane as a on f.planeId = a.id
             where f.checkIn >= curdate() and f.checkIn >= current_time() and c2.name = '" . $_GET['city'] . "' order by f.checkIn desc limit 10 ;";
-
-} else {
-    $sql = "select 
+	} else if (isset($_GET['fromCity']) && isset($_GET['toCity']) && isset($_GET['checkout-date'])) {
+		$sql = "select 
+	            f.id as 'flightId',
+	            c1.id as 'fromCityId',
+				c2.id as 'toCityId',
+				c1.name as 'From',
+				c2.name as 'To',
+				f.avalible as 'Available',
+				f.price as 'Price',
+				f.price-(isSale/100*f.price) as 'Sale Price',
+				f.isSale as 'Sale',
+				cast(f.checkIn as date) as 'Date',
+				cast(f.checkIn as time) as 'Time',
+				f.img as 'image',
+				a.id as 'airplaneId',
+				a.name as 'airplaneName'
+				from flight as f
+				inner join city as c1 on f.fromCity = c1.id
+				inner join city as c2 on f.toCity = c2.id
+				inner join airplane as a on f.planeId = a.id
+				where f.fromCity='" . $_GET['fromCity'] . "', f.toCity = '" . $_GET['toCity'] . "', f.checkIn = '" . $_GET['checkout-date'] . "' ;";
+	} else {
+		$sql = "select 
 	            f.id as 'flightId',
 	            c1.id as 'fromCityId',
 				c2.id as 'toCityId',
@@ -95,11 +113,11 @@ if (isset($_GET['id'])) {
 				inner join city as c2 on f.toCity = c2.id
 				inner join airplane as a on f.planeId = a.id
 				where f.checkIn >= curdate() and f.checkIn >= current_time() order by f.checkIn desc limit 10 ;";
-}
+	}
 
-//$countAllRows = "select count(*) as count from flight ";
-$rsResult = $conn->query($sql);
-?>
+	//$countAllRows = "select count(*) as count from flight ";
+	$rsResult = $conn->query($sql);
+	?>
 
 
 	<!-- Preloader -->
@@ -108,7 +126,7 @@ $rsResult = $conn->query($sql);
 	</div>
 	<!-- /Preloader -->
 	<!-- Header Area Start -->
-	<?php include 'components/header.php'?>
+	<?php include 'components/header.php' ?>
 	<!-- Header Area End -->
 	<div id="backdrop" style="
 		position: fixed;
@@ -190,7 +208,7 @@ $rsResult = $conn->query($sql);
 			<div class="hotel-search-form-area">
 				<div class="container-fluid">
 					<div class="hotel-search-form">
-						<?php include "components/flightSearch.php"?>
+						<?php include "components/flightSearch.php" ?>
 					</div>
 				</div>
 			</div>
@@ -199,9 +217,11 @@ $rsResult = $conn->query($sql);
 		<!-- Rooms Area Start -->
 		<div style="margin-top:7%;" id="flightId">
 			<?php
-
-foreach ($rsResult as $row) {
-    echo '		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
+			if (!$rsResult) {
+				"<div>No flight </div>";
+			} else {
+				foreach ($rsResult as $row) {
+					echo '		<div  class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
 				<!-- Room Thumbnail -->
 				<div class="room-thumbnail">
 					<img src="img/bg-img/44.jpg" alt="" style="margin-left:50px;">
@@ -227,14 +247,16 @@ foreach ($rsResult as $row) {
 				</div>
 
 			</div>
-                           ';}?>
+						   ';
+				}
+			} ?>
 		</div>
 		<button type="button" id="bttnMore" class="btn btn-success form-control" style="width:160px; margin-left:48%; margin-bottom:20px; background-color:lightblue">Show More</button>
 
 		<!-- Rooms Area End -->
 
 
-		<?php include 'components/footer.php'?>
+		<?php include 'components/footer.php' ?>
 
 </body>
 
@@ -371,5 +393,4 @@ foreach ($rsResult as $row) {
 		after.style.display = "none";
 		backdrop.style.display = "none";
 	}
-
 </script>

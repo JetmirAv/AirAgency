@@ -6,12 +6,45 @@
       require("../global/isLogged.php");
     
  ?>
-<body>    
+<body>  
+
+
+    	
+    
+    <div id="backdrop" style="
+		position: fixed;
+		display: none;
+		background-color: rgba(0, 0, 0, 0.5);
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 300"></div>
+		<div id="bookedInfo" style="
+		position: fixed;
+		background-color: #eee;
+		display: none;
+		top: 30%;
+		left: 30%;
+		width: 40%;
+		height: 25%;
+		z-index: 500;
+		text-align: center">
+			<h3>Delete Booking</h3>
+			<h4 style="font-weight: 300" id="booking">
+				</h4>
+				<div style="display:flex;
+					flex-direction: row;
+					justify-content: space-evenly ">
+					<button id="bttnConfirmCancel">Cancel</button>
+					<button id="bttnConfirmDelete" type="submit" name="deleteUser">Delete</button>
+				</div>
+		</div>
 
 <?php 
 
 $userId=$dataArr->id;
-$sql="select b.userId  , c1.name as 'From' , c2.name as 'To' , f.price as 'Price' ,
+$sql="select b.id, b.userId  , c1.name as 'From' , c2.name as 'To' , f.price as 'Price' ,
 f.isSale as 'Sale' , (f.price - (f.price* f.isSale/100)) as 'SalePrice' ,
 b.quantity as 'TicketsBought',
 b.createdAt as 'boookedDate'  from flight f 
@@ -75,7 +108,9 @@ $sqlStm = $sqlQuery->fetchAll();
 				<td style="padding-left:40px ;">'.$row['SalePrice'].'</td>
 			    <td style="padding-left:60px ;">'.$row['TicketsBought'].'</td>
 			    <td>'.$row['boookedDate'].'</td>
-				<td><button class="btn btn-success form-control" style="width:85%;  margin-left:10px; padding-right:12px">Cancel</button></td>   
+				<td><button id="bttnDelete" onclick="deleteHandler(\' ' . $row["id"] . '\')" class="btn btn-success form-control" style="width:85%;  margin-left:10px; padding-right:12px" on >Cancel</button></td>   
+                
+                
 			</tr>
 				';
 } ?>
@@ -145,6 +180,51 @@ var userId = "<?php echo $userId; ?>";
         });
 
 
+    
+    
+    
+    let bookedInfo = document.getElementById("bookedInfo");
+		let backdrop = document.getElementById("backdrop");
+		let bookingId = '';
+
+		function deleteHandler(id, name, email) {
+			bookedInfo.style.display = "block";
+			backdrop.style.display = "block";
+			bookingId = id;
+			console.log("ID: " + id);
+			document.getElementById('booking').innerHTML = "ID: " + id;
+
+		}
+
+		backdrop.onclick = () => {
+			bookedInfo.style.display = "none";
+			backdrop.style.display = "none";
+		}
+
+
+		document.getElementById("bttnConfirmCancel").onclick = (e) => {
+			e.preventDefault();
+			bookedInfo.style.display = "none";
+			backdrop.style.display = "none";
+		}
+
+		document.getElementById("bttnConfirmDelete").onclick = (e) => {
+			
+			$.ajax({
+				url: "cancelBooking.php",
+				type: "POST",
+				data: {
+					"id": bookingId
+				}
+			}).done(function(data) {
+				location.reload();
+			});
+		}
+            
+    
+    
+    
+    
 
 </script>
 

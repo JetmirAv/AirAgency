@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
 	c2.name as 'To',
 	f.avalible as 'Available',
 	f.price as 'Price',
-	f.price * isSale/100 as 'Sale',
+	f.price-(isSale/100*f.price) as 'Sale Price',
 	f.isSale as 'Sale',
 	cast(f.checkIn as date) as 'Date',
 	cast(f.checkIn as time) as 'Time',
@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
             c2.name as 'To',
             f.avalible as 'Available',
             f.price as 'Price',
-            f.price * isSale/100 as 'Sale',
+            f.price-(isSale/100*f.price) as 'Sale Price',
             f.isSale as 'Sale',
             cast(f.checkIn as date) as 'Date',
             cast(f.checkIn as time) as 'Time',
@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
             c2.name as 'To',
             f.avalible as 'Available',
             f.price as 'Price',
-            f.price * isSale/100 as 'Sale',
+            f.price-(isSale/100*f.price) as 'Sale Price',
             f.isSale as 'Sale',
             cast(f.checkIn as date) as 'Date',
             cast(f.checkIn as time) as 'Time',
@@ -78,7 +78,7 @@ if (isset($_GET['id'])) {
 				c2.name as 'To',
 				f.avalible as 'Available',
 				f.price as 'Price',
-				f.price * isSale/100 as 'Sale',
+				f.price-(isSale/100*f.price) as 'Sale Price',
 				f.isSale as 'Sale',
 				cast(f.checkIn as date) as 'Date',
 				cast(f.checkIn as time) as 'Time',
@@ -206,7 +206,7 @@ foreach ($rsResult as $row) {
 				<!-- Room Content -->
 						<div class="room-content">
                             <h2>' . $row['airplaneName'] . '</h2>
-                            <h4>' . $row['Price'] . '&euro;<span> /' . $row['Sale'] . ' with Sale</span></h4>
+                            <h4>' . $row['Price'] . '&euro;<span> /' . $row['Sale Price'] . ' with Sale</span></h4>
                             <div class="room-feature">
                                 <h6>From: <span>' . $row['From'] . '</span></h6>
                                 <h6>To: <span>' . $row['To'] . '</span></h6>
@@ -220,7 +220,7 @@ foreach ($rsResult as $row) {
 					</div>
 					<div style="display:flex">
                     
-					<button class="btn btn-success form-control" style="width:20%; margin-left:100px" onclick="insertHandler(\' ' . $row["From"] . '\', \' ' . $row["To"] . '\', \' ' . $row["Price"] . '\', \' ' . $row["flightId"] . '\')" >Book now</button></div>
+					<button class="btn btn-success form-control" style="width:20%; margin-left:100px" onclick="insertHandler(\' ' . $row["From"] . '\', \' ' . $row["To"] . '\', \' ' . $row["Price"] . '\', \' ' . $row["flightId"] . '\', \' ' . $row["Sale Price"] . '\')" >Book now</button></div>
 				</div>
 
 			</div>
@@ -268,13 +268,19 @@ foreach ($rsResult as $row) {
     let userInfo = document.getElementById("userDelete");
 	let backdrop = document.getElementById("backdrop"); 
 	let after = document.getElementById("userInfo"); 
-	let  From, To , Price , flightId, quantity= '';
+	let  From, To , Price , flightId, quantity, isSale= '';
      let text=[]    
 	 
-	 function insertHandler(From, To,Price, flightId ) {
+	 function insertHandler(From, To,Price, flightId , isSale ) {
 		userInfo.style.display = "block";
 		backdrop.style.display = "block";
+         if(Price!=isSale){
+             Price = isSale;
+         }
+         else{
 		Price = Price;
+             
+         }
 		From = From;
 		To = To;
 		flightId:flightId;

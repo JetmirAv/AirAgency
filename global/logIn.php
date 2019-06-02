@@ -1,10 +1,15 @@
 <?php
+session_start();
 include_once("../databaseConfig.php");
 include_once("../models/users.php");
 include_once("generateJWT.php");
 include_once("validations.php");
+require_once "../GoogleAPI/config.php";
 
-session_start();
+
+//if(isset(session_start()) === null){
+//	session_start();
+//} 
 
 if (isset($_POST['login'])) {
     $logInErrors = array();
@@ -20,6 +25,49 @@ if (isset($_POST['login'])) {
     if (count($logInErrors) <= 0) {
         try {
             $data = User::findByEmailAndPassword($conn, $email, $password);
+            $_SESSION["token"] = generateJWT($data['id'], $data['roleId'], $data['email'], $data['firstname']);
+            header("location: ../main/index.php");
+            die();
+        } catch (Exception $ex) {
+            array_push($logInErrors, $ex->getMessage());
+            $_SESSION['error'] = $logInErrors;
+            header('location: ' . $_SERVER["HTTP_REFERER"]);
+            die();
+        }
+    } else {
+        $_SESSION['error'] = $logInErrors;
+        header('location: ' . $_SERVER["HTTP_REFERER"]);
+        die();
+    }
+}
+if(isset($_GET['code'])){	
+	$logInErrors = array();
+    $_SESSION['error'] = $logInErrors;
+	
+
+	if (isset($_SESSION['access_token']))
+		$gClient->setAccessToken($_SESSION['access_token']);
+	else if (isset($_GET['code'])) {
+		$token = $gClient->fetchAccessTokenWithAuthCode($_GET['code']);
+	} else {
+		header('Location: login.php');
+		exit();
+	} 
+
+	$oAuth = new Google_Service_Oauth2($gClient);
+	$userData = $oAuth->userinfo_v2_me->get();
+
+	
+	$email = $userData['email'];
+
+
+    if (!valid_email($email)) {
+        array_push($logInErrors, "Invalid email");
+    }
+
+    if (count($logInErrors) <= 0) {
+        try {
+            $data = User::findByEmailAndPassword($conn, $email);
             $_SESSION["token"] = generateJWT($data['id'], $data['roleId'], $data['email'], $data['firstname']);
             header("location: ../main/index.php");
             die();

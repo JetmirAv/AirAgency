@@ -37,7 +37,7 @@ if( check_date($bookDateFromDatabase)){
 
 			 //Check if user has card to pay
 			if($numberOfCards>0){
-				$getData = "select  price  from flight where id = ".$flightId." ";
+				$getData = "select (f.price-(isSale/100*f.price)) as 'price'  from flight f where id = ".$flightId." ";
 				$getStm = $conn->prepare($getData);
 				$getStm -> execute();
 				$data = $getStm->fetch();

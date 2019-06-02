@@ -79,49 +79,38 @@ $planeResults = $planeStm->fetchAll(); ?>
                             </div>
                             </div>
                             
-                <div class="row" style="margin-left:12%;">
-                    
+                <div class="row" style="margin-left:12%;">    
                     <div class="col-md-5">
                         <div class="form-group" style="width: 250px;">
                             <label>From City</label>
 
-                            
-                                      <select name="fromCity" class="btn btn-default dropdown-toggle">
 
-                                                    <?php foreach($results as $output) { ?>
+                    <select name="fromCity" class="btn btn-default dropdown-toggle">
 
-                                                            <option value = "<?php echo $output['id']?> ">
-                                                            <?php  echo $output['name']; ?></option>
+                            <?php foreach($results as $output) { ?>
 
-                                                           <?php } ?>
-                                                   
-                                                </select>
-                        </div>
-                    </div>
-                    
-                    
+                                    <option value = "<?php echo $output['id']?> ">
+                                    <?php  echo $output['name']; ?></option>
 
-                   
+                                   <?php } ?>
 
+                    </select>
+                </div>
+                </div>
+                <div class="col-md-3" style="width: 300px;">
+                <div class="form-group">
+                <label>To City</label>
+                           <select name="toCity" class="btn btn-default dropdown-toggle">
+                                          <?php foreach($results as $output) { ?>
+                                                <option value = "<?php echo $output['id']?> ">
+                                                <?php  echo $output['name']; ?></option>
 
-                    <div class="col-md-3" style="width: 300px;">
-                        <div class="form-group">
-                            <label>To City</label>
-                                       <select name="toCity" class="btn btn-default dropdown-toggle">
-                                                      <?php foreach($results as $output) { ?>
-                                                            <option value = "<?php echo $output['id']?> ">
-                                                            <?php  echo $output['name']; ?></option>
+                                               <?php } ?>
 
-                                                           <?php } ?>
-                                                   
-                                                </select>
-                            
-                            
-                            
+                                    </select>
+                </div>
+                </div>
 
-                        </div>
-                    </div>
-                   
 
                 </div>
 
@@ -130,20 +119,18 @@ $planeResults = $planeStm->fetchAll(); ?>
                         <div class="form-group">
                             <label>Airplane</label>
                        <select  name="planeId" class="btn btn-default dropdown-toggle">
-                           
-                                         <?php foreach($planeResults as $planeOutput) { ?>
-                                                
-                                                <option value = "<?php echo $planeOutput['id']?> ">
-                                                <?php  echo $planeOutput['name']; ?></option>
+{
+                     <?php foreach($planeResults as $planeOutput) { ?>
 
-                                              <?php } ?>
-                           
-                           
+                            <option value = "<?php echo $planeOutput['id']?> ">
+                            <?php  echo $planeOutput['name']; ?></option>
+
+                          <?php } ?>
+
+                           }
                        </select>
                         </div>
                     </div>
-                
-                    
                 </div>
                 <div class="row" style="margin-left:8%;">
                        <div class="col-md-4">
@@ -152,12 +139,7 @@ $planeResults = $planeStm->fetchAll(); ?>
                             <input name="checkIn" type="datetime-local" class="form-control" placeholder="">
                         </div>
                     </div>
-                     <!--<div class="col-md-4" style="width: 80px;">
-                        <label style="padding-right:5px"> Available </label>
-                        <br>
-                        <input type="text" name="avalible" class="form-control">
-                    </div>
-               -->
+
                     <div class="col-md-4" style="width: 90px;">
                         <label> isSale </label>
                         <br>
@@ -171,44 +153,12 @@ $planeResults = $planeStm->fetchAll(); ?>
                     </div>
 
                 </div>
-                
-
                 <button name="insertFlight" type="submit" class="btn btn-info btn-fill pull-right">Insert Flight</button>
                 <div class="clearfix"></div>
             </form>
         </div>
     </div>
 </div>
-<!--
-<div class="col-md-4">
-    <div class="card card-user">
-        <div class="image">
-            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
-        </div>
-        <div class="content">
-            <div class="author">
-                <a href="#">
-                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..." />
-
-                    <h4 class="title">
-                        <small>michael24</small>
-                    </h4>
-                </a>
-            </div>
-            <p class="description text-center"> "Lamborghini Mercy <br>
-                Your chick she so thirsty <br>
-                I'm in that two seat Lambo"
-            </p>
-        </div>
-        <hr>
-        <div class="text-center">
-            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
-        </div>
-    </div>
-</div>-->
 
 
 

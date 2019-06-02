@@ -16,8 +16,7 @@ class Booked
         $userId,
         $price,
         $quantity
-    )
-    {
+    ) {
         $this->flightId = $flightId;
         $this->userId = $userId;
         $this->price = $price;
@@ -96,7 +95,8 @@ class Booked
         $this->updatedAt = $updatedAt;
     }
 
-    public static function findAll($conn, $limit, $offset){
+    public static function findAll($conn, $limit, $offset)
+    {
         $query = "select id,flightId,userId,price,quantity,createdAt,updatedAt from booked  limit ? offset ?";
         $stm = $conn->prepare($query);
         $stm->bindParam(1, $limit, PDO::PARAM_INT);
@@ -104,7 +104,7 @@ class Booked
         try {
             $stm->execute();
             return $stm->fetchAll();
-        } catch (Exception $ex){
+        } catch (Exception $ex) {
             throw new Exception($ex);
         }
     }
@@ -119,14 +119,36 @@ class Booked
         return $stm->fetchAll();
     }
 
-    public static function delete($conn, $id){
+    public static function delete($conn, $id)
+    {
         $query = "delete from booked where id = ?";
         $stm = $conn->prepare($query);
         $stm->bindParam(1, $id, PDO::PARAM_INT);
         try {
             return $stm->execute();
-        } catch (Exception $ex){
+        } catch (Exception $ex) {
             throw new Exception("We faced some errors with this operation");
+        }
+    }
+
+    public static function notifications($conn, $limit, $offset)
+    {
+        $query = "SELECT b.id, CONCAT(u.firstname, ' ', u.lastname) as fullname, c1.name as 'from', c2.name as 'to'," .
+            "a.name as 'plane' FROM booked b " .
+            "inner join users u on u.id=b.userId " .
+            "inner join flight f on b.flightId=f.id " .
+            "inner join city c1 on f.fromCity = c1.id " .
+            "inner join city c2 on f.toCity = c2.id " .
+            "inner join airplane a on f.planeId = a.id " .
+            "order by b.createdAt DESC limit ? offset ?";
+        $stm = $conn->prepare($query);
+        $stm->bindParam(1, $limit, PDO::PARAM_INT);
+        $stm->bindParam(2, $offset, PDO::PARAM_INT);
+        try {
+            $stm->execute();
+            return $stm->fetchAll();
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 }

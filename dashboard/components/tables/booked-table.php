@@ -143,7 +143,7 @@ $flight_id = '';
 
     document.getElementById("bttnConfirmDelete").onclick = (e) => {
         $.ajax({
-            url: "components/flights/deleteFlightQuery.php",
+            url: "components/flights/deleteBookQuery.php",
             type: "POST",
             data: {
                 "id": flightId

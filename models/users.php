@@ -217,7 +217,7 @@ class User
         $stm->bindParam(1, $limit, PDO::PARAM_INT);
         $stm->bindParam(2, $offset, PDO::PARAM_INT);
         $stm->execute();
-        
+
 
         return $stm->fetchAll();
     }
@@ -316,20 +316,19 @@ class User
             throw new Exception("No user with this email is registered in our site");
         }
     }
-    public static function delete($conn, $id){
+    public static function delete($conn, $id)
+    {
         $user = self::findById($conn, $id);
         print_r($user);
-        if($user['roleId'] != 1){
-            $query="delete from users where id = ?";
+        if ($user['roleId'] != 1) {
+            $query = "delete from users where id = ?";
             $stm = $conn->prepare($query);
             $stm->bindParam(1, $id, PDO::PARAM_INT);
             try {
                 return $stm->execute();
-                
-            } catch (Exception $ex){
+            } catch (Exception $ex) {
                 throw new Exception("We faced some problems with this process");
             }
-
         } else {
             throw new Exception("Can't delete an Admin");
         }
